@@ -1,0 +1,17 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# secrets — 절대 커밋 금지 (KIS 앱키 등)
+.env
+.env.*
+.dev.vars
+worker/.dev.vars
+
+# logs / os
+*.log
+.DS_Store
+Thumbs.db

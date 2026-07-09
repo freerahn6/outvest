@@ -1,0 +1,58 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StockCard from '../../components/StockCard.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  type="article"
+  pubDate={post.data.pubDate}
+  updatedDate={post.data.updatedDate}
+  canonicalPath={`/posts/${post.id}/`}
+>
+  <article>
+    <header class="post-head">
+      <h1>{post.data.title}</h1>
+      <p class="muted">
+        <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+        {post.data.updatedDate && <> · 수정 {fmt(post.data.updatedDate)}</>}
+      </p>
+    </header>
+
+    {post.data.tickers.length > 0 && (
+      <section class="quotes">
+        {post.data.tickers.map((t) => <StockCard code={t.code} name={t.name} />)}
+      </section>
+    )}
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    {post.data.tags.length > 0 && (
+      <footer class="tags">
+        {post.data.tags.map((tag) => <span class="tag">#{tag}</span>)}
+      </footer>
+    )}
+  </article>
+</BaseLayout>
+
+<style>
+  .post-head { margin: 30px 0 10px; }
+  .post-head h1 { font-size: 1.9rem; margin: 0 0 10px; }
+  .prose :global(h2) { margin-top: 1.8em; }
+  .prose :global(img) { border-radius: 8px; }
+  .tags { margin-top: 3em; display: flex; gap: 10px; flex-wrap: wrap; }
+  .tag { color: var(--muted); font-size: 0.9rem; }
+</style>

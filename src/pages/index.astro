@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StockSearch from '../components/StockSearch.astro';
+import { SITE } from '../config';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout>
+  <section class="hero">
+    <h1>{SITE.title}</h1>
+    <p class="muted">{SITE.description}</p>
+    <div class="search-box">
+      <StockSearch big />
+      <p class="hint muted">종목명을 입력하면 실시간 시세와 관련 글을 볼 수 있어요.</p>
+    </div>
+  </section>
+
+  <section class="posts">
+    <h2>최근 글</h2>
+    {posts.length === 0 && <p class="muted">아직 작성된 글이 없습니다. <code>src/content/posts/</code> 에 첫 글을 써보세요.</p>}
+    <ul class="post-list">
+      {posts.map((p) => (
+        <li>
+          <a href={`/posts/${p.id}/`}>
+            <span class="pt">{p.data.title}</span>
+            <time class="muted" datetime={p.data.pubDate.toISOString()}>{fmt(p.data.pubDate)}</time>
+          </a>
+          {p.data.tickers.length > 0 && (
+            <div class="tickers">
+              {p.data.tickers.map((t) => <a class="ticker" href={`/stock/${t.code}`}>{t.name}</a>)}
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { padding: 40px 0 10px; }
+  .hero h1 { font-size: 2rem; margin: 0 0 8px; }
+  .search-box { margin: 28px 0 10px; }
+  .hint { margin: 10px 2px 0; font-size: 0.85rem; }
+  .posts { margin-top: 40px; }
+  .post-list { list-style: none; padding: 0; }
+  .post-list > li { padding: 18px 0; border-bottom: 1px solid var(--border); }
+  .post-list a { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  .post-list .pt { font-weight: 600; color: var(--fg); font-size: 1.05rem; }
+  .post-list time { white-space: nowrap; font-size: 0.85rem; }
+  .tickers { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+  .ticker {
+    font-size: 0.8rem; padding: 3px 10px; border-radius: 999px;
+    background: var(--card); color: var(--muted);
+  }
+</style>

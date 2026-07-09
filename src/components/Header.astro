@@ -1,0 +1,36 @@
+---
+import { SITE, NAV } from '../config';
+---
+
+<header class="site-header">
+  <div class="wrap inner">
+    <a href="/" class="brand">{SITE.title}</a>
+    <nav>
+      {NAV.map((n) => <a href={n.href}>{n.label}</a>)}
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .brand {
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--fg);
+  }
+  .brand:hover { text-decoration: none; }
+  nav { display: flex; gap: 18px; }
+  nav a { color: var(--muted); font-size: 0.95rem; }
+</style>

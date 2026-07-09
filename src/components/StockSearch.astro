@@ -1,0 +1,130 @@
+---
+// 종목명 입력창 — 이름을 입력하면 자동완성으로 종목을 고르고,
+// 선택 시 해당 종목의 실시간 시세 페이지(/stock/코드)로 이동합니다.
+interface Props {
+  big?: boolean;
+}
+const { big = false } = Astro.props;
+---
+
+<div class={`stock-search ${big ? 'big' : ''}`} data-stock-search>
+  <input
+    type="text"
+    class="ss-input"
+    placeholder="종목명을 입력하세요 (예: 삼성전자, 카카오)"
+    autocomplete="off"
+    aria-label="종목 검색"
+  />
+  <ul class="ss-results" hidden></ul>
+</div>
+
+<style>
+  .stock-search { position: relative; width: 100%; }
+  .ss-input {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--fg);
+    outline: none;
+  }
+  .stock-search.big .ss-input { padding: 16px 20px; font-size: 1.1rem; }
+  .ss-input:focus { border-color: var(--accent); }
+  .ss-results {
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 6px;
+    position: absolute;
+    left: 0; right: 0;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    z-index: 20;
+    max-height: 320px;
+    overflow-y: auto;
+  }
+  .ss-results li {
+    padding: 10px 12px;
+    border-radius: 7px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .ss-results li:hover,
+  .ss-results li[aria-selected='true'] { background: var(--card); }
+  .ss-results .code { color: var(--muted); font-size: 0.85em; font-variant-numeric: tabular-nums; }
+  .ss-results .mkt { color: var(--muted); font-size: 0.75em; }
+</style>
+
+<script>
+  type Stock = { code: string; name: string; market: string };
+  let list: Stock[] = [];
+  const load = fetch('/stocks.json')
+    .then((r) => r.json())
+    .then((d: Stock[]) => (list = d))
+    .catch(() => (list = []));
+
+  document.querySelectorAll<HTMLElement>('[data-stock-search]').forEach((root) => {
+    const input = root.querySelector<HTMLInputElement>('.ss-input')!;
+    const results = root.querySelector<HTMLUListElement>('.ss-results')!;
+    let active = -1;
+
+    const go = (code: string) => (location.href = `/stock/${code}`);
+
+    const render = (items: Stock[]) => {
+      if (!items.length) { results.hidden = true; return; }
+      results.innerHTML = items
+        .map(
+          (s, i) =>
+            `<li data-code="${s.code}" role="option" ${i === active ? 'aria-selected="true"' : ''}>
+              <span>${s.name}</span>
+              <span><span class="code">${s.code}</span> <span class="mkt">${s.market}</span></span>
+            </li>`
+        )
+        .join('');
+      results.hidden = false;
+      results.querySelectorAll<HTMLLIElement>('li').forEach((li) =>
+        li.addEventListener('mousedown', (e) => { e.preventDefault(); go(li.dataset.code!); })
+      );
+    };
+
+    const search = (q: string) => {
+      q = q.trim();
+      if (!q) { results.hidden = true; return; }
+      // 6자리 숫자면 종목코드로 간주
+      if (/^\d{6}$/.test(q)) { render([{ code: q, name: q, market: '' }]); return; }
+      const lower = q.toLowerCase();
+      render(
+        list
+          .filter((s) => s.name.toLowerCase().includes(lower) || s.code.includes(q))
+          .slice(0, 8)
+      );
+    };
+
+    input.addEventListener('input', async () => {
+      await load;
+      active = -1;
+      search(input.value);
+    });
+
+    input.addEventListener('keydown', (e) => {
+      const items = results.querySelectorAll<HTMLLIElement>('li');
+      if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(active + 1, items.length - 1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(active - 1, 0); }
+      else if (e.key === 'Enter') {
+        e.preventDefault();
+        const pick = items[active] ?? items[0];
+        if (pick) go(pick.dataset.code!);
+        return;
+      } else if (e.key === 'Escape') { results.hidden = true; return; }
+      else return;
+      items.forEach((li, i) => li.setAttribute('aria-selected', String(i === active)));
+    });
+
+    input.addEventListener('blur', () => setTimeout(() => (results.hidden = true), 120));
+  });
+</script>

@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StockCard from '../../components/StockCard.astro';
+import StockSearch from '../../components/StockSearch.astro';
+import krx from '../../data/krx.json';
+
+export async function getStaticPaths() {
+  return krx.map((s) => ({ params: { code: s.code }, props: { stock: s } }));
+}
+
+const { stock } = Astro.props;
+const { code } = Astro.params;
+
+const related = (await getCollection('posts', ({ data }) => !data.draft))
+  .filter((p) => p.data.tickers.some((t) => t.code === code))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout
+  title={`${stock.name} (${stock.code}) 시세·분석`}
+  description={`${stock.name}(${stock.code}) 실시간 시세와 관련 분석 글 모음.`}
+  canonicalPath={`/stock/${code}/`}
+>
+  <div class="top">
+    <StockSearch />
+  </div>
+
+  <h1>{stock.name} <span class="muted">{stock.code} · {stock.market}</span></h1>
+
+  <StockCard code={stock.code} name={stock.name} />
+
+  <section class="related">
+    <h2>이 종목을 다룬 글</h2>
+    {related.length === 0 ? (
+      <p class="muted">아직 이 종목에 대한 글이 없습니다.</p>
+    ) : (
+      <ul class="post-list">
+        {related.map((p) => (
+          <li>
+            <a href={`/posts/${p.id}/`}>
+              <span class="pt">{p.data.title}</span>
+              <time class="muted" datetime={p.data.pubDate.toISOString()}>{fmt(p.data.pubDate)}</time>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+  .top { margin: 24px 0 10px; }
+  h1 { font-size: 1.7rem; }
+  h1 .muted { font-size: 0.9rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+  .related { margin-top: 30px; }
+  .post-list { list-style: none; padding: 0; }
+  .post-list > li { padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .post-list a { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
+  .post-list .pt { font-weight: 600; color: var(--fg); }
+  .post-list time { white-space: nowrap; font-size: 0.85rem; }
+</style>

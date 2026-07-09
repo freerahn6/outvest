@@ -1,0 +1,5 @@
+# 로컬에서 Worker 테스트할 때 쓰는 예시 파일.
+# 이 파일을 복사해 worker/.dev.vars 로 만들고 실제 값을 채우세요.
+# .dev.vars 는 .gitignore 에 의해 커밋되지 않습니다.
+KIS_APP_KEY=여기에_발급받은_앱키
+KIS_APP_SECRET=여기에_발급받은_앱시크릿

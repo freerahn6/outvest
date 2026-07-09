@@ -1,0 +1,89 @@
+---
+import { SITE } from '../config';
+// 실시간 시세 카드 — 종목코드를 받아 Worker(KIS 프록시)에서 시세를 불러와 표시.
+interface Props {
+  code: string;
+  name?: string;
+}
+const { code, name = '' } = Astro.props;
+---
+
+<div class="stock-card" data-quote-code={code} data-quote-api={SITE.quoteApi}>
+  <div class="sc-head">
+    <div>
+      <div class="sc-name">{name || '종목'}</div>
+      <div class="sc-code">{code}</div>
+    </div>
+    <div class="sc-price-wrap">
+      <div class="sc-price" data-price>—</div>
+      <div class="sc-change" data-change>불러오는 중…</div>
+    </div>
+  </div>
+  <dl class="sc-grid">
+    <div><dt>시가</dt><dd data-open>—</dd></div>
+    <div><dt>고가</dt><dd data-high>—</dd></div>
+    <div><dt>저가</dt><dd data-low>—</dd></div>
+    <div><dt>거래량</dt><dd data-volume>—</dd></div>
+  </dl>
+  <div class="sc-foot" data-time></div>
+</div>
+
+<style>
+  .stock-card {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    background: var(--card);
+    margin: 1.5em 0;
+  }
+  .sc-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .sc-name { font-size: 1.25rem; font-weight: 800; }
+  .sc-code { color: var(--muted); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+  .sc-price-wrap { text-align: right; }
+  .sc-price { font-size: 1.6rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .sc-change { font-size: 0.95rem; font-weight: 600; }
+  .sc-change.up, .sc-price.up { color: var(--up); }
+  .sc-change.down, .sc-price.down { color: var(--down); }
+  .sc-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 10px; margin: 18px 0 0;
+  }
+  .sc-grid > div { text-align: center; }
+  .sc-grid dt { color: var(--muted); font-size: 0.75rem; margin-bottom: 3px; }
+  .sc-grid dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; font-size: 0.95rem; }
+  .sc-foot { margin-top: 14px; color: var(--muted); font-size: 0.75rem; text-align: right; }
+  @media (max-width: 480px) {
+    .sc-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+
+<script>
+  const won = (n: number) => (n == null ? '—' : n.toLocaleString('ko-KR'));
+
+  document.querySelectorAll<HTMLElement>('[data-quote-code]').forEach(async (card) => {
+    const code = card.dataset.quoteCode!;
+    const api = card.dataset.quoteApi!;
+    const $ = (s: string) => card.querySelector<HTMLElement>(s)!;
+    try {
+      const res = await fetch(`${api}?code=${encodeURIComponent(code)}`);
+      if (!res.ok) throw new Error(String(res.status));
+      const q = await res.json();
+      // Worker 응답 스키마: { name, price, change, changeRate, open, high, low, volume, time }
+      const dir = q.change > 0 ? 'up' : q.change < 0 ? 'down' : '';
+      const sign = q.change > 0 ? '▲' : q.change < 0 ? '▼' : '−';
+      $('[data-price]').textContent = won(q.price) + '원';
+      $('[data-price]').classList.add(dir);
+      const chg = $('[data-change]');
+      chg.textContent = `${sign} ${won(Math.abs(q.change))} (${q.changeRate > 0 ? '+' : ''}${q.changeRate}%)`;
+      chg.classList.add(dir);
+      $('[data-open]').textContent = won(q.open);
+      $('[data-high]').textContent = won(q.high);
+      $('[data-low]').textContent = won(q.low);
+      $('[data-volume]').textContent = won(q.volume);
+      $('[data-time]').textContent = q.time ? `기준: ${q.time}` : '';
+      if (q.name) card.querySelector('.sc-name')!.textContent = q.name;
+    } catch (e) {
+      $('[data-change]').textContent = '시세를 불러오지 못했습니다.';
+    }
+  });
+</script>

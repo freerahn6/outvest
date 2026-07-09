@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../config';
+---
+
+<BaseLayout title="소개" canonicalPath="/about/">
+  <h1>소개</h1>
+  <p>{SITE.description}</p>
+  <p class="muted">작성자: {SITE.author}</p>
+  <hr />
+  <p class="muted" style="font-size:0.85rem;">
+    ※ 본 블로그에 게시된 모든 정보는 투자 참고 목적이며, 특정 종목의 매수·매도를 권유하지 않습니다.
+    투자 결정과 그 결과에 대한 책임은 투자자 본인에게 있습니다.
+  </p>
+</BaseLayout>
