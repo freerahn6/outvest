@@ -1,0 +1,61 @@
+---
+interface Heading { depth: number; slug: string; text: string }
+interface Props { headings: Heading[] }
+const { headings } = Astro.props;
+// H2·H3만 목차에 노출
+const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{items.length > 1 && (
+  <nav class="toc" aria-label="목차">
+    <p class="toc-title">목차</p>
+    <ul>
+      {items.map((h) => (
+        <li>
+          <a class={`toc-link d${h.depth}`} href={`#${h.slug}`} data-toc={h.slug}>{h.text}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
+
+<style>
+  .toc { position: sticky; top: 88px; font-size: 0.9rem; }
+  .toc-title {
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--faint); margin: 0 0 14px; padding-left: 15px;
+  }
+  .toc ul { list-style: none; margin: 0; padding: 0; border-left: 1.5px solid var(--border); }
+  .toc-link {
+    display: block; padding: 7px 0 7px 15px; margin-left: -1.5px;
+    border-left: 1.5px solid transparent;
+    color: var(--muted); line-height: 1.4; font-weight: 500;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .toc-link:hover { color: var(--fg); text-decoration: none; }
+  .toc-link.d3 { padding-left: 28px; font-size: 0.85rem; }
+  .toc-link.active {
+    color: var(--accent-ink); font-weight: 700;
+    border-left-color: var(--accent);
+  }
+</style>
+
+<script>
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.toc-link'));
+  if (links.length) {
+    const heads = Array.from(
+      document.querySelectorAll<HTMLElement>('.prose h2[id], .prose h3[id]')
+    );
+    const spy = () => {
+      let current = heads[0]?.id;
+      for (const h of heads) {
+        if (h.getBoundingClientRect().top <= 130) current = h.id;
+        else break;
+      }
+      for (const l of links) l.classList.toggle('active', l.dataset.toc === current);
+    };
+    document.addEventListener('scroll', spy, { passive: true });
+    window.addEventListener('resize', spy, { passive: true });
+    spy();
+  }
+</script>

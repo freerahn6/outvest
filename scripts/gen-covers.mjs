@@ -63,6 +63,36 @@ const covers = {
     titleLines: ['반도체 소부장', '대장주는 어디?'],
     ticker: '042700',
   }),
+  'cover-perpbr.svg': cover({
+    eyebrow: '기초 강의',
+    titleLines: ['PER · PBR', '5분 완전정리'],
+    ticker: '밸류에이션',
+  }),
+  'cover-short.svg': cover({
+    eyebrow: '기초 강의',
+    titleLines: ['공매도란', '무엇인가'],
+    ticker: '공매도',
+  }),
+  'cover-adr.svg': cover({
+    eyebrow: '기초 강의',
+    titleLines: ['ADR이란', '무엇인가'],
+    ticker: 'ADR',
+  }),
+  'cover-dividend.svg': cover({
+    eyebrow: '기초 강의',
+    titleLines: ['배당투자', '기초'],
+    ticker: '배당',
+  }),
+  'cover-etf.svg': cover({
+    eyebrow: '기초 강의',
+    titleLines: ['ETF vs', '개별주'],
+    ticker: 'ETF',
+  }),
+  'cover-kdiscount.svg': cover({
+    eyebrow: '기초 강의',
+    titleLines: ['코리아', '디스카운트'],
+    ticker: '밸류업',
+  }),
 };
 
 await mkdir(OUT, { recursive: true });

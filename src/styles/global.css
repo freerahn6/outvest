@@ -121,8 +121,8 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2.4em 0; }
 /* ---------- prose ---------- */
 .prose { font-size: 1.06rem; line-height: 1.78; }
 .prose > p { margin: 1.15em 0; }
-.prose h2 { font-size: 1.5rem; margin: 2.1em 0 0.7em; }
-.prose h3 { font-size: 1.18rem; margin: 1.7em 0 0.5em; }
+.prose h2 { font-size: 1.5rem; margin: 2.1em 0 0.7em; scroll-margin-top: 88px; }
+.prose h3 { font-size: 1.18rem; margin: 1.7em 0 0.5em; scroll-margin-top: 88px; }
 .prose ul, .prose ol { padding-left: 1.3em; }
 .prose li { margin: 0.4em 0; }
 .prose strong { font-weight: 700; }

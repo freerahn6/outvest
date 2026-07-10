@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import StockCard from '../../components/StockCard.astro';
 import StockChart from '../../components/StockChart.astro';
 import RelatedPosts from '../../components/RelatedPosts.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
 import { SITE } from '../../config';
 
 export async function getStaticPaths() {
@@ -12,7 +13,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
 const quotesEnabled = SITE.quoteApi.startsWith('http');
 ---
@@ -25,7 +26,11 @@ const quotesEnabled = SITE.quoteApi.startsWith('http');
   updatedDate={post.data.updatedDate}
   canonicalPath={`/posts/${post.id}/`}
 >
-  <div class="wrap post-page">
+  <div class="post-layout">
+  <aside class="toc-col">
+    <TableOfContents headings={headings} />
+  </aside>
+  <div class="post-main">
   <article>
     <header class="post-head">
       <a href="/" class="back">← 목록</a>
@@ -75,9 +80,24 @@ const quotesEnabled = SITE.quoteApi.startsWith('http');
     tickers={post.data.tickers}
   />
   </div>
+  </div>
 </BaseLayout>
 
 <style>
+  .post-layout { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+  .post-main { min-width: 0; }
+  .toc-col { display: none; }
+
+  /* 넓은 화면: 좌측 목차 + 본문 2단 */
+  @media (min-width: 1100px) {
+    .post-layout {
+      max-width: 1120px; padding: 0 24px;
+      display: grid; grid-template-columns: 232px minmax(0, 720px);
+      justify-content: center; gap: 56px; align-items: start;
+    }
+    .toc-col { display: block; }
+  }
+
   .post-head { margin: 34px 0 24px; }
   .back { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
   .back:hover { color: var(--accent); text-decoration: none; }
