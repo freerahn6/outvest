@@ -2,8 +2,12 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import StockCard from '../../components/StockCard.astro';
+import StockChart from '../../components/StockChart.astro';
 import StockSearch from '../../components/StockSearch.astro';
+import { SITE } from '../../config';
 import krx from '../../data/krx.json';
+
+const quotesEnabled = SITE.quoteApi.startsWith('http');
 
 export async function getStaticPaths() {
   return krx.map((s) => ({ params: { code: s.code }, props: { stock: s } }));
@@ -24,41 +28,44 @@ const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month:
   description={`${stock.name}(${stock.code}) 실시간 시세와 관련 분석 글 모음.`}
   canonicalPath={`/stock/${code}/`}
 >
-  <div class="top">
-    <StockSearch />
-  </div>
+  <div class="wrap stock-page">
+    <div class="top"><StockSearch /></div>
 
-  <h1>{stock.name} <span class="muted">{stock.code} · {stock.market}</span></h1>
+    <header class="stk-head">
+      <span class="eyebrow">{stock.market}</span>
+      <h1>{stock.name} <span class="stk-code">{stock.code}</span></h1>
+    </header>
 
-  <StockCard code={stock.code} name={stock.name} />
+    {quotesEnabled && <StockCard code={stock.code} name={stock.name} />}
+    <StockChart code={stock.code} name={stock.name} />
 
-  <section class="related">
-    <h2>이 종목을 다룬 글</h2>
-    {related.length === 0 ? (
-      <p class="muted">아직 이 종목에 대한 글이 없습니다.</p>
-    ) : (
-      <ul class="post-list">
-        {related.map((p) => (
-          <li>
-            <a href={`/posts/${p.id}/`}>
-              <span class="pt">{p.data.title}</span>
-              <time class="muted" datetime={p.data.pubDate.toISOString()}>{fmt(p.data.pubDate)}</time>
+    <section class="related">
+      <h2 class="sec-title">이 종목을 다룬 글</h2>
+      {related.length === 0 ? (
+        <p class="muted">아직 이 종목에 대한 글이 없습니다.</p>
+      ) : (
+        <div class="post-grid">
+          {related.map((p) => (
+            <a class="post-card" href={`/posts/${p.id}/`}>
+              <div class="pc-cover"><img src={p.data.cover ?? '/images/cover-skhynix.svg'} alt="" loading="lazy" /></div>
+              <div class="pc-body">
+                <span class="pc-date">{fmt(p.data.pubDate)}</span>
+                <span class="pc-title">{p.data.title}</span>
+                <p class="pc-desc">{p.data.description}</p>
+              </div>
             </a>
-          </li>
-        ))}
-      </ul>
-    )}
-  </section>
+          ))}
+        </div>
+      )}
+    </section>
+  </div>
 </BaseLayout>
 
 <style>
-  .top { margin: 24px 0 10px; }
-  h1 { font-size: 1.7rem; }
-  h1 .muted { font-size: 0.9rem; font-weight: 500; font-variant-numeric: tabular-nums; }
-  .related { margin-top: 30px; }
-  .post-list { list-style: none; padding: 0; }
-  .post-list > li { padding: 14px 0; border-bottom: 1px solid var(--border); }
-  .post-list a { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
-  .post-list .pt { font-weight: 600; color: var(--fg); }
-  .post-list time { white-space: nowrap; font-size: 0.85rem; }
+  .stock-page .top { margin: 26px 0 22px; }
+  .stk-head { margin: 6px 0 20px; }
+  .stk-head h1 { font-size: 1.9rem; margin: 6px 0 0; letter-spacing: -0.02em; }
+  .stk-code { font-size: 0.95rem; font-weight: 600; color: var(--faint); font-variant-numeric: tabular-nums; }
+  .related { margin-top: 40px; }
+  .sec-title { font-size: 1.05rem; color: var(--muted); font-weight: 700; margin: 0 0 18px; }
 </style>

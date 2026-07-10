@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" width="760" height="300" role="img" aria-label="HBM 시장 점유율 3사 비교 막대그래프">
+<title>HBM 시장 점유율 3사 비교 막대그래프</title><desc>HBM 시장 점유율은 SK하이닉스 약 62%, 마이크론 약 21%, 삼성전자 약 17%로 삼성전자가 3위다. 삼성의 2분기 실적은 HBM 주도가 아니라 범용 메모리 가격 급등이 이끌었다.</desc>
+<style>
+  :root{
+    --surface:#fcfcfb; --ink:#0b0b0b; --sub:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --axis:#c3c2b7; --blue:#2a78d6; --orange:#eb6834; --aqua:#1baf7a;
+    --red:#e34948; --green:#008300; --mute:#b7d3f6;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --surface:#1a1a19; --ink:#ffffff; --sub:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --axis:#383835; --blue:#3987e5; --orange:#d95926; --aqua:#199e70;
+      --red:#e66767; --green:#31a531; --mute:#2f4b6e; }
+  }
+  .bg{fill:var(--surface)}
+  .title{fill:var(--ink);font:700 20px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .sub{fill:var(--sub);font:400 13px system-ui,sans-serif}
+  .lbl{fill:var(--ink);font:600 14px system-ui,sans-serif}
+  .ax{fill:var(--muted);font:500 13px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .val{fill:var(--ink);font:700 15px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .grid{stroke:var(--grid);stroke-width:1}
+  .base{stroke:var(--axis);stroke-width:1.5}
+  .s-blue{fill:var(--blue)} .s-orange{fill:var(--orange)} .s-aqua{fill:var(--aqua)}
+  .s-red{fill:var(--red)} .s-green{fill:var(--green)} .s-mute{fill:var(--mute)}
+  .refline{stroke:var(--orange);stroke-width:1.5;stroke-dasharray:5 4}
+  .nowline{stroke:var(--ink);stroke-width:1.5;stroke-dasharray:4 3}
+</style>
+<rect class="bg" x="0" y="0" width="760" height="300" rx="14"/>
+<text class="title" x="40" y="34">HBM 시장 점유율 — 삼성은 3위</text><text class="sub" x="40" y="56">89조는 'HBM 승리'가 아니다. 삼성의 HBM 서열은 3위(2025년 기준·기관별 편차)</text><line class="grid" x1="130" y1="80" x2="130" y2="244"/><text class="ax" x="130" y="264" text-anchor="middle">0%</text><line class="grid" x1="290" y1="80" x2="290" y2="244"/><text class="ax" x="290" y="264" text-anchor="middle">20%</text><line class="grid" x1="450" y1="80" x2="450" y2="244"/><text class="ax" x="450" y="264" text-anchor="middle">40%</text><line class="grid" x1="610" y1="80" x2="610" y2="244"/><text class="ax" x="610" y="264" text-anchor="middle">60%</text><path class="s-mute" d="M130 88 h492 q4 0 4 4 v32 q0 4 -4 4 h492 Z"/><text class="lbl" x="118" y="113" text-anchor="end">SK하이닉스</text><text class="val" x="636" y="113">62%</text><path class="s-mute" d="M130 146 h164 q4 0 4 4 v32 q0 4 -4 4 h164 Z"/><text class="lbl" x="118" y="171" text-anchor="end">마이크론</text><text class="val" x="308" y="171">21%</text><path class="s-orange" d="M130 204 h132 q4 0 4 4 v32 q0 4 -4 4 h132 Z"/><text class="lbl" x="118" y="229" text-anchor="end">삼성전자</text><text class="val" x="276" y="229">17%</text>
+</svg>

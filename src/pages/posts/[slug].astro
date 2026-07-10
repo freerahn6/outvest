@@ -2,6 +2,9 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import StockCard from '../../components/StockCard.astro';
+import StockChart from '../../components/StockChart.astro';
+import RelatedPosts from '../../components/RelatedPosts.astro';
+import { SITE } from '../../config';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
@@ -11,6 +14,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+const quotesEnabled = SITE.quoteApi.startsWith('http');
 ---
 
 <BaseLayout
@@ -21,18 +25,34 @@ const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month:
   updatedDate={post.data.updatedDate}
   canonicalPath={`/posts/${post.id}/`}
 >
+  <div class="wrap post-page">
   <article>
     <header class="post-head">
+      <a href="/" class="back">← 목록</a>
+      {post.data.tickers.length > 0 && (
+        <div class="head-tickers">
+          {post.data.tickers.map((t) => (
+            <a class="chip" href={`/stock/${t.code}/`}>{t.name} <span class="tk-code">{t.code}</span></a>
+          ))}
+        </div>
+      )}
       <h1>{post.data.title}</h1>
-      <p class="muted">
+      <p class="post-lede">{post.data.description}</p>
+      <div class="post-meta">
         <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
-        {post.data.updatedDate && <> · 수정 {fmt(post.data.updatedDate)}</>}
-      </p>
+        {post.data.updatedDate && <span>· 수정 {fmt(post.data.updatedDate)}</span>}
+        <span>· {SITE.author}</span>
+      </div>
     </header>
 
     {post.data.tickers.length > 0 && (
       <section class="quotes">
-        {post.data.tickers.map((t) => <StockCard code={t.code} name={t.name} />)}
+        {post.data.tickers.map((t) => (
+          <>
+            {quotesEnabled && <StockCard code={t.code} name={t.name} />}
+            <StockChart code={t.code} name={t.name} />
+          </>
+        ))}
       </section>
     )}
 
@@ -41,18 +61,38 @@ const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month:
     </div>
 
     {post.data.tags.length > 0 && (
-      <footer class="tags">
-        {post.data.tags.map((tag) => <span class="tag">#{tag}</span>)}
-      </footer>
+      <div class="tags">
+        {post.data.tags.map((tag) => <span class="chip ghost">#{tag}</span>)}
+      </div>
     )}
   </article>
+
+  <hr />
+
+  <RelatedPosts
+    currentId={post.id}
+    tags={post.data.tags}
+    tickers={post.data.tickers}
+  />
+  </div>
 </BaseLayout>
 
 <style>
-  .post-head { margin: 30px 0 10px; }
-  .post-head h1 { font-size: 1.9rem; margin: 0 0 10px; }
-  .prose :global(h2) { margin-top: 1.8em; }
-  .prose :global(img) { border-radius: 8px; }
-  .tags { margin-top: 3em; display: flex; gap: 10px; flex-wrap: wrap; }
-  .tag { color: var(--muted); font-size: 0.9rem; }
+  .post-head { margin: 34px 0 24px; }
+  .back { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
+  .back:hover { color: var(--accent); text-decoration: none; }
+  .head-tickers { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0 14px; }
+  .head-tickers .chip:hover { background: var(--accent); color: #fff; text-decoration: none; }
+  .tk-code { opacity: 0.6; font-variant-numeric: tabular-nums; font-weight: 500; }
+  .post-head h1 { font-size: 2.1rem; margin: 4px 0 14px; letter-spacing: -0.03em; }
+  .post-lede { font-size: 1.14rem; color: var(--muted); margin: 0 0 16px; line-height: 1.6; }
+  .post-meta { font-size: 0.88rem; color: var(--faint); display: flex; gap: 6px; flex-wrap: wrap; }
+  .post-meta time { font-variant-numeric: tabular-nums; }
+  .quotes { margin: 8px 0 28px; }
+  .tags { margin-top: 34px; display: flex; gap: 8px; flex-wrap: wrap; }
+
+  @media (max-width: 560px) {
+    .post-head h1 { font-size: 1.68rem; }
+    .post-lede { font-size: 1.02rem; }
+  }
 </style>

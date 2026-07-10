@@ -54,6 +54,13 @@ const jsonLd =
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
+
+    <!-- Pretendard (엘리펀트 블로그와 동일 서체) -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="author" content={SITE.author} />
@@ -79,12 +86,26 @@ const jsonLd =
   </head>
   <body>
     <Header />
-    <main class="wrap">
+    <main>
       <slot />
     </main>
-    <footer class="wrap" style="margin:4em auto 3em; color:var(--muted); font-size:0.85em;">
-      <hr />
-      <p>© {new Date().getFullYear()} {SITE.title} · 본 블로그의 정보는 투자 참고용이며 투자 판단의 책임은 본인에게 있습니다.</p>
+    <footer class="site-footer">
+      <div class="wide">
+        <span class="ft-brand">{SITE.title}</span>
+        <p>본 블로그의 정보는 투자 참고용이며, 투자 판단과 그 결과의 책임은 투자자 본인에게 있습니다.</p>
+        <p class="ft-copy">© {new Date().getFullYear()} {SITE.title}</p>
+      </div>
     </footer>
+    <style>
+      main { min-height: 60vh; }
+      .site-footer {
+        border-top: 1px solid var(--border);
+        margin-top: 70px; padding: 34px 0 46px;
+        color: var(--faint); font-size: 0.85rem; background: var(--bg);
+      }
+      .site-footer .ft-brand { font-weight: 800; color: var(--muted); letter-spacing: -0.02em; }
+      .site-footer p { margin: 8px 0 0; max-width: 640px; line-height: 1.6; }
+      .site-footer .ft-copy { margin-top: 12px; font-variant-numeric: tabular-nums; }
+    </style>
   </body>
 </html>

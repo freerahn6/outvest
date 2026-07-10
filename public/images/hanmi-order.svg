@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="760" height="400" role="img" aria-label="TC본더 2025년 수주 한미반도체 대 한화세미텍 막대그래프">
+<title>TC본더 2025년 수주 한미반도체 대 한화세미텍 막대그래프</title><desc>2025년 TC본더 수주에서 한미반도체는 536억원, 경쟁사 한화세미텍은 805억원을 기록해 한화세미텍이 한미반도체를 역전했다.</desc>
+<style>
+  :root{
+    --surface:#fcfcfb; --ink:#0b0b0b; --sub:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --axis:#c3c2b7; --blue:#2a78d6; --orange:#eb6834; --aqua:#1baf7a;
+    --red:#e34948; --green:#008300; --mute:#b7d3f6;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --surface:#1a1a19; --ink:#ffffff; --sub:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --axis:#383835; --blue:#3987e5; --orange:#d95926; --aqua:#199e70;
+      --red:#e66767; --green:#31a531; --mute:#2f4b6e; }
+  }
+  .bg{fill:var(--surface)}
+  .title{fill:var(--ink);font:700 20px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .sub{fill:var(--sub);font:400 13px system-ui,sans-serif}
+  .lbl{fill:var(--ink);font:600 14px system-ui,sans-serif}
+  .ax{fill:var(--muted);font:500 13px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .val{fill:var(--ink);font:700 15px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .grid{stroke:var(--grid);stroke-width:1}
+  .base{stroke:var(--axis);stroke-width:1.5}
+  .s-blue{fill:var(--blue)} .s-orange{fill:var(--orange)} .s-aqua{fill:var(--aqua)}
+  .s-red{fill:var(--red)} .s-green{fill:var(--green)} .s-mute{fill:var(--mute)}
+  .refline{stroke:var(--orange);stroke-width:1.5;stroke-dasharray:5 4}
+  .nowline{stroke:var(--ink);stroke-width:1.5;stroke-dasharray:4 3}
+</style>
+<rect class="bg" x="0" y="0" width="760" height="400" rx="14"/>
+<text class="title" x="50" y="34">TC본더 2025년 수주 — 왕좌가 흔들린다</text><text class="sub" x="50" y="56">세계 1위 한미반도체를 경쟁사 한화세미텍이 수주에서 역전한 사례</text><line class="grid" x1="50" y1="344" x2="736" y2="344"/><text class="ax" x="42" y="348" text-anchor="end">0</text><line class="grid" x1="50" y1="260" x2="736" y2="260"/><text class="ax" x="42" y="264" text-anchor="end">300</text><line class="grid" x1="50" y1="175.99999999999997" x2="736" y2="175.99999999999997"/><text class="ax" x="42" y="179.99999999999997" text-anchor="end">600</text><line class="grid" x1="50" y1="91.99999999999997" x2="736" y2="91.99999999999997"/><text class="ax" x="42" y="95.99999999999997" text-anchor="end">900</text><line class="base" x1="50" y1="344" x2="736" y2="344"/><path class="s-blue" d="M146.5 344 V197.92 q0 -4 4 -4 h142 q4 0 4 4 V344 Z"/><text class="val" x="221.5" y="185.92" text-anchor="middle">536억</text><text class="lbl" x="221.5" y="370" text-anchor="middle">한미반도체</text><path class="s-orange" d="M489.5 344 V122.59999999999997 q0 -4 4 -4 h142 q4 0 4 4 V344 Z"/><text class="val" x="564.5" y="110.59999999999997" text-anchor="middle">805억</text><text class="lbl" x="564.5" y="370" text-anchor="middle">한화세미텍</text><text class="sub" x="736" y="370" text-anchor="end">단위: 억원</text>
+</svg>

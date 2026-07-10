@@ -1,0 +1,82 @@
+---
+// 국내 종목 차트 — 네이버 금융 차트 이미지(무료, KIS 불필요).
+// 일/주/년 탭으로 기간 전환. 이미지 로드 실패 시 네이버 금융 링크로 폴백.
+interface Props {
+  code: string;
+  name?: string;
+}
+const { code, name = '' } = Astro.props;
+const base = 'https://ssl.pstatic.net/imgfinance/chart/item';
+const day = `${base}/candle/day/${code}.png`;
+const week = `${base}/area/week/${code}.png`;
+const year = `${base}/area/year/${code}.png`;
+const naverUrl = `https://finance.naver.com/item/main.naver?code=${code}`;
+---
+
+<figure class="stock-chart" data-chart data-day={day} data-week={week} data-year={year}>
+  <div class="sc-tabs" role="tablist">
+    <button data-period="day" class="on" type="button">일봉</button>
+    <button data-period="week" type="button">주봉</button>
+    <button data-period="year" type="button">년봉</button>
+    <a class="sc-more" href={naverUrl} target="_blank" rel="noopener noreferrer">네이버 금융 ↗</a>
+  </div>
+  <div class="sc-img-wrap">
+    <img
+      src={day}
+      alt={`${name || code} 주가 차트`}
+      loading="lazy"
+      referrerpolicy="no-referrer"
+      decoding="async"
+    />
+    <p class="sc-fallback" hidden>
+      차트를 불러오지 못했습니다. <a href={naverUrl} target="_blank" rel="noopener noreferrer">네이버 금융에서 보기 ↗</a>
+    </p>
+  </div>
+  <figcaption class="muted">{name || code} · 차트: 네이버 금융 (일별 종가 기준, 지연될 수 있음)</figcaption>
+</figure>
+
+<style>
+  .stock-chart { margin: 1.5em 0; }
+  .sc-tabs { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+  .sc-tabs button {
+    font: inherit; font-size: 0.85rem; padding: 5px 14px; cursor: pointer;
+    border: 1px solid var(--border); background: var(--bg); color: var(--muted);
+    border-radius: 999px;
+  }
+  .sc-tabs button.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .sc-more { margin-left: auto; font-size: 0.8rem; }
+  .sc-img-wrap {
+    border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+    background: #fff; /* 네이버 차트는 흰 배경이라 다크모드에서도 흰 카드로 고정 */
+    min-height: 120px; display: flex; align-items: center; justify-content: center;
+  }
+  .sc-img-wrap img { width: 100%; height: auto; display: block; }
+  .sc-fallback { padding: 24px; color: var(--muted); font-size: 0.9rem; text-align: center; }
+  .stock-chart figcaption { margin-top: 8px; font-size: 0.75rem; text-align: right; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-chart]').forEach((fig) => {
+    const img = fig.querySelector<HTMLImageElement>('img')!;
+    const fallback = fig.querySelector<HTMLElement>('.sc-fallback')!;
+    const urls: Record<string, string> = {
+      day: fig.dataset.day!,
+      week: fig.dataset.week!,
+      year: fig.dataset.year!,
+    };
+    fig.querySelectorAll<HTMLButtonElement>('.sc-tabs button').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const p = btn.dataset.period!;
+        fig.querySelectorAll('.sc-tabs button').forEach((b) => b.classList.remove('on'));
+        btn.classList.add('on');
+        fallback.hidden = true;
+        img.hidden = false;
+        img.src = urls[p];
+      });
+    });
+    img.addEventListener('error', () => {
+      img.hidden = true;
+      fallback.hidden = false;
+    });
+  });
+</script>

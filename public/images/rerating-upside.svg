@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" width="760" height="300" role="img" aria-label="ADR 상장 후 밸류에이션 재평가 상방 시나리오 막대그래프">
+<title>ADR 상장 후 밸류에이션 재평가 상방 시나리오 막대그래프</title><desc>마이크론과의 밸류에이션 갭이 절반만 좁혀지면 약 +25~28%, 완전히 수렴하면 이론상 +62%의 상방이 계산된다. 다만 비관 시나리오에서는 하방 위험이 있다.</desc>
+<style>
+  :root{
+    --surface:#fcfcfb; --ink:#0b0b0b; --sub:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --axis:#c3c2b7; --blue:#2a78d6; --orange:#eb6834; --aqua:#1baf7a;
+    --red:#e34948; --green:#008300; --mute:#b7d3f6;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --surface:#1a1a19; --ink:#ffffff; --sub:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --axis:#383835; --blue:#3987e5; --orange:#d95926; --aqua:#199e70;
+      --red:#e66767; --green:#31a531; --mute:#2f4b6e; }
+  }
+  .bg{fill:var(--surface)}
+  .title{fill:var(--ink);font:700 20px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .sub{fill:var(--sub);font:400 13px system-ui,sans-serif}
+  .lbl{fill:var(--ink);font:600 14px system-ui,sans-serif}
+  .ax{fill:var(--muted);font:500 13px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .val{fill:var(--ink);font:700 15px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .grid{stroke:var(--grid);stroke-width:1}
+  .base{stroke:var(--axis);stroke-width:1.5}
+  .s-blue{fill:var(--blue)} .s-orange{fill:var(--orange)} .s-aqua{fill:var(--aqua)}
+  .s-red{fill:var(--red)} .s-green{fill:var(--green)} .s-mute{fill:var(--mute)}
+  .refline{stroke:var(--orange);stroke-width:1.5;stroke-dasharray:5 4}
+  .nowline{stroke:var(--ink);stroke-width:1.5;stroke-dasharray:4 3}
+</style>
+<rect class="bg" x="0" y="0" width="760" height="300" rx="14"/>
+<text class="title" x="40" y="34">ADR 재평가 상방 — 마이크론 배수에 수렴한다면</text><text class="sub" x="40" y="56">2026년 예상 EPS 고정·희석 반영 가정. 실제는 가정에 따라 달라지는 추정치</text><line class="grid" x1="150" y1="82" x2="150" y2="206"/><text class="ax" x="150" y="226" text-anchor="middle">+0%</text><line class="grid" x1="298.57142857142856" y1="82" x2="298.57142857142856" y2="206"/><text class="ax" x="298.57142857142856" y="226" text-anchor="middle">+20%</text><line class="grid" x1="447.14285714285717" y1="82" x2="447.14285714285717" y2="206"/><text class="ax" x="447.14285714285717" y="226" text-anchor="middle">+40%</text><line class="grid" x1="595.7142857142858" y1="82" x2="595.7142857142858" y2="206"/><text class="ax" x="595.7142857142858" y="226" text-anchor="middle">+60%</text><path class="s-blue" d="M150 92 h192.85714285714286 q4 0 4 4 v36 q0 4 -4 4 h192.85714285714286 Z"/><text class="lbl" x="138" y="112" text-anchor="end">절반 수렴</text><text class="sub" x="138" y="129" text-anchor="end">(현실적)</text><text class="val" x="356.8571428571429" y="119">+25~28%</text><path class="s-aqua" d="M150 162 h456.5714285714286 q4 0 4 4 v36 q0 4 -4 4 h456.5714285714286 Z"/><text class="lbl" x="138" y="182" text-anchor="end">완전 수렴</text><text class="sub" x="138" y="199" text-anchor="end">(이론상 최대)</text><text class="val" x="620.5714285714287" y="189">+62%</text><text class="sub" x="40" y="292">※ 비관 시나리오(과거 한국 ADR처럼 본주와 등가 수렴)에서는 오히려 하방 위험</text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" width="760" height="420" role="img" aria-label="삼성전자 2026년 2분기 영업이익 막대그래프">
+<title>삼성전자 2026년 2분기 영업이익 막대그래프</title><desc>시장 컨센서스 84.2조원 대비 실제 영업이익은 89.4조원으로 약 6% 상회했고, 성과급 충당금을 제외한 실질 영업이익은 100조원을 초과한 것으로 추정된다.</desc>
+<style>
+  :root{
+    --surface:#fcfcfb; --ink:#0b0b0b; --sub:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --axis:#c3c2b7; --blue:#2a78d6; --orange:#eb6834; --aqua:#1baf7a;
+    --red:#e34948; --green:#008300; --mute:#b7d3f6;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --surface:#1a1a19; --ink:#ffffff; --sub:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --axis:#383835; --blue:#3987e5; --orange:#d95926; --aqua:#199e70;
+      --red:#e66767; --green:#31a531; --mute:#2f4b6e; }
+  }
+  .bg{fill:var(--surface)}
+  .title{fill:var(--ink);font:700 20px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .sub{fill:var(--sub);font:400 13px system-ui,sans-serif}
+  .lbl{fill:var(--ink);font:600 14px system-ui,sans-serif}
+  .ax{fill:var(--muted);font:500 13px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .val{fill:var(--ink);font:700 15px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .grid{stroke:var(--grid);stroke-width:1}
+  .base{stroke:var(--axis);stroke-width:1.5}
+  .s-blue{fill:var(--blue)} .s-orange{fill:var(--orange)} .s-aqua{fill:var(--aqua)}
+  .s-red{fill:var(--red)} .s-green{fill:var(--green)} .s-mute{fill:var(--mute)}
+  .refline{stroke:var(--orange);stroke-width:1.5;stroke-dasharray:5 4}
+  .nowline{stroke:var(--ink);stroke-width:1.5;stroke-dasharray:4 3}
+</style>
+<rect class="bg" x="0" y="0" width="760" height="420" rx="14"/>
+<text class="title" x="44" y="34">삼성전자 2026년 2분기 영업이익</text><text class="sub" x="44" y="56">시장 예상을 6% 웃돈 '어닝 서프라이즈' — 성과급을 빼면 실질 100조 초과</text><line class="grid" x1="44" y1="364" x2="736" y2="364"/><text class="ax" x="36" y="368" text-anchor="end">0</text><line class="grid" x1="44" y1="302.1818181818182" x2="736" y2="302.1818181818182"/><text class="ax" x="36" y="306.1818181818182" text-anchor="end">25</text><line class="grid" x1="44" y1="240.36363636363637" x2="736" y2="240.36363636363637"/><text class="ax" x="36" y="244.36363636363637" text-anchor="end">50</text><line class="grid" x1="44" y1="178.54545454545456" x2="736" y2="178.54545454545456"/><text class="ax" x="36" y="182.54545454545456" text-anchor="end">75</text><line class="grid" x1="44" y1="116.72727272727275" x2="736" y2="116.72727272727275"/><text class="ax" x="36" y="120.72727272727275" text-anchor="end">100</text><line class="base" x1="44" y1="364" x2="736" y2="364"/><path class="s-mute" d="M84.33333333333331 364 V159.79636363636362 q0 -4 4 -4 h142 q4 0 4 4 V364 Z"/><text class="val" x="159.33333333333331" y="147.79636363636362" text-anchor="middle">84.2조</text><text class="lbl" x="159.33333333333331" y="390" text-anchor="middle">컨센서스</text><path class="s-blue" d="M315 364 V146.93818181818182 q0 -4 4 -4 h142 q4 0 4 4 V364 Z"/><text class="val" x="390" y="134.93818181818182" text-anchor="middle">89.4조</text><text class="lbl" x="390" y="390" text-anchor="middle">실제 2Q</text><path class="s-aqua" d="M545.6666666666666 364 V120.72727272727275 q0 -4 4 -4 h142 q4 0 4 4 V364 Z"/><text class="val" x="620.6666666666666" y="108.72727272727275" text-anchor="middle">100조+</text><text class="lbl" x="620.6666666666666" y="390" text-anchor="middle">성과급 제외(실질)</text>
+</svg>

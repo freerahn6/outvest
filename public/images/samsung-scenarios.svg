@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" width="760" height="340" role="img" aria-label="삼성전자 주가 시나리오별 목표가 범위 막대그래프">
+<title>삼성전자 주가 시나리오별 목표가 범위 막대그래프</title><desc>밸류에이션 기반 추정으로 약세(다운사이클) 12~18만원, 기본(박스권) 25~33만원, 강세(리레이팅) 36~40만원의 목표가 범위를 제시한다. 현재가 약 30만원은 기본 시나리오 범위 안에 있다.</desc>
+<style>
+  :root{
+    --surface:#fcfcfb; --ink:#0b0b0b; --sub:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --axis:#c3c2b7; --blue:#2a78d6; --orange:#eb6834; --aqua:#1baf7a;
+    --red:#e34948; --green:#008300; --mute:#b7d3f6;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --surface:#1a1a19; --ink:#ffffff; --sub:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --axis:#383835; --blue:#3987e5; --orange:#d95926; --aqua:#199e70;
+      --red:#e66767; --green:#31a531; --mute:#2f4b6e; }
+  }
+  .bg{fill:var(--surface)}
+  .title{fill:var(--ink);font:700 20px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .sub{fill:var(--sub);font:400 13px system-ui,sans-serif}
+  .lbl{fill:var(--ink);font:600 14px system-ui,sans-serif}
+  .ax{fill:var(--muted);font:500 13px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .val{fill:var(--ink);font:700 15px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .grid{stroke:var(--grid);stroke-width:1}
+  .base{stroke:var(--axis);stroke-width:1.5}
+  .s-blue{fill:var(--blue)} .s-orange{fill:var(--orange)} .s-aqua{fill:var(--aqua)}
+  .s-red{fill:var(--red)} .s-green{fill:var(--green)} .s-mute{fill:var(--mute)}
+  .refline{stroke:var(--orange);stroke-width:1.5;stroke-dasharray:5 4}
+  .nowline{stroke:var(--ink);stroke-width:1.5;stroke-dasharray:4 3}
+</style>
+<rect class="bg" x="0" y="0" width="760" height="340" rx="14"/>
+<text class="title" x="40" y="34">삼성전자 주가 시나리오별 목표가 범위</text><text class="sub" x="40" y="56">밸류에이션 기반 추정(만원). 현재가는 '기본' 범위 안 — 안전마진 얇음</text><line class="grid" x1="150" y1="86" x2="150" y2="266"/><text class="ax" x="150" y="284" text-anchor="middle">0만</text><line class="grid" x1="270" y1="86" x2="270" y2="266"/><text class="ax" x="270" y="284" text-anchor="middle">10만</text><line class="grid" x1="390" y1="86" x2="390" y2="266"/><text class="ax" x="390" y="284" text-anchor="middle">20만</text><line class="grid" x1="510" y1="86" x2="510" y2="266"/><text class="ax" x="510" y="284" text-anchor="middle">30만</text><line class="grid" x1="630" y1="86" x2="630" y2="266"/><text class="ax" x="630" y="284" text-anchor="middle">40만</text><rect class="s-red" x="294" y="96" width="72" height="40" rx="8"/><text class="lbl" x="138" y="114" text-anchor="end">약세</text><text class="sub" x="138" y="131" text-anchor="end">다운사이클</text><text class="val" x="376" y="121">12~18만</text><rect class="s-blue" x="450" y="158" width="96" height="40" rx="8"/><text class="lbl" x="138" y="176" text-anchor="end">기본</text><text class="sub" x="138" y="193" text-anchor="end">박스권</text><text class="val" x="556" y="183">25~33만</text><rect class="s-green" x="582" y="220" width="48" height="40" rx="8"/><text class="lbl" x="138" y="238" text-anchor="end">강세</text><text class="sub" x="138" y="255" text-anchor="end">리레이팅</text><text class="val" x="640" y="245">36~40만</text><line class="nowline" x1="510" y1="86" x2="510" y2="266"/><text class="sub" x="510" y="80" text-anchor="middle">현재가 ~30만</text>
+</svg>

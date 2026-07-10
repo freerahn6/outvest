@@ -21,6 +21,8 @@ const posts = defineCollection({
       .default([]),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
+    // 카드 썸네일(커버) 이미지 경로. 없으면 기본 커버 사용.
+    cover: z.string().optional(),
   }),
 });
 

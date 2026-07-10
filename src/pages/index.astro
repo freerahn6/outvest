@@ -8,53 +8,107 @@ const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
 );
 const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+const cover = (p: any) => p.data.cover ?? '/images/cover-skhynix.svg';
+const [featured, ...rest] = posts;
 ---
 
 <BaseLayout>
-  <section class="hero">
-    <h1>{SITE.title}</h1>
-    <p class="muted">{SITE.description}</p>
-    <div class="search-box">
-      <StockSearch big />
-      <p class="hint muted">종목명을 입력하면 실시간 시세와 관련 글을 볼 수 있어요.</p>
-    </div>
-  </section>
+  <div class="wide">
+    <section class="masthead">
+      <p class="eyebrow">STOCK RESEARCH LOG</p>
+      <h1>{SITE.title}</h1>
+      <p class="tagline">{SITE.description}</p>
+      <div class="search-box">
+        <StockSearch big />
+        <p class="hint">종목명을 입력하면 실시간 차트와 관련 분석을 볼 수 있어요.</p>
+      </div>
+    </section>
 
-  <section class="posts">
-    <h2>최근 글</h2>
-    {posts.length === 0 && <p class="muted">아직 작성된 글이 없습니다. <code>src/content/posts/</code> 에 첫 글을 써보세요.</p>}
-    <ul class="post-list">
-      {posts.map((p) => (
-        <li>
-          <a href={`/posts/${p.id}/`}>
-            <span class="pt">{p.data.title}</span>
-            <time class="muted" datetime={p.data.pubDate.toISOString()}>{fmt(p.data.pubDate)}</time>
-          </a>
-          {p.data.tickers.length > 0 && (
-            <div class="tickers">
-              {p.data.tickers.map((t) => <a class="ticker" href={`/stock/${t.code}`}>{t.name}</a>)}
-            </div>
-          )}
-        </li>
-      ))}
-    </ul>
-  </section>
+    {posts.length === 0 && <p class="muted" style="margin:40px 0;">아직 작성된 글이 없습니다.</p>}
+
+    {featured && (
+      <a class="feature" href={`/posts/${featured.id}/`}>
+        <div class="feat-cover"><img src={cover(featured)} alt="" loading="eager" /></div>
+        <div class="feat-body">
+          <span class="eyebrow">최신 글</span>
+          <h2>{featured.data.title}</h2>
+          <p>{featured.data.description}</p>
+          <div class="feature-meta">
+            <time datetime={featured.data.pubDate.toISOString()}>{fmt(featured.data.pubDate)}</time>
+            {featured.data.tickers.slice(0, 2).map((t) => <span class="chip">{t.name}</span>)}
+          </div>
+        </div>
+      </a>
+    )}
+
+    {rest.length > 0 && (
+      <section class="more">
+        <h2 class="sec-title">모든 글</h2>
+        <div class="post-grid">
+          {rest.map((p) => (
+            <a class="post-card" href={`/posts/${p.id}/`}>
+              <div class="pc-cover"><img src={cover(p)} alt="" loading="lazy" /></div>
+              <div class="pc-body">
+                <span class="pc-date">{fmt(p.data.pubDate)}</span>
+                <span class="pc-title">{p.data.title}</span>
+                <p class="pc-desc">{p.data.description}</p>
+                <div class="pc-meta">
+                  {p.data.tags.slice(0, 3).map((t) => <span class="chip ghost">#{t}</span>)}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+  </div>
 </BaseLayout>
 
 <style>
-  .hero { padding: 40px 0 10px; }
-  .hero h1 { font-size: 2rem; margin: 0 0 8px; }
-  .search-box { margin: 28px 0 10px; }
-  .hint { margin: 10px 2px 0; font-size: 0.85rem; }
-  .posts { margin-top: 40px; }
-  .post-list { list-style: none; padding: 0; }
-  .post-list > li { padding: 18px 0; border-bottom: 1px solid var(--border); }
-  .post-list a { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
-  .post-list .pt { font-weight: 600; color: var(--fg); font-size: 1.05rem; }
-  .post-list time { white-space: nowrap; font-size: 0.85rem; }
-  .tickers { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
-  .ticker {
-    font-size: 0.8rem; padding: 3px 10px; border-radius: 999px;
-    background: var(--card); color: var(--muted);
+  .masthead {
+    text-align: center; padding: 72px 0 44px;
+    max-width: 720px; margin: 0 auto;
+    border-bottom: 1px solid var(--border);
+  }
+  .masthead .eyebrow { display: block; margin-bottom: 16px; }
+  .masthead h1 { font-size: 3rem; margin: 0; letter-spacing: -0.045em; line-height: 1.15; }
+  .tagline { color: var(--muted); font-size: 1.22rem; margin: 16px 0 0; font-weight: 500; }
+  .search-box { margin: 34px auto 0; max-width: 540px; }
+  .hint { margin: 12px 0 0; font-size: 0.85rem; color: var(--faint); }
+  .more { margin-top: 48px; }
+
+  @media (max-width: 560px) {
+    .masthead { padding: 44px 0 32px; }
+    .masthead h1 { font-size: 2.15rem; }
+    .tagline { font-size: 1.05rem; }
+  }
+
+  .feature {
+    display: grid; grid-template-columns: 1.05fr 1fr; align-items: stretch;
+    margin: 18px 0 48px; background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+  }
+  .feature:hover { border-color: var(--border-strong); box-shadow: var(--shadow); transform: translateY(-4px); text-decoration: none; }
+  .feat-cover { aspect-ratio: 16 / 10; background: var(--page); }
+  .feat-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .feat-body { padding: 34px 34px; display: flex; flex-direction: column; justify-content: center; }
+  .feature h2 { font-size: 1.7rem; margin: 10px 0 12px; letter-spacing: -0.03em; }
+  .feature p { color: var(--muted); margin: 0 0 18px; font-size: 1rem; line-height: 1.6; }
+  .feature-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .feature-meta time { font-size: 0.85rem; color: var(--faint); font-variant-numeric: tabular-nums; }
+
+  .sec-title { font-size: 1.06rem; color: var(--fg); font-weight: 800; margin: 0 0 20px; letter-spacing: -0.02em; }
+  .more { margin-bottom: 64px; }
+
+  @media (max-width: 768px) {
+    .feature { grid-template-columns: 1fr; }
+    .feat-cover { aspect-ratio: 16 / 9; }
+    .feat-body { padding: 24px 22px 26px; }
+    .feature h2 { font-size: 1.42rem; }
+  }
+  @media (max-width: 560px) {
+    .hero { padding: 38px 0 18px; }
+    .hero h1 { font-size: 2.05rem; }
   }
 </style>
