@@ -128,6 +128,11 @@ const covers = {
     titleLines: ['전고체배터리', '대장주는 어디?'],
     ticker: '전고체',
   }),
+  'cover-naver.svg': cover({
+    eyebrow: '종목 분석',
+    titleLines: ['네이버 주가에도', '봄은 오는가'],
+    ticker: '035420',
+  }),
 };
 
 await mkdir(OUT, { recursive: true });
