@@ -93,8 +93,43 @@ const covers = {
     titleLines: ['코리아', '디스카운트'],
     ticker: '밸류업',
   }),
+  'cover-orderbook.svg': cover({
+    eyebrow: '기초 강의',
+    titleLines: ['호가창과 주문', '체결의 원리'],
+    ticker: '호가창',
+  }),
+  'cover-rate.svg': cover({
+    eyebrow: '기초 강의',
+    titleLines: ['금리가 오르면', '주가는 왜 빠지나'],
+    ticker: '금리',
+  }),
+  'cover-dilution.svg': cover({
+    eyebrow: '기초 강의',
+    titleLines: ['유상증자 · 물적분할', '희석이란'],
+    ticker: '희석',
+  }),
+  'cover-leverage.svg': cover({
+    eyebrow: '기초 강의',
+    titleLines: ['레버리지 · 인버스', 'ETF의 함정'],
+    ticker: '음의 복리',
+  }),
+  'cover-tax.svg': cover({
+    eyebrow: '기초 강의',
+    titleLines: ['주식 세금', '총정리'],
+    ticker: '세금',
+  }),
+  'cover-hyundai.svg': cover({
+    eyebrow: '종목 분석',
+    titleLines: ['현대차 주가', '저점을 지났나'],
+    ticker: '005380',
+  }),
+  'cover-ssb.svg': cover({
+    eyebrow: '종목 분석',
+    titleLines: ['전고체배터리', '대장주는 어디?'],
+    ticker: '전고체',
+  }),
 };
 
 await mkdir(OUT, { recursive: true });
 for (const [name, svg] of Object.entries(covers)) await writeFile(OUT + name, svg);
-console.log('✅ 커버 3종 생성:', Object.keys(covers).join(', '));
+console.log(`✅ 커버 ${Object.keys(covers).length}종 생성:`, Object.keys(covers).join(', '));
