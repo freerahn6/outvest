@@ -3,7 +3,7 @@
 // ────────────────────────────────────────────────────────────────
 export const SITE = {
   title: '아웃베스트의 투자로그',          // 블로그 이름
-  description: '국내 주식 20년차, 아직도 주식은 어렵습니다.',
+  description: '주식 투자 20년차, 아직도 주식은 어렵습니다.',
   author: '아웃베스트',                   // 작성자 이름
   // astro.config.mjs 의 site 와 동일하게 맞추세요 (배포 도메인).
   url: 'https://outvest.pages.dev',
