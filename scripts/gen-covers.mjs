@@ -133,6 +133,11 @@ const covers = {
     titleLines: ['네이버 주가에도', '봄은 오는가'],
     ticker: '035420',
   }),
+  'cover-mideast.svg': cover({
+    eyebrow: '시황 · 거시',
+    titleLines: ['중동 긴장 고조,', '한국 증시 영향은?'],
+    ticker: '지정학',
+  }),
 };
 
 await mkdir(OUT, { recursive: true });
