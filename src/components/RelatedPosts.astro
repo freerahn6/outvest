@@ -3,53 +3,30 @@ import { getCollection } from 'astro:content';
 
 interface Props {
   currentId: string;
-  tags?: string[];
-  tickers?: { code: string; name: string }[];
   limit?: number;
 }
-const { currentId, tags = [], tickers = [], limit = 4 } = Astro.props;
+const { currentId, limit = 10 } = Astro.props;
 
-const tickerCodes = new Set(tickers.map((t) => t.code));
-const tagSet = new Set(tags);
-
-const others = (await getCollection('posts', ({ data }) => !data.draft)).filter(
-  (p) => p.id !== currentId
-);
-
-// 관련도 점수: 같은 종목(+3) · 같은 태그(+1), 동점은 최신순
-const scored = others
-  .map((p) => {
-    let score = 0;
-    for (const t of p.data.tickers) if (tickerCodes.has(t.code)) score += 3;
-    for (const tg of p.data.tags) if (tagSet.has(tg)) score += 1;
-    return { p, score };
-  })
-  .sort((a, b) => b.score - a.score || b.p.data.pubDate.getTime() - a.p.data.pubDate.getTime())
-  .slice(0, limit)
-  .map((x) => x.p);
+// 현재 글을 뺀 최신순 목록.
+const recent = (await getCollection('posts', ({ data }) => !data.draft))
+  .filter((p) => p.id !== currentId)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, limit);
 
 const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
 ---
 
-{scored.length > 0 && (
+{recent.length > 0 && (
   <section class="related">
     <div class="rel-head">
       <h2>이어서 읽어보세요</h2>
-      <a href="/" class="rel-all">전체 글 →</a>
+      <a href="/posts/" class="rel-all">전체 글 →</a>
     </div>
-    <div class="post-grid">
-      {scored.map((p) => (
-        <a class="post-card" href={`/posts/${p.id}/`}>
-          <div class="pc-cover"><img src={p.data.cover ?? '/images/cover-skhynix.svg'} alt="" loading="lazy" /></div>
-          <div class="pc-body">
-            <span class="pc-date">{fmt(p.data.pubDate)}</span>
-            <span class="pc-title">{p.data.title}</span>
-            <p class="pc-desc">{p.data.description}</p>
-            <div class="pc-meta">
-              {p.data.tickers.slice(0, 2).map((t) => <span class="chip">{t.name}</span>)}
-              {p.data.tags.slice(0, 1).map((t) => <span class="chip ghost">#{t}</span>)}
-            </div>
-          </div>
+    <div class="post-list">
+      {recent.map((p) => (
+        <a class="pl-item" href={`/posts/${p.id}/`}>
+          <span class="pl-title">{p.data.title}</span>
+          <time class="pl-date" datetime={p.data.pubDate.toISOString()}>{fmt(p.data.pubDate)}</time>
         </a>
       ))}
     </div>
@@ -58,7 +35,7 @@ const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month:
 
 <style>
   .related { margin: 20px 0 10px; }
-  .rel-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 18px; }
+  .rel-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
   .rel-head h2 { font-size: 1.3rem; margin: 0; letter-spacing: -0.02em; }
   .rel-all { font-size: 0.88rem; font-weight: 600; color: var(--muted); }
   .rel-all:hover { color: var(--accent); }

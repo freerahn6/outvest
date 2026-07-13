@@ -74,11 +74,7 @@ const quotesEnabled = SITE.quoteApi.startsWith('http');
 
   <hr />
 
-  <RelatedPosts
-    currentId={post.id}
-    tags={post.data.tags}
-    tickers={post.data.tickers}
-  />
+  <RelatedPosts currentId={post.id} />
   </div>
   </div>
 </BaseLayout>

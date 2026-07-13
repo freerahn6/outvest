@@ -19,5 +19,5 @@ export const SITE = {
 
 export const NAV = [
   { label: '홈', href: '/' },
-  { label: '소개', href: '/about' },
+  { label: '전체글보기', href: '/posts/' },
 ];

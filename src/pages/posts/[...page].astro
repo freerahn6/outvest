@@ -1,0 +1,72 @@
+---
+// 전체 글 목록 (리스트형 + 페이징).
+// paginate() 가 /posts/ (1쪽) · /posts/2/ · /posts/3/ … 를 만든다.
+// 개별 글은 [slug].astro 가 담당하며, 이름 있는 파라미터가 rest 파라미터보다 우선순위가 높아 충돌하지 않는다.
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths({ paginate }) {
+  const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+  );
+  return paginate(posts, { pageSize: 15 });
+}
+
+const { page } = Astro.props;
+
+const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+const pageNums = Array.from({ length: page.lastPage }, (_, i) => i + 1);
+---
+
+<BaseLayout
+  title={page.currentPage > 1 ? `전체 글 (${page.currentPage}쪽)` : '전체 글'}
+  description="종목분석·기초강의·시황까지, 지금까지 쓴 모든 글을 최신순으로 모았습니다."
+  canonicalPath={page.currentPage > 1 ? `/posts/${page.currentPage}/` : '/posts/'}
+>
+  <div class="archive">
+    <header class="ar-head">
+      <h1>전체 글</h1>
+      <p class="ar-count">
+        총 <strong>{page.total}</strong>편
+        {page.lastPage > 1 && <span class="ar-page">· {page.currentPage} / {page.lastPage} 쪽</span>}
+      </p>
+    </header>
+
+    <div class="post-list">
+      {page.data.map((p) => (
+        <a class="pl-item" href={`/posts/${p.id}/`}>
+          <span class="pl-title">{p.data.title}</span>
+          <time class="pl-date" datetime={p.data.pubDate.toISOString()}>{fmt(p.data.pubDate)}</time>
+        </a>
+      ))}
+    </div>
+
+    {page.lastPage > 1 && (
+      <nav class="pagination" aria-label="페이지">
+        {page.url.prev && <a class="pg-link" href={page.url.prev} rel="prev">← 이전</a>}
+        {pageNums.map((n) =>
+          n === page.currentPage ? (
+            <span class="pg-cur" aria-current="page">{n}</span>
+          ) : (
+            <a class="pg-link" href={n === 1 ? '/posts/' : `/posts/${n}/`}>{n}</a>
+          )
+        )}
+        {page.url.next && <a class="pg-link" href={page.url.next} rel="next">다음 →</a>}
+      </nav>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .archive { max-width: 760px; margin: 0 auto; padding: 0 20px 40px; }
+  .ar-head { margin: 44px 0 20px; }
+  .ar-head h1 { font-size: 2.2rem; margin: 0; letter-spacing: -0.03em; }
+  .ar-count { margin: 10px 0 0; color: var(--muted); font-size: 0.92rem; }
+  .ar-count strong { color: var(--fg); font-variant-numeric: tabular-nums; }
+  .ar-page { color: var(--faint); }
+
+  @media (max-width: 560px) {
+    .ar-head { margin: 30px 0 16px; }
+    .ar-head h1 { font-size: 1.8rem; }
+  }
+</style>
