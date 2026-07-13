@@ -138,6 +138,11 @@ const covers = {
     titleLines: ['중동 긴장 고조,', '한국 증시 영향은?'],
     ticker: '지정학',
   }),
+  'cover-semco.svg': cover({
+    eyebrow: '종목 분석',
+    titleLines: ['삼성전기는 왜', '오르고 떨어졌나'],
+    ticker: '009150',
+  }),
 };
 
 await mkdir(OUT, { recursive: true });
