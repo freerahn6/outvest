@@ -143,6 +143,11 @@ const covers = {
     titleLines: ['삼성전기는 왜', '오르고 떨어졌나'],
     ticker: '009150',
   }),
+  'cover-blackmonday.svg': cover({
+    eyebrow: '시황 · 긴급',
+    titleLines: ['검은 월요일,', '하락장인가 기회인가'],
+    ticker: '반도체',
+  }),
 };
 
 await mkdir(OUT, { recursive: true });
