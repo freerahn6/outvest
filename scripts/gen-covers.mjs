@@ -148,6 +148,11 @@ const covers = {
     titleLines: ['검은 월요일,', '하락장인가 기회인가'],
     ticker: '반도체',
   }),
+  'cover-rebound.svg': cover({
+    eyebrow: '시황 · 속편',
+    titleLines: ['하루 만의 반등,', '무엇이 증명됐나'],
+    ticker: 'V자 반등',
+  }),
 };
 
 await mkdir(OUT, { recursive: true });
