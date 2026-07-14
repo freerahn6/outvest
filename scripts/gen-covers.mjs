@@ -153,6 +153,11 @@ const covers = {
     titleLines: ['하루 만의 반등,', '무엇이 증명됐나'],
     ticker: 'V자 반등',
   }),
+  'cover-adr-outlook.svg': cover({
+    eyebrow: '시황 · ADR',
+    titleLines: ['하이닉스 ADR 급등,', '오늘 한국장은?'],
+    ticker: 'HBM4',
+  }),
 };
 
 await mkdir(OUT, { recursive: true });
