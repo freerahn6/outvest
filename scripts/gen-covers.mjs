@@ -158,6 +158,11 @@ const covers = {
     titleLines: ['하이닉스 ADR 급등,', '오늘 한국장은?'],
     ticker: 'HBM4',
   }),
+  'cover-hlb.svg': cover({
+    eyebrow: '시황 · 바이오',
+    titleLines: ['HLB 무더기 상한가,', '폭락 뒤 반등의 정체'],
+    ticker: 'HLB',
+  }),
 };
 
 await mkdir(OUT, { recursive: true });
