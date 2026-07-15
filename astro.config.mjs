@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 //   - 커스텀 도메인 있으면: 'https://내도메인.com'
 //   - 없으면 임시로: 'https://stock-blog.pages.dev'
 export default defineConfig({
-  site: 'https://outvest.pages.dev',
+  site: 'https://outvest.kr',
   integrations: [sitemap()],
   markdown: {
     shikiConfig: { theme: 'github-dark' },
