@@ -224,6 +224,10 @@ const fmt = (d: Date) =>
 </script>
 
 <style>
+  /* HTML `hidden` 속성이 아래 .ov/.lock 의 display 규칙을 반드시 이기도록.
+     (이게 없으면 overlay.hidden=true 를 display:flex 가 덮어써 팝업이 안 닫힘) */
+  [hidden] { display: none !important; }
+
   /* ── 잠금 화면 ── */
   .lock {
     min-height: 60vh;
