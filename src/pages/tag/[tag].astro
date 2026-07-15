@@ -1,0 +1,64 @@
+---
+// 태그(토픽) 허브 — 한 태그가 달린 글을 모은다.
+// getStaticPaths 로 모든 글의 tags 고유값마다 페이지를 생성.
+// thin-content 방지: 해당 태그 글이 2편 미만이면 noindex.
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+  );
+  const tags = [...new Set(posts.flatMap((p) => p.data.tags))];
+  return tags.map((tag) => ({
+    params: { tag },
+    props: { tag, posts: posts.filter((p) => p.data.tags.includes(tag)) },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout
+  title={`#${tag}`}
+  description={`'${tag}' 태그가 달린 글 ${posts.length}편을 모았습니다.`}
+  canonicalPath={`/tag/${encodeURIComponent(tag)}/`}
+  noindex={posts.length < 2}
+  breadcrumb={[{ name: '홈', url: '/' }, { name: '전체글', url: '/posts/' }, { name: `#${tag}` }]}
+>
+  <div class="archive">
+    <header class="ar-head">
+      <p class="eyebrow">TAG</p>
+      <h1>#{tag}</h1>
+      <p class="ar-count">'{tag}' 태그가 달린 글 <strong>{posts.length}</strong>편</p>
+    </header>
+
+    <div class="post-list">
+      {posts.map((p) => (
+        <a class="pl-item" href={`/posts/${p.id}/`}>
+          <span class="pl-title">{p.data.title}</span>
+          <time class="pl-date" datetime={p.data.pubDate.toISOString()}>{fmt(p.data.pubDate)}</time>
+        </a>
+      ))}
+    </div>
+
+    <p class="ar-back"><a href="/posts/">← 전체 글 보기</a></p>
+  </div>
+</BaseLayout>
+
+<style>
+  .archive { max-width: 760px; margin: 0 auto; padding: 0 20px 40px; }
+  .ar-head { margin: 24px 0 20px; }
+  .ar-head .eyebrow { display: block; margin-bottom: 8px; }
+  .ar-head h1 { font-size: 2.2rem; margin: 0; letter-spacing: -0.03em; }
+  .ar-count { margin: 10px 0 0; color: var(--muted); font-size: 0.92rem; }
+  .ar-count strong { color: var(--fg); font-variant-numeric: tabular-nums; }
+  .ar-back { margin-top: 28px; font-size: 0.9rem; }
+  .ar-back a { color: var(--muted); font-weight: 600; }
+
+  @media (max-width: 560px) {
+    .ar-head { margin: 16px 0 16px; }
+    .ar-head h1 { font-size: 1.8rem; }
+  }
+</style>

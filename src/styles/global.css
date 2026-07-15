@@ -84,6 +84,10 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2.4em 0; }
   border: 1px solid transparent;
 }
 .chip.ghost { background: transparent; color: var(--muted); border-color: var(--border-strong); }
+/* 링크형 칩(태그 등): 밑줄 없이 hover 만 살짝 */
+a.chip { transition: color 0.15s ease, border-color 0.15s ease; }
+a.chip:hover { text-decoration: none; }
+a.chip.ghost:hover { color: var(--accent); border-color: var(--accent); }
 
 /* ---------- post cards (thumbnail 스타일) ---------- */
 .post-grid {

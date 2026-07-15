@@ -13,6 +13,8 @@ interface Props {
   canonicalPath?: string; // 예: /posts/foo
   /** 색인 제외(빈 종목 페이지 등). 미published면 강제로 noindex. follow 는 유지. */
   noindex?: boolean;
+  /** 탐색경로. 넘기면 head에 BreadcrumbList JSON-LD + 본문 상단 시각 breadcrumb 출력. 마지막 항목은 현재 페이지(url 생략). */
+  breadcrumb?: { name: string; url?: string }[];
 }
 
 const {
@@ -23,6 +25,7 @@ const {
   updatedDate,
   canonicalPath = new URL(Astro.request.url).pathname,
   noindex = false,
+  breadcrumb,
 } = Astro.props;
 
 const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title;
@@ -55,6 +58,21 @@ const jsonLd =
         description: SITE.description,
         url: SITE.url,
       };
+
+// 탐색경로 구조화 데이터 (검색결과 breadcrumb)
+const breadcrumbLd =
+  breadcrumb && breadcrumb.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumb.map((b, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: b.name,
+          ...(b.url ? { item: new URL(b.url, SITE.url).toString() } : {}),
+        })),
+      }
+    : null;
 ---
 
 <!doctype html>
@@ -96,10 +114,24 @@ const jsonLd =
     <link rel="alternate" type="application/rss+xml" title={SITE.title} href="/rss.xml" />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {breadcrumbLd && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />}
   </head>
   <body>
     <Header />
     <main>
+      {breadcrumb && breadcrumb.length > 0 && (
+        <nav class="breadcrumb" aria-label="탐색경로">
+          <ol>
+            {breadcrumb.map((b, i) =>
+              b.url && i < breadcrumb.length - 1 ? (
+                <li><a href={b.url}>{b.name}</a><span class="bc-sep" aria-hidden="true">›</span></li>
+              ) : (
+                <li><span aria-current="page">{b.name}</span></li>
+              )
+            )}
+          </ol>
+        </nav>
+      )}
       <slot />
     </main>
     <footer class="site-footer">
@@ -115,6 +147,18 @@ const jsonLd =
     </footer>
     <style>
       main { min-height: 60vh; }
+      .breadcrumb {
+        max-width: var(--maxw); margin: 20px auto 0; padding: 0 20px;
+        font-size: 0.8rem; color: var(--faint);
+      }
+      .breadcrumb ol {
+        list-style: none; margin: 0; padding: 0;
+        display: flex; flex-wrap: wrap; align-items: center; gap: 2px;
+      }
+      .breadcrumb a { color: var(--muted); font-weight: 600; }
+      .breadcrumb a:hover { color: var(--accent); }
+      .breadcrumb .bc-sep { margin: 0 7px; color: var(--faint); }
+      .breadcrumb [aria-current="page"] { color: var(--faint); }
       .site-footer {
         border-top: 1px solid var(--border);
         margin-top: 70px; padding: 34px 0 46px;

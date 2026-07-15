@@ -28,7 +28,7 @@ const [featured, ...rest] = posts;
 
     {featured && (
       <a class="feature" href={`/posts/${featured.id}/`}>
-        <div class="feat-cover"><img src={cover(featured)} alt="" loading="eager" /></div>
+        <div class="feat-cover"><img src={cover(featured)} alt={featured.data.title} loading="eager" /></div>
         <div class="feat-body">
           <span class="eyebrow">최신 글</span>
           <h2>{featured.data.title}</h2>
@@ -46,17 +46,17 @@ const [featured, ...rest] = posts;
         <h2 class="sec-title">모든 글</h2>
         <div class="post-grid">
           {rest.map((p) => (
-            <a class="post-card" href={`/posts/${p.id}/`}>
-              <div class="pc-cover"><img src={cover(p)} alt="" loading="lazy" /></div>
+            <div class="post-card">
+              <div class="pc-cover"><img src={cover(p)} alt={p.data.title} loading="lazy" /></div>
               <div class="pc-body">
                 <span class="pc-date">{fmt(p.data.pubDate)}</span>
-                <span class="pc-title">{p.data.title}</span>
+                <a class="pc-title pc-stretch" href={`/posts/${p.id}/`}>{p.data.title}</a>
                 <p class="pc-desc">{p.data.description}</p>
                 <div class="pc-meta">
-                  {p.data.tags.slice(0, 3).map((t) => <span class="chip ghost">#{t}</span>)}
+                  {p.data.tags.slice(0, 3).map((t) => <a class="chip ghost" href={`/tag/${encodeURIComponent(t)}/`}>#{t}</a>)}
                 </div>
               </div>
-            </a>
+            </div>
           ))}
         </div>
       </section>
@@ -100,6 +100,14 @@ const [featured, ...rest] = posts;
 
   .sec-title { font-size: 1.06rem; color: var(--fg); font-weight: 800; margin: 0 0 20px; letter-spacing: -0.02em; }
   .more { margin-bottom: 64px; }
+
+  /* 카드 전체를 링크로 유지하되(stretched link) 태그칩은 별도 링크가 되도록 — 중첩 앵커 회피 */
+  .post-grid .post-card { position: relative; }
+  .pc-title { color: var(--fg); }
+  .pc-title:hover { text-decoration: none; }
+  .post-card:hover .pc-title { color: var(--accent); }
+  .pc-stretch::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+  .pc-meta { position: relative; z-index: 2; }
 
   @media (max-width: 768px) {
     .feature { grid-template-columns: 1fr; }

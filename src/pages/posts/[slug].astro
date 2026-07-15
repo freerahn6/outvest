@@ -25,6 +25,7 @@ const quotesEnabled = SITE.quoteApi.startsWith('http');
   pubDate={post.data.pubDate}
   updatedDate={post.data.updatedDate}
   canonicalPath={`/posts/${post.id}/`}
+  breadcrumb={[{ name: '홈', url: '/' }, { name: '전체글', url: '/posts/' }, { name: post.data.title }]}
 >
   <div class="post-layout">
   <aside class="toc-col">
@@ -67,7 +68,7 @@ const quotesEnabled = SITE.quoteApi.startsWith('http');
 
     {post.data.tags.length > 0 && (
       <div class="tags">
-        {post.data.tags.map((tag) => <span class="chip ghost">#{tag}</span>)}
+        {post.data.tags.map((tag) => <a class="chip ghost" href={`/tag/${encodeURIComponent(tag)}/`}>#{tag}</a>)}
       </div>
     )}
   </article>

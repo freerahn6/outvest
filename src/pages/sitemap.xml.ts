@@ -39,6 +39,13 @@ export async function GET(context: APIContext) {
     if (coveredCodes.has(s.code)) urls.push({ loc: `${base}/stock/${s.code}/` });
   }
 
+  // 태그(토픽) 허브 — 2편 이상 달린 태그만 색인(1편짜리는 thin-content 라 noindex → 제외).
+  const tagCount = new Map<string, number>();
+  for (const p of posts) for (const t of p.data.tags) tagCount.set(t, (tagCount.get(t) ?? 0) + 1);
+  for (const [tag, n] of tagCount) {
+    if (n >= 2) urls.push({ loc: `${base}/tag/${encodeURIComponent(tag)}/` });
+  }
+
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls

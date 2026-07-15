@@ -28,6 +28,7 @@ const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month:
   description={`${stock.name}(${stock.code}) 실시간 시세와 관련 분석 글 모음.`}
   canonicalPath={`/stock/${code}/`}
   noindex={related.length === 0}
+  breadcrumb={[{ name: '홈', url: '/' }, { name: '전체글', url: '/posts/' }, { name: `${stock.name}(${stock.code})` }]}
 >
   <div class="wrap stock-page">
     <div class="top"><StockSearch /></div>
@@ -48,7 +49,7 @@ const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month:
         <div class="post-grid">
           {related.map((p) => (
             <a class="post-card" href={`/posts/${p.id}/`}>
-              <div class="pc-cover"><img src={p.data.cover ?? '/images/cover-skhynix.svg'} alt="" loading="lazy" /></div>
+              <div class="pc-cover"><img src={p.data.cover ?? '/images/cover-skhynix.svg'} alt={p.data.title} loading="lazy" /></div>
               <div class="pc-body">
                 <span class="pc-date">{fmt(p.data.pubDate)}</span>
                 <span class="pc-title">{p.data.title}</span>

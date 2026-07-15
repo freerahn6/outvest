@@ -5,13 +5,25 @@ interface Props {
   currentId: string;
   limit?: number;
 }
-const { currentId, limit = 10 } = Astro.props;
+const { currentId, limit = 5 } = Astro.props;
 
-// 현재 글을 뺀 최신순 목록.
-const recent = (await getCollection('posts', ({ data }) => !data.draft))
+// 주제 기반 관련글: 같은 종목코드 또는 공통 태그가 많은 글 우선(교집합 점수 내림차순),
+// 동점·무관은 최신순. 부족하면 최신 글로 자연히 보충된다(점수 0도 날짜순으로 채워짐).
+const all = (await getCollection('posts', ({ data }) => !data.draft));
+const current = all.find((p) => p.id === currentId);
+const myCodes = new Set((current?.data.tickers ?? []).map((t) => t.code));
+const myTags = new Set(current?.data.tags ?? []);
+
+const recent = all
   .filter((p) => p.id !== currentId)
-  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-  .slice(0, limit);
+  .map((p) => {
+    const codeHits = p.data.tickers.filter((t) => myCodes.has(t.code)).length;
+    const tagHits = p.data.tags.filter((t) => myTags.has(t)).length;
+    return { p, score: codeHits + tagHits };
+  })
+  .sort((a, b) => b.score - a.score || b.p.data.pubDate.getTime() - a.p.data.pubDate.getTime())
+  .slice(0, limit)
+  .map((s) => s.p);
 
 const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
 ---
