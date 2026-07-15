@@ -1,0 +1,463 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// ─────────────────────────────────────────────────────────────
+// 관리자 콘텐츠 통계 (숨김 페이지)
+// 표시하는 수치는 전부 실제 글 데이터(frontmatter)에서 빌드시 계산한다.
+// 방문자/조회수 같은 트래픽 지표는 만들지 않는다(수집 도구 미설치).
+// ─────────────────────────────────────────────────────────────
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+
+// 계열 분류: 시황 > 기초강의 > (그 외) 종목분석
+type Series = '시황' | '기초강의' | '종목분석';
+const seriesOf = (tags: string[]): Series =>
+  tags.includes('시황') ? '시황' : tags.includes('기초강의') ? '기초강의' : '종목분석';
+
+const seriesCount: Record<Series, number> = { 시황: 0, 기초강의: 0, 종목분석: 0 };
+const tickerSet = new Set<string>();
+const monthMap = new Map<string, number>(); // YYYY-MM -> count
+const tagMap = new Map<string, number>();
+
+for (const p of posts) {
+  seriesCount[seriesOf(p.data.tags)]++;
+  for (const t of p.data.tickers ?? []) tickerSet.add(t.code);
+  const d = p.data.pubDate;
+  const ym = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+  monthMap.set(ym, (monthMap.get(ym) ?? 0) + 1);
+  for (const tag of p.data.tags ?? []) tagMap.set(tag, (tagMap.get(tag) ?? 0) + 1);
+}
+
+const tiles = [
+  { label: '총 글 수', value: posts.length },
+  { label: '기초강의', value: seriesCount['기초강의'] },
+  { label: '종목분석', value: seriesCount['종목분석'] },
+  { label: '시황', value: seriesCount['시황'] },
+  { label: '다룬 종목', value: tickerSet.size },
+];
+
+const recent = posts.slice(0, 8).map((p) => ({
+  id: p.id,
+  title: p.data.title,
+  date: p.data.pubDate,
+  series: seriesOf(p.data.tags),
+}));
+
+// 월별 추이(오래된 → 최신 순, 막대 정규화용 최대치)
+const months = [...monthMap.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+const monthMax = Math.max(1, ...months.map(([, n]) => n));
+
+// 태그 Top 10
+const topTags = [...tagMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, 10);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title="관리자" noindex={true}>
+  <!-- 잠금 화면: 아는 사람만 '습' 한 글자를 누른다 -->
+  <div class="lock" id="lockScreen">
+    <p class="lock-msg">페이지를 볼 수 있는 권한이 없<span id="trigger" class="trg">습</span>니다.</p>
+  </div>
+
+  <!-- 비밀번호 레이어 -->
+  <div class="ov" id="overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-label="관리자 인증">
+      <button class="modal-x" id="closeBtn" aria-label="닫기" type="button">&times;</button>
+      <h2 class="modal-title">관리자 인증</h2>
+      <input
+        id="pw"
+        class="pw-input"
+        type="password"
+        inputmode="text"
+        autocomplete="off"
+        placeholder="비밀번호"
+        aria-label="비밀번호"
+      />
+      <p class="pw-error" id="pwError" hidden>비밀번호가 올바르지 않습니다</p>
+      <button class="pw-submit" id="submitBtn" type="button">확인</button>
+    </div>
+  </div>
+
+  <!-- 대시보드 -->
+  <div class="wide dash" id="dashboard" hidden>
+    <header class="dash-head">
+      <p class="eyebrow">ADMIN · 콘텐츠 통계</p>
+      <h1>콘텐츠 대시보드</h1>
+      <p class="muted dash-sub">발행된 글의 frontmatter에서 빌드 시점에 계산한 실제 수치입니다.</p>
+    </header>
+
+    <!-- 요약 타일 -->
+    <section class="tiles">
+      {tiles.map((t) => (
+        <div class="tile">
+          <span class="tile-val">{t.value}</span>
+          <span class="tile-label">{t.label}</span>
+        </div>
+      ))}
+    </section>
+
+    <div class="cols">
+      <!-- 최근 글 -->
+      <section class="panel">
+        <h2 class="panel-title">최근 글</h2>
+        <div class="rlist">
+          {recent.map((p) => (
+            <a class="ritem" href={`/posts/${p.id}/`}>
+              <span class="ri-title">{p.title}</span>
+              <span class="ri-meta">
+                <span class={`badge b-${p.series}`}>{p.series}</span>
+                <span class="ri-date">{fmt(p.date)}</span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <!-- 태그 Top 10 -->
+      <section class="panel">
+        <h2 class="panel-title">태그 분포 Top 10</h2>
+        <div class="taglist">
+          {topTags.map(([tag, n]) => (
+            <div class="tagrow">
+              <span class="tag-name">{tag}</span>
+              <span class="tag-count">{n}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+
+    <!-- 월별 발행 추이 -->
+    <section class="panel">
+      <h2 class="panel-title">월별 발행 추이</h2>
+      <div class="months">
+        {months.map(([ym, n]) => (
+          <div class="mrow">
+            <span class="m-label">{ym}</span>
+            <span class="m-bar-wrap">
+              <span class="m-bar" style={`width:${(n / monthMax) * 100}%`}></span>
+            </span>
+            <span class="m-count">{n}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- 실시간 방문 통계(안내) -->
+    <section class="panel traffic">
+      <h2 class="panel-title">실시간 방문 통계</h2>
+      <p class="muted traffic-note">
+        방문자·조회수 등 트래픽 지표는 외부 애널리틱스에서 확인합니다.
+        (현재 사이트엔 방문수집 도구 미설치 — 콘텐츠 통계만 표시)
+      </p>
+      <div class="traffic-links">
+        <a class="ext-btn" href="https://search.google.com/search-console" target="_blank" rel="noopener">
+          구글 서치콘솔 ↗
+        </a>
+        <a class="ext-btn" href="https://searchadvisor.naver.com" target="_blank" rel="noopener">
+          네이버 서치어드바이저 ↗
+        </a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  // ⚠️ 진짜 인증이 아니라 '숨김 장치'다. 비밀번호는 클라이언트에서 단순 비교하며,
+  //    누구든 소스를 보면 알 수 있다. 민감정보를 이 페이지에 두면 안 된다.
+  //    새로고침하면 다시 잠긴 상태로 시작한다(세션 저장 안 함).
+  const PASSWORD = 'gamma';
+
+  const lock = document.getElementById('lockScreen')!;
+  const trigger = document.getElementById('trigger')!;
+  const overlay = document.getElementById('overlay')!;
+  const modal = overlay.querySelector('.modal') as HTMLElement;
+  const pw = document.getElementById('pw') as HTMLInputElement;
+  const pwError = document.getElementById('pwError')!;
+  const submitBtn = document.getElementById('submitBtn')!;
+  const closeBtn = document.getElementById('closeBtn')!;
+  const dashboard = document.getElementById('dashboard')!;
+
+  function openModal() {
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    pwError.hidden = true;
+    pw.value = '';
+    setTimeout(() => pw.focus(), 30);
+  }
+  function closeModal() {
+    overlay.hidden = true;
+    document.body.style.overflow = '';
+  }
+  function reject() {
+    pwError.hidden = false;
+    modal.classList.remove('shake');
+    void modal.offsetWidth; // 리플로우로 애니메이션 재시작
+    modal.classList.add('shake');
+    pw.select();
+  }
+  function tryUnlock() {
+    if (pw.value === PASSWORD) {
+      closeModal();
+      lock.hidden = true;
+      dashboard.hidden = false;
+    } else {
+      reject();
+    }
+  }
+
+  trigger.addEventListener('click', openModal);
+  submitBtn.addEventListener('click', tryUnlock);
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModal(); // 백드롭 클릭
+  });
+  pw.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') tryUnlock();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !overlay.hidden) closeModal(); // ESC
+  });
+</script>
+
+<style>
+  /* ── 잠금 화면 ── */
+  .lock {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+  }
+  .lock-msg { font-size: 1.05rem; color: var(--muted); margin: 0; }
+  /* '습' 한 글자 — 겉보기엔 완전히 평범한 텍스트(강조/커서 없음) */
+  .trg { cursor: default; }
+
+  /* ── 비밀번호 레이어 ── */
+  .ov {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 20px;
+  }
+  .modal {
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 28px 24px 24px;
+    text-align: center;
+  }
+  .modal-x {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    border: none;
+    background: none;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--faint);
+    cursor: pointer;
+    padding: 4px 8px;
+  }
+  .modal-x:hover { color: var(--fg); }
+  .modal-title { font-size: 1.05rem; margin: 0 0 16px; }
+  .pw-input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 1rem;
+    font-family: var(--font);
+    color: var(--fg);
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    outline: none;
+  }
+  .pw-input:focus { border-color: var(--accent); }
+  .pw-error {
+    color: var(--up);
+    font-size: 0.82rem;
+    margin: 8px 0 0;
+    text-align: left;
+  }
+  .pw-submit {
+    width: 100%;
+    margin-top: 14px;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    font-family: var(--font);
+    color: #fff;
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .pw-submit:hover { background: var(--accent-ink); border-color: var(--accent-ink); }
+
+  .modal.shake { animation: shake 0.4s ease; }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+  }
+
+  /* ── 대시보드 ── */
+  .dash { padding-top: 36px; padding-bottom: 20px; }
+  .dash-head { margin-bottom: 22px; }
+  .dash-head h1 { font-size: 1.7rem; margin: 6px 0 4px; letter-spacing: -0.03em; }
+  .dash-sub { font-size: 0.9rem; margin: 0; }
+
+  /* 요약 타일 */
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 26px;
+  }
+  .tile {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 18px 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .tile-val {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--accent-ink);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .tile-label { font-size: 0.82rem; color: var(--muted); }
+
+  /* 2단 컬럼 */
+  .cols {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    margin-bottom: 18px;
+  }
+  .cols .panel { margin-bottom: 0; }
+  .panel-title { font-size: 1.02rem; margin: 0 0 14px; }
+
+  /* 최근 글 리스트 */
+  .rlist { display: flex; flex-direction: column; }
+  .ritem {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 11px 0;
+    border-top: 1px solid var(--border);
+    color: var(--fg);
+  }
+  .ritem:first-child { border-top: none; }
+  .ritem:hover { text-decoration: none; }
+  .ritem:hover .ri-title { color: var(--accent); }
+  .ri-title {
+    font-size: 0.94rem;
+    font-weight: 600;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .ri-meta { flex: none; display: inline-flex; align-items: center; gap: 8px; }
+  .ri-date {
+    font-size: 0.78rem;
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+    white-space: nowrap;
+    border: 1px solid var(--border-strong);
+    color: var(--muted);
+    background: transparent;
+  }
+  .badge.b-종목분석 { color: var(--accent-ink); border-color: var(--accent); background: var(--accent-wash); }
+
+  /* 태그 리스트 */
+  .taglist { display: flex; flex-direction: column; }
+  .tagrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 0;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+  .tagrow:first-child { border-top: none; }
+  .tag-name { color: var(--fg); }
+  .tag-count { color: var(--muted); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  /* 월별 추이 */
+  .months { display: flex; flex-direction: column; gap: 8px; }
+  .mrow { display: flex; align-items: center; gap: 12px; }
+  .m-label {
+    flex: none;
+    width: 66px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .m-bar-wrap { flex: 1; height: 10px; background: var(--page); border-radius: 999px; overflow: hidden; }
+  .m-bar { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+  .m-count {
+    flex: none;
+    width: 26px;
+    text-align: right;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--fg);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* 트래픽 안내 */
+  .traffic-note { font-size: 0.88rem; line-height: 1.6; margin: 0 0 14px; }
+  .traffic-links { display: flex; flex-wrap: wrap; gap: 10px; }
+  .ext-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--fg);
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+  }
+  .ext-btn:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 768px) {
+    .tiles { grid-template-columns: repeat(2, 1fr); }
+    .cols { grid-template-columns: 1fr; }
+    .cols .panel { margin-bottom: 18px; }
+  }
+</style>
