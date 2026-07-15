@@ -11,6 +11,8 @@ interface Props {
   pubDate?: Date;
   updatedDate?: Date;
   canonicalPath?: string; // 예: /posts/foo
+  /** 색인 제외(빈 종목 페이지 등). 미published면 강제로 noindex. follow 는 유지. */
+  noindex?: boolean;
 }
 
 const {
@@ -20,10 +22,13 @@ const {
   pubDate,
   updatedDate,
   canonicalPath = new URL(Astro.request.url).pathname,
+  noindex = false,
 } = Astro.props;
 
 const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title;
 const canonical = new URL(canonicalPath, SITE.url).toString();
+// 미published(런칭 전) 또는 개별 페이지 지정 시 색인 제외. 링크는 계속 크롤(follow).
+const robotsNoindex = noindex || !SITE.published;
 
 // 구글이 좋아하는 구조화 데이터 (검색결과 리치 스니펫)
 const jsonLd =
@@ -35,7 +40,11 @@ const jsonLd =
         description,
         datePublished: pubDate?.toISOString(),
         dateModified: (updatedDate ?? pubDate)?.toISOString(),
-        author: { '@type': 'Person', name: SITE.author },
+        author: {
+          '@type': 'Person',
+          name: SITE.author,
+          url: new URL('/about/', SITE.url).toString(),
+        },
         publisher: { '@type': 'Organization', name: SITE.title },
         mainEntityOfPage: canonical,
       }
@@ -62,9 +71,12 @@ const jsonLd =
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
     />
     <meta name="description" content={description} />
-    {!SITE.published && <meta name="robots" content="noindex, nofollow" />}
+    {robotsNoindex && <meta name="robots" content="noindex,follow" />}
     <link rel="canonical" href={canonical} />
     <meta name="author" content={SITE.author} />
+
+    <!-- 네이버 서치어드바이저 사이트 소유확인 -->
+    <meta name="naver-site-verification" content="c3f8a78678019cfe5f3ef000b37cf7624dca2861" />
 
     <!-- Open Graph (카카오톡/페북 공유 미리보기) -->
     <meta property="og:type" content={type} />
@@ -80,7 +92,7 @@ const jsonLd =
     <meta name="twitter:description" content={description} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="sitemap" href="/sitemap.xml" />
     <link rel="alternate" type="application/rss+xml" title={SITE.title} href="/rss.xml" />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
@@ -94,6 +106,10 @@ const jsonLd =
       <div class="wide">
         <span class="ft-brand">{SITE.title}</span>
         <p>본 블로그의 정보는 투자 참고용이며, 투자 판단과 그 결과의 책임은 투자자 본인에게 있습니다.</p>
+        <nav class="ft-links">
+          <a href="/about/">소개</a>
+          <a href="/editorial-policy/">편집·검수 원칙</a>
+        </nav>
         <p class="ft-copy">© {new Date().getFullYear()} {SITE.title}</p>
       </div>
     </footer>
@@ -106,6 +122,9 @@ const jsonLd =
       }
       .site-footer .ft-brand { font-weight: 800; color: var(--muted); letter-spacing: -0.02em; }
       .site-footer p { margin: 8px 0 0; max-width: 640px; line-height: 1.6; }
+      .site-footer .ft-links { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 14px; }
+      .site-footer .ft-links a { color: var(--muted); font-weight: 600; }
+      .site-footer .ft-links a:hover { color: var(--fg); }
       .site-footer .ft-copy { margin-top: 12px; font-variant-numeric: tabular-nums; }
     </style>
   </body>

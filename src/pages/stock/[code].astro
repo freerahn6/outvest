@@ -27,6 +27,7 @@ const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month:
   title={`${stock.name} (${stock.code}) 시세·분석`}
   description={`${stock.name}(${stock.code}) 실시간 시세와 관련 분석 글 모음.`}
   canonicalPath={`/stock/${code}/`}
+  noindex={related.length === 0}
 >
   <div class="wrap stock-page">
     <div class="top"><StockSearch /></div>

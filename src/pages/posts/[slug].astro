@@ -46,7 +46,7 @@ const quotesEnabled = SITE.quoteApi.startsWith('http');
       <div class="post-meta">
         <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
         {post.data.updatedDate && <span>· 수정 {fmt(post.data.updatedDate)}</span>}
-        <span>· {SITE.author}</span>
+        <span>· 글 <a href="/about/">{SITE.author}</a></span>
       </div>
     </header>
 
@@ -104,6 +104,8 @@ const quotesEnabled = SITE.quoteApi.startsWith('http');
   .post-lede { font-size: 1.14rem; color: var(--muted); margin: 0 0 16px; line-height: 1.6; }
   .post-meta { font-size: 0.88rem; color: var(--faint); display: flex; gap: 6px; flex-wrap: wrap; }
   .post-meta time { font-variant-numeric: tabular-nums; }
+  .post-meta a { color: var(--muted); font-weight: 600; }
+  .post-meta a:hover { color: var(--accent); text-decoration: none; }
   .quotes { margin: 8px 0 28px; }
   .tags { margin-top: 34px; display: flex; gap: 8px; flex-wrap: wrap; }
 

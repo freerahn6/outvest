@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 const OUT = fileURLToPath(new URL('../public/images/', import.meta.url));
 const W = 1200, H = 675;
 
-function cover({ eyebrow, titleLines, ticker, brand = '종목노트' }) {
+function cover({ eyebrow, titleLines, ticker, brand = '아웃베스트의 투자로그' }) {
   // 상승 라인 모티프 (좌하 → 우상)
   const pts = [
     [0, 540], [150, 500], [300, 520], [450, 440], [600, 470],

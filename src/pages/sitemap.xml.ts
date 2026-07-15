@@ -33,9 +33,10 @@ export async function GET(context: APIContext) {
     urls.push({ loc: `${base}/posts/${p.id}/`, lastmod: p.data.pubDate.toISOString().slice(0, 10) });
   }
 
-  // 종목 페이지
+  // 종목 페이지 — 글이 실제로 다룬 종목만 색인(빈 종목 페이지는 noindex라 제외).
+  const coveredCodes = new Set(posts.flatMap((p) => p.data.tickers.map((t) => t.code)));
   for (const s of krx) {
-    urls.push({ loc: `${base}/stock/${s.code}/` });
+    if (coveredCodes.has(s.code)) urls.push({ loc: `${base}/stock/${s.code}/` });
   }
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>
