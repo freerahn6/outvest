@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="탐욕과 공포가 반복되는 한국 증시, 앞으로의 방향은">
+<defs>
+  <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#3fa05e" stop-opacity="0.16"/>
+    <stop offset="1" stop-color="#3fa05e" stop-opacity="0.02"/>
+  </linearGradient>
+</defs>
+<style>
+  .bg{fill:#f5f8f6} .blob{fill:#3fa05e;opacity:0.10}
+  .eye{fill:#2f8f57;font:700 27px system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:1px}
+  .ttl{fill:#1b1d20;font:800 62px system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-1.5px}
+  .brand{fill:#8a8f8b;font:600 24px system-ui,sans-serif}
+  .tkr{fill:#2f8f57;font:700 26px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .tkrbox{fill:none;stroke:#3fa05e;stroke-width:2}
+  .line{fill:none;stroke:#3fa05e;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+</style>
+<rect class="bg" width="1200" height="675"/>
+<circle class="blob" cx="1040" cy="130" r="250"/>
+<path d="M0 470 L150 360 L300 500 L450 320 L600 540 L750 300 L900 520 L1050 340 L1200 460 L1200 675 L0 675 Z" fill="url(#g)"/>
+<path d="M0 470 L150 360 L300 500 L450 320 L600 540 L750 300 L900 520 L1050 340 L1200 460" class="line"/>
+<text x="80" y="132" class="eye">시황 · 종합</text>
+<text x="80" y="292" class="ttl">탐욕과 공포가</text><text x="80" y="374" class="ttl">반복되는 한국 증시</text>
+<rect class="tkrbox" x="80" y="556" width="160" height="44" rx="22"/>
+<text x="104" y="585" class="tkr">앞으로의 방향은?</text>
+<text x="1120" y="620" text-anchor="end" class="brand">아웃베스트의 투자로그</text>
+</svg>
