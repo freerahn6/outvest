@@ -6,6 +6,7 @@ tickers:
   - { code: "000250", name: "삼천당제약" }
 tags: ["종목분석", "삼천당제약", "바이오", "밸류에이션", "세마글루타이드", "아일리아"]
 category: "종목 분석"
+cover: "/images/cover-samchundang.svg"
 draft: false
 ---
 
