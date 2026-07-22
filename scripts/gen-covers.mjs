@@ -205,6 +205,11 @@ const covers = {
     ticker: '950160',
     trend: 'down',
   }),
+  'cover-ecopro.svg': cover({
+    eyebrow: '산업 분석 · 2차전지',
+    titleLines: ['전기차가 아니라', 'ESS였다'],
+    ticker: '247540',
+  }),
   // 커버 미지정 글의 폴백. 특정 종목을 가리키지 않는 중립 이미지여야 한다.
   'cover-default.svg': cover({
     eyebrow: '종목노트',
