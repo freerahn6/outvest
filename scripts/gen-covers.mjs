@@ -8,12 +8,27 @@ import { fileURLToPath } from 'node:url';
 const OUT = fileURLToPath(new URL('../public/images/', import.meta.url));
 const W = 1200, H = 675;
 
-function cover({ eyebrow, titleLines, ticker, brand = '아웃베스트의 투자로그' }) {
-  // 상승 라인 모티프 (좌하 → 우상)
-  const pts = [
-    [0, 540], [150, 500], [300, 520], [450, 440], [600, 470],
-    [750, 380], [900, 410], [1050, 300], [1200, 260],
-  ];
+// 라인 모티프. trend: 'up'(기본) | 'down'
+// 폭락·실패·경고를 다루는 글에 우상향 라인을 쓰면 내용과 그림이 어긋난다.
+// 그런 글은 trend: 'down' 으로 붉은 하락 라인을 쓴다.
+const TREND = {
+  up: {
+    pts: [[0, 540], [150, 500], [300, 520], [450, 440], [600, 470],
+          [750, 380], [900, 410], [1050, 300], [1200, 260]],
+    stroke: '#3fa05e', bg: '#f5f8f6', eye: '#2f8f57', tkr: '#2f8f57',
+  },
+  down: {
+    // 좌상 → 우하. 초반은 완만하다가 후반에 급격히 떨어뜨려 '급락'을 읽히게 한다.
+    // y는 415 아래에서만 움직인다 — 제목(baseline 292·374, 62px)을 관통하지 않게 하기 위함.
+    pts: [[0, 420], [150, 442], [300, 415], [450, 458], [600, 436],
+          [750, 484], [900, 522], [1050, 600], [1200, 652]],
+    stroke: '#d0453c', bg: '#faf6f5', eye: '#b03a32', tkr: '#b03a32',
+  },
+};
+
+function cover({ eyebrow, titleLines, ticker, trend = 'up', brand = '아웃베스트의 투자로그' }) {
+  const T = TREND[trend] ?? TREND.up;
+  const pts = T.pts;
   const line = pts.map((p, i) => `${i ? 'L' : 'M'}${p[0]} ${p[1]}`).join(' ');
   const area = `${line} L1200 ${H} L0 ${H} Z`;
   const titleSvg = titleLines
@@ -22,18 +37,18 @@ function cover({ eyebrow, titleLines, ticker, brand = '아웃베스트의 투자
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${titleLines.join(' ')}">
 <defs>
   <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#3fa05e" stop-opacity="0.16"/>
-    <stop offset="1" stop-color="#3fa05e" stop-opacity="0.02"/>
+    <stop offset="0" stop-color="${T.stroke}" stop-opacity="0.16"/>
+    <stop offset="1" stop-color="${T.stroke}" stop-opacity="0.02"/>
   </linearGradient>
 </defs>
 <style>
-  .bg{fill:#f5f8f6} .blob{fill:#3fa05e;opacity:0.10}
-  .eye{fill:#2f8f57;font:700 27px system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:1px}
+  .bg{fill:${T.bg}} .blob{fill:${T.stroke};opacity:0.10}
+  .eye{fill:${T.eye};font:700 27px system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:1px}
   .ttl{fill:#1b1d20;font:800 62px system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-1.5px}
   .brand{fill:#8a8f8b;font:600 24px system-ui,sans-serif}
-  .tkr{fill:#2f8f57;font:700 26px system-ui,sans-serif;font-variant-numeric:tabular-nums}
-  .tkrbox{fill:none;stroke:#3fa05e;stroke-width:2}
-  .line{fill:none;stroke:#3fa05e;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+  .tkr{fill:${T.tkr};font:700 26px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .tkrbox{fill:none;stroke:${T.stroke};stroke-width:2}
+  .line{fill:none;stroke:${T.stroke};stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
 </style>
 <rect class="bg" width="${W}" height="${H}"/>
 <circle class="blob" cx="1040" cy="130" r="250"/>
@@ -147,11 +162,17 @@ const covers = {
     eyebrow: '시황 · 긴급',
     titleLines: ['검은 월요일,', '하락장인가 기회인가'],
     ticker: '반도체',
+    trend: 'down',
   }),
   'cover-rebound.svg': cover({
     eyebrow: '시황 · 속편',
     titleLines: ['하루 만의 반등,', '무엇이 증명됐나'],
     ticker: 'V자 반등',
+  }),
+  'cover-kimik3.svg': cover({
+    eyebrow: '시황 · AI 쇼크',
+    titleLines: ['키미 K3 쇼크,', '방아쇠와 화약'],
+    ticker: '반도체',
   }),
   'cover-adr-outlook.svg': cover({
     eyebrow: '시황 · ADR',
@@ -162,6 +183,33 @@ const covers = {
     eyebrow: '시황 · 바이오',
     titleLines: ['HLB 무더기 상한가,', '폭락 뒤 반등의 정체'],
     ticker: 'HLB',
+  }),
+  'cover-robot.svg': cover({
+    eyebrow: '산업 분석 · 로봇',
+    titleLines: ['로봇 대장주는', '어디인가'],
+    ticker: '로봇',
+  }),
+  'cover-samchundang.svg': cover({
+    eyebrow: '종목 분석 · 바이오',
+    titleLines: ['삼천당제약,', '시총을 숫자로 분해한다'],
+    ticker: '000250',
+  }),
+  'cover-adr-surge.svg': cover({
+    eyebrow: '시황 · ADR',
+    titleLines: ['ADR +13.75%,', '괴리는 방향을 말하지 않는다'],
+    ticker: '000660',
+  }),
+  'cover-kolon.svg': cover({
+    eyebrow: '종목 분석 · 바이오',
+    titleLines: ['코오롱그룹에', '무슨 일이 있었나'],
+    ticker: '950160',
+    trend: 'down',
+  }),
+  // 커버 미지정 글의 폴백. 특정 종목을 가리키지 않는 중립 이미지여야 한다.
+  'cover-default.svg': cover({
+    eyebrow: '종목노트',
+    titleLines: ['숫자로 보는', '국내 주식'],
+    ticker: '투자메모',
   }),
 };
 
