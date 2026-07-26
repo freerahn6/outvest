@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 450" width="760" height="450" role="img" aria-label="피지컬 AI 시장규모 숫자의 온도차">
+<title>'피지컬 AI 시장규모' — 누가 말하느냐에 따라 약 2,368배</title><desc>엔비디아 젠슨 황이 주장하는 90조 달러와 골드만삭스가 추정하는 휴머노이드 시장 380억 달러는 같은 테마인데도 약 2,368배 벌어진다. 막대는 로그 스케일이며, 선형으로 그리면 380억 달러 막대는 점이 된다.</desc>
+<style>
+  :root{
+    --surface:#fcfcfb; --ink:#0b0b0b; --sub:#52514e; --muted:#898781;
+    --grid:#e6e5de; --axis:#c3c2b7;
+    --hot:#e34948; --cool:#2a78d6;
+    --badgebg:#f1efe8;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --surface:#1a1a19; --ink:#ffffff; --sub:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --axis:#3a3a37;
+      --hot:#e66767; --cool:#3987e5;
+      --badgebg:#262625; }
+  }
+  .bg{fill:var(--surface)}
+  .title{fill:var(--ink);font:700 21px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .subt{fill:var(--sub);font:400 13.5px system-ui,sans-serif}
+  .who{fill:var(--ink);font:700 15px system-ui,sans-serif}
+  .tag{fill:var(--muted);font:500 12.5px system-ui,sans-serif}
+  .ax{fill:var(--muted);font:500 12px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .grid{stroke:var(--grid);stroke-width:1}
+  .base{stroke:var(--axis);stroke-width:1.5}
+  .hot{fill:var(--hot)} .cool{fill:var(--cool)}
+  .vhot{fill:#fff;font:800 16px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .vcool{fill:var(--ink);font:800 16px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .badge{fill:var(--badgebg)}
+  .btxt{fill:var(--ink);font:800 20px system-ui,sans-serif}
+  .bsub{fill:var(--sub);font:500 13px system-ui,sans-serif}
+  .cap{fill:var(--muted);font:500 12.5px system-ui,sans-serif}
+  .note{fill:var(--muted);font:600 11.5px system-ui,sans-serif}
+</style>
+<rect class="bg" x="0" y="0" width="760" height="450" rx="14"/>
+<text class="title" x="40" y="38">'피지컬 AI' 시장규모 — 화자에 따라 약 2,368배</text>
+<text class="subt" x="40" y="60">같은 테마인데 숫자가 이만큼 벌어진다. 크기가 아니라 출처로 걸러 들어라.</text>
+
+<!-- 로그 스케일 세로 그리드: 10^10(100억)~10^14(100조), decade당 145px, x=140 시작 -->
+<line class="grid" x1="140" y1="92" x2="140" y2="268"/><text class="ax" x="140" y="286" text-anchor="middle">$100억</text>
+<line class="grid" x1="285" y1="92" x2="285" y2="268"/><text class="ax" x="285" y="286" text-anchor="middle">$1천억</text>
+<line class="grid" x1="430" y1="92" x2="430" y2="268"/><text class="ax" x="430" y="286" text-anchor="middle">$1조</text>
+<line class="grid" x1="575" y1="92" x2="575" y2="268"/><text class="ax" x="575" y="286" text-anchor="middle">$10조</text>
+<line class="grid" x1="720" y1="92" x2="720" y2="268"/><text class="ax" x="720" y="286" text-anchor="middle">$100조</text>
+<line class="base" x1="140" y1="268" x2="140" y2="100"/>
+
+<!-- 행1: 엔비디아 90조 (log10 9e13=13.95 → x=713) -->
+<text class="who" x="140" y="118">엔비디아 · 젠슨 황</text>
+<text class="tag" x="298" y="118">GPU 판매자 주장치 · 전 세계 GDP(약 100조 달러)급</text>
+<rect class="hot" x="140" y="126" width="573" height="34" rx="4"/>
+<text class="vhot" x="702" y="149" text-anchor="end">최대 $90조</text>
+
+<!-- 행2: 골드만 380억 (log10 3.8e10=10.58 → x=224) -->
+<text class="who" x="140" y="196">골드만삭스</text>
+<text class="tag" x="230" y="196">휴머노이드 2035년 · 투자은행 추정치</text>
+<rect class="cool" x="140" y="204" width="84" height="34" rx="4"/>
+<text class="vcool" x="234" y="227">$380억</text>
+
+<text class="note" x="720" y="304" text-anchor="end">※ 가로축 로그 스케일 — 선형이면 $380억 막대는 점이 된다</text>
+
+<!-- 격차 배지 -->
+<rect class="badge" x="40" y="322" width="680" height="60" rx="12"/>
+<text class="btxt" x="64" y="360">≈ 2,368배</text>
+<text class="bsub" x="210" y="349">같은 '피지컬 AI'라는 테마인데, 화자에 따라 시장 규모가</text>
+<text class="bsub" x="210" y="369">2,000배 넘게 벌어진다. 화자를 명기하고 거품과 실체를 가른다.</text>
+
+<text class="cap" x="40" y="410">참고 — 카운터포인트 휴머노이드 설치대수 전망: 2025년 1.6만 대 → 2027년 10만 대</text>
+</svg>

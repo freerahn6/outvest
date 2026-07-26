@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" width="760" height="500" role="img" aria-label="현대차 피지컬 AI 3대 자산 신호등">
+<title>현대차 '피지컬 AI' 3대 자산 신호등</title><desc>피지컬 AI 우산 아래 묶인 세 기둥 중 보스턴다이내믹스 로봇만 전진(초록)이고, 모셔널 자율주행은 후퇴(빨강), 슈퍼널 UAM은 사실상 중단(진한 빨강) 상태다.</desc>
+<style>
+  :root{
+    --surface:#fcfcfb; --ink:#0b0b0b; --sub:#52514e; --muted:#898781;
+    --card:#f4f3ee; --line:#e1e0d9;
+    --green:#0a9c53; --greenbg:#e5f4ea;
+    --red:#e34948; --redbg:#fbe8e8;
+    --dred:#b52d2d; --dredbg:#f7e0e0;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --surface:#1a1a19; --ink:#ffffff; --sub:#c3c2b7; --muted:#898781;
+      --card:#242423; --line:#333331;
+      --green:#2eb56a; --greenbg:#183527;
+      --red:#e66767; --redbg:#3a2020;
+      --dred:#d15151; --dredbg:#301a1a; }
+  }
+  .bg{fill:var(--surface)}
+  .title{fill:var(--ink);font:700 21px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .subt{fill:var(--sub);font:400 13.5px system-ui,sans-serif}
+  .card{fill:var(--card);stroke:var(--line);stroke-width:1}
+  .name{fill:var(--ink);font:700 18px system-ui,sans-serif}
+  .eng{fill:var(--muted);font:600 12px system-ui,sans-serif}
+  .rsn{fill:var(--sub);font:400 13px system-ui,sans-serif}
+  .arrow{font:800 22px system-ui,sans-serif}
+  .cap{fill:var(--sub);font:600 13.5px system-ui,sans-serif}
+  .g{fill:var(--green)} .gb{fill:var(--greenbg)}
+  .r{fill:var(--red)} .rb{fill:var(--redbg)}
+  .d{fill:var(--dred)} .db{fill:var(--dredbg)}
+</style>
+<rect class="bg" x="0" y="0" width="760" height="500" rx="14"/>
+<text class="title" x="40" y="40">현대차 '피지컬 AI' 3대 자산 신호등</text>
+<text class="subt" x="40" y="63">우산은 세 기둥을 묶었지만, 실제로 서 있는 건 로봇 하나다</text>
+
+<!-- 기둥1: 로봇 (초록) -->
+<rect class="card" x="40" y="86" width="680" height="112" rx="12"/>
+<circle class="gb" cx="96" cy="142" r="30"/><circle class="g" cx="96" cy="142" r="15"/>
+<text class="arrow g" x="150" y="150" text-anchor="middle">↑</text>
+<text class="name" x="186" y="126">로봇 · 보스턴다이내믹스</text>
+<text class="eng" x="186" y="146">Boston Dynamics — 전진</text>
+<text class="rsn" x="186" y="172">양산형 아틀라스 CES 2026 공개 · 현대모비스 액추에이터 공급</text>
+<text class="rsn" x="186" y="190">100% 자회사화 추진 · 2028년 나스닥 상장 목표</text>
+
+<!-- 기둥2: 자율주행 (빨강) -->
+<rect class="card" x="40" y="210" width="680" height="112" rx="12"/>
+<circle class="rb" cx="96" cy="266" r="30"/><circle class="r" cx="96" cy="266" r="15"/>
+<text class="arrow r" x="150" y="274" text-anchor="middle">↓</text>
+<text class="name" x="186" y="250">자율주행 · 모셔널</text>
+<text class="eng" x="186" y="270">Motional — 후퇴</text>
+<text class="rsn" x="186" y="296">파트너 앱티브 자금지원 중단 · 현대차 1.3조 추가투자로 떠안음</text>
+<text class="rsn" x="186" y="314">직원 약 40% 감원 · CEO 사임</text>
+
+<!-- 기둥3: UAM (진한 빨강) -->
+<rect class="card" x="40" y="334" width="680" height="112" rx="12"/>
+<circle class="db" cx="96" cy="390" r="30"/><circle class="d" cx="96" cy="390" r="15"/>
+<text class="arrow d" x="150" y="398" text-anchor="middle">↓↓</text>
+<text class="name" x="186" y="374">도심항공(UAM) · 슈퍼널</text>
+<text class="eng" x="186" y="394">Supernal — 사실상 중단</text>
+<text class="rsn" x="186" y="420">항공기 개발 중단 · CEO·CTO 동반 사임</text>
+<text class="rsn" x="186" y="438">중장기 전략서에서 '항공 모빌리티' 항목 삭제</text>
+
+<text class="cap" x="40" y="478">세 기둥 중 초록은 하나 — '피지컬 AI 기업'은 로봇 한 다리로 선 서사다.</text>
+</svg>

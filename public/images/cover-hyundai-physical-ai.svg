@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="현대차 피지컬 AI 선언 — 새 돈인가 새 이름표인가">
+<defs>
+  <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#3fa05e" stop-opacity="0.16"/>
+    <stop offset="1" stop-color="#3fa05e" stop-opacity="0.02"/>
+  </linearGradient>
+</defs>
+<style>
+  .bg{fill:#f5f8f6} .blob{fill:#3fa05e;opacity:0.10}
+  .eye{fill:#2f8f57;font:700 27px system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:1px}
+  .ttl{fill:#1b1d20;font:800 66px system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-2px}
+  .sub{fill:#4a4f4b;font:600 30px system-ui,sans-serif;letter-spacing:-0.5px}
+  .brand{fill:#8a8f8b;font:600 24px system-ui,sans-serif}
+  .tkr{fill:#2f8f57;font:700 26px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .tkrbox{fill:none;stroke:#3fa05e;stroke-width:2}
+  .node{fill:#3fa05e}
+  .edge{stroke:#3fa05e;stroke-width:2.5;opacity:0.55;fill:none}
+</style>
+<rect class="bg" width="1200" height="675"/>
+<circle class="blob" cx="1040" cy="130" r="250"/>
+<path d="M0 560 L1200 470 L1200 675 L0 675 Z" fill="url(#g)"/>
+<!-- 오른쪽 상단: 피지컬 AI 네트워크 노드 모티프 -->
+<g transform="translate(940,230)">
+  <path class="edge" d="M0 -90 L90 30 M0 -90 L-90 30 M90 30 L-90 30 M0 -90 L0 55 M90 30 L0 55 M-90 30 L0 55"/>
+  <circle class="node" cx="0" cy="-90" r="13"/>
+  <circle class="node" cx="90" cy="30" r="13"/>
+  <circle class="node" cx="-90" cy="30" r="13"/>
+  <circle class="node" cx="0" cy="55" r="18"/>
+</g>
+<text x="80" y="132" class="eye">현대차 · 피지컬 AI</text>
+<text x="80" y="300" class="ttl">새 돈인가,</text><text x="80" y="382" class="ttl">새 이름표인가</text>
+<text x="80" y="452" class="sub">42조 재포장과 세 기둥의 신호등</text>
+<rect class="tkrbox" x="80" y="566" width="160" height="44" rx="22"/>
+<text x="104" y="595" class="tkr">005380</text>
+<text x="1120" y="628" text-anchor="end" class="brand">아웃베스트의 투자로그</text>
+</svg>
