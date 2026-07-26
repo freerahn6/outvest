@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" width="760" height="430" role="img" aria-label="AI 데이터센터 전력 병목">
+<title>AI 동맹의 진짜 병목 — 전력</title><desc>SKT가 추진하는 2GW AI팩토리는 원전 약 2기분 전력에 해당하며, 초고압 변압기 납기는 과거 1~1.5년에서 현재 3~5년으로 늘어 2028~29년 물량까지 선확보됐다.</desc>
+<style>
+  :root{
+    --surface:#fcfcfb; --ink:#0b0b0b; --sub:#52514e; --muted:#898781;
+    --grid:#e6e5de; --card:#f4f3ee; --line:#e1e0d9;
+    --blue:#2a78d6; --hot:#e34948;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --surface:#1a1a19; --ink:#ffffff; --sub:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --card:#242423; --line:#333331;
+      --blue:#3987e5; --hot:#e66767; }
+  }
+  .bg{fill:var(--surface)}
+  .title{fill:var(--ink);font:700 21px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .subt{fill:var(--sub);font:400 13.5px system-ui,sans-serif}
+  .card{fill:var(--card);stroke:var(--line);stroke-width:1}
+  .hd{fill:var(--ink);font:700 15px system-ui,sans-serif}
+  .big{fill:var(--ink);font:800 40px system-ui,sans-serif}
+  .eq{fill:var(--muted);font:700 22px system-ui,sans-serif}
+  .lbl{fill:var(--sub);font:500 12.5px system-ui,sans-serif}
+  .ic{fill:var(--blue)} .ic2{fill:var(--muted)}
+  .barlbl{fill:var(--ink);font:600 13px system-ui,sans-serif}
+  .barval{fill:#fff;font:800 14px system-ui,sans-serif}
+  .b-blue{fill:var(--blue)} .b-hot{fill:var(--hot)}
+  .cap{fill:var(--muted);font:600 12.5px system-ui,sans-serif}
+</style>
+<rect class="bg" x="0" y="0" width="760" height="430" rx="14"/>
+<text class="title" x="40" y="40">AI 동맹의 진짜 병목 — 전력</text>
+<text class="subt" x="40" y="63">GPU가 아무리 좋아도 전기가 없으면 랙은 깡통이다</text>
+
+<!-- 좌측 블록: 2GW = 원전 2기분 -->
+<rect class="card" x="40" y="86" width="330" height="270" rx="12"/>
+<text class="hd" x="64" y="120">SKT 2GW AI팩토리</text>
+<text class="lbl" x="64" y="140">2027년부터 단계 구축</text>
+<!-- 데이터센터 아이콘 -->
+<g transform="translate(64,166)">
+  <rect class="ic" x="0" y="20" width="70" height="70" rx="6"/>
+  <rect x="10" y="34" width="50" height="8" rx="2" fill="#fff" opacity="0.7"/>
+  <rect x="10" y="50" width="50" height="8" rx="2" fill="#fff" opacity="0.7"/>
+  <rect x="10" y="66" width="50" height="8" rx="2" fill="#fff" opacity="0.7"/>
+</g>
+<text class="eq" x="150" y="228" text-anchor="middle">=</text>
+<!-- 원전 아이콘 2개 -->
+<g transform="translate(184,176)">
+  <path class="ic2" d="M0 80 L14 30 a30 24 0 0 1 52 0 L80 80 Z"/>
+  <path class="ic2" d="M96 80 L110 30 a30 24 0 0 1 52 0 L176 80 Z"/>
+</g>
+<text class="lbl" x="205" y="300" text-anchor="middle">원전 약 2기분 전력</text>
+<text class="hd" x="205" y="332" text-anchor="middle" style="font-size:20px">≈ 원전 2기</text>
+
+<!-- 우측 블록: 변압기 납기 지연 -->
+<rect class="card" x="390" y="86" width="330" height="270" rx="12"/>
+<text class="hd" x="414" y="120">초고압 변압기 납기</text>
+<text class="lbl" x="414" y="140">미국 데이터센터 붐 → 이미 품귀</text>
+<!-- 막대1 과거 1~1.5년 (기준 1.25 → 폭 84) -->
+<text class="barlbl" x="414" y="180">과거</text>
+<rect class="b-blue" x="414" y="188" width="84" height="30" rx="4"/>
+<text class="barval" x="490" y="208" text-anchor="end">1~1.5년</text>
+<!-- 막대2 현재 3~5년 (기준 4 → 폭 269, 약 3.2배) -->
+<text class="barlbl" x="414" y="248">현재</text>
+<rect class="b-hot" x="414" y="256" width="269" height="30" rx="4"/>
+<text class="barval" x="675" y="276" text-anchor="end">3~5년</text>
+<text class="lbl" x="414" y="322">2028~29년 물량까지 선확보</text>
+<text class="lbl" x="414" y="342" style="font-size:11px">막대 길이 = 납기 연수 비율(약 3.2배)</text>
+
+<text class="cap" x="40" y="390">전기가 없으면 GPU도 깡통 — 국내 2GW·광주 팹 수요가 얹히면 변압기 가격·수주 협상력이 공급자로 기운다.</text>
+</svg>

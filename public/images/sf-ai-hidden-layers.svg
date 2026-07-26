@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560" role="img" aria-label="샌프란시스코 AI 동맹 숨은 수혜 4개 층 밸류체인 지도">
+<title>숨은 수혜 4개 층 밸류체인 지도</title><desc>4대 그룹 밖에서 AI 동맹을 떠받치는 숨은 수혜를 전력 인프라, 냉각, HBM 후공정 소재·검사, AI서버 PCB 4개 층으로 정리했다. 파란 점은 이미 반영된 검증주, 주황 점은 실적이 2027년 이후인 기대·소형주로, 각 회사는 밸류체인 위치로만 표시했으며 매수 신호가 아니다.</desc>
+<style>
+  :root{
+    --surface:#fcfcfb; --ink:#0b0b0b; --sub:#52514e; --muted:#898781;
+    --card:#f4f3ee; --line:#e1e0d9; --bar:#4a4f4b;
+    --blue:#2a78d6; --orange:#e07b1a;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --surface:#1a1a19; --ink:#ffffff; --sub:#c3c2b7; --muted:#898781;
+      --card:#242423; --line:#333331; --bar:#6b706a;
+      --blue:#4f97e8; --orange:#eb9438; }
+  }
+  .bg{fill:var(--surface)}
+  .title{fill:var(--ink);font:700 21px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .subt{fill:var(--sub);font:400 13.5px system-ui,sans-serif}
+  .card{fill:var(--card);stroke:var(--line);stroke-width:1}
+  .idx{fill:#fff;font:800 18px system-ui,sans-serif}
+  .lname{fill:var(--ink);font:700 16px system-ui,sans-serif}
+  .lsub{fill:var(--muted);font:500 12px system-ui,sans-serif}
+  .kind{fill:var(--sub);font:700 11.5px system-ui,sans-serif}
+  .co{fill:var(--ink);font:500 13px system-ui,sans-serif}
+  .bar{fill:var(--bar)}
+  .dblue{fill:var(--blue)} .dorange{fill:var(--orange)}
+  .leg{fill:var(--sub);font:600 12.5px system-ui,sans-serif}
+  .cap{fill:var(--muted);font:600 12px system-ui,sans-serif}
+  .side{fill:var(--muted);font:700 11.5px system-ui,sans-serif}
+</style>
+<rect class="bg" x="0" y="0" width="760" height="560" rx="14"/>
+<text class="title" x="40" y="38">숨은 수혜 4개 층 — 4대 그룹 밖에서 이 동맹을 떠받치는 층</text>
+<text class="subt" x="40" y="60">각 회사는 밸류체인 '위치'로만 표시. 매수 신호가 아니다.</text>
+
+<!-- 층A 전력 -->
+<rect class="card" x="40" y="80" width="680" height="96" rx="12"/>
+<rect class="bar" x="40" y="80" width="8" height="96" rx="4"/>
+<circle class="dblue" cx="86" cy="128" r="19" style="fill:var(--bar)"/><text class="idx" x="86" y="134" text-anchor="middle">A</text>
+<text class="lname" x="120" y="120">전력 인프라</text><text class="lsub" x="120" y="140">가장 강한 각도 · 착공의 관문</text>
+<text class="lsub" x="120" y="160" style="fill:var(--blue);font-weight:700">2GW = 원전 2기분</text>
+<circle class="dblue" cx="286" cy="112" r="5"/><text class="kind" x="298" y="116">검증주</text>
+<text class="co" x="352" y="116">HD현대일렉트릭 · 효성중공업 · LS일렉트릭 · 대한전선</text>
+<circle class="dorange" cx="286" cy="146" r="5"/><text class="kind" x="298" y="150">기대·소형</text>
+<text class="co" x="360" y="150">산일전기 · 제룡전기</text>
+
+<!-- 층B 냉각 -->
+<rect class="card" x="40" y="184" width="680" height="96" rx="12"/>
+<rect class="bar" x="40" y="184" width="8" height="96" rx="4"/>
+<circle cx="86" cy="232" r="19" style="fill:var(--bar)"/><text class="idx" x="86" y="238" text-anchor="middle">B</text>
+<text class="lname" x="120" y="224">냉각 (액침·수냉)</text><text class="lsub" x="120" y="244">랙 전력밀도↑ → 공랭 한계</text>
+<text class="lsub" x="120" y="264" style="fill:var(--orange);font-weight:700">국내 대부분 초기 매출</text>
+<circle class="dblue" cx="286" cy="216" r="5"/><text class="kind" x="298" y="220">검증주</text>
+<text class="co" x="352" y="220">GST · 유니셈</text>
+<circle class="dorange" cx="286" cy="250" r="5"/><text class="kind" x="298" y="254">기대·소형</text>
+<text class="co" x="360" y="254">케이엔솔 · 워트</text>
+
+<!-- 층C 소재 -->
+<rect class="card" x="40" y="288" width="680" height="96" rx="12"/>
+<rect class="bar" x="40" y="288" width="8" height="96" rx="4"/>
+<circle cx="86" cy="336" r="19" style="fill:var(--bar)"/><text class="idx" x="86" y="342" text-anchor="middle">C</text>
+<text class="lname" x="120" y="328">HBM 후공정 소재·검사</text><text class="lsub" x="120" y="348">장비 아래·옆의 '덜 알려진' 층</text>
+<text class="lsub" x="120" y="368" style="fill:var(--orange);font-weight:700">증설 가동(2027~) 시 반영</text>
+<circle class="dblue" cx="286" cy="320" r="5"/><text class="kind" x="298" y="324">검증주</text>
+<text class="co" x="352" y="324">리노공업 · 한솔케미칼</text>
+<circle class="dorange" cx="286" cy="354" r="5"/><text class="kind" x="298" y="358">기대·소형</text>
+<text class="co" x="360" y="358">앱솔릭스(SKC) · 필옵틱스 · 티이엠씨</text>
+
+<!-- 층D PCB -->
+<rect class="card" x="40" y="392" width="680" height="96" rx="12"/>
+<rect class="bar" x="40" y="392" width="8" height="96" rx="4"/>
+<circle cx="86" cy="440" r="19" style="fill:var(--bar)"/><text class="idx" x="86" y="446" text-anchor="middle">D</text>
+<text class="lname" x="120" y="432">AI서버 PCB·기판</text><text class="lsub" x="120" y="452">엔비디아 랙에 직결 · 초다층</text>
+<text class="lsub" x="120" y="472" style="fill:var(--blue);font-weight:700">4대 그룹 밖 최선명 연결</text>
+<circle class="dblue" cx="286" cy="424" r="5"/><text class="kind" x="298" y="428">검증주</text>
+<text class="co" x="352" y="428">이수페타시스 (MLB 국내 유일)</text>
+<circle class="dorange" cx="286" cy="458" r="5"/><text class="kind" x="298" y="462">기대·소형</text>
+<text class="co" x="360" y="462">대덕전자 · 심텍 · 티엘비</text>
+
+<!-- 범례 + 캡션 -->
+<circle class="dblue" cx="46" cy="512" r="5"/><text class="leg" x="58" y="516">파랑 = 이미 반영된 검증주(대형)</text>
+<circle class="dorange" cx="300" cy="512" r="5"/><text class="leg" x="312" y="516">주황 = 2027 이후·변동성 큰 기대주</text>
+<text class="cap" x="40" y="540">A·B = 데이터센터를 '세우는' 인프라 / C·D = 칩을 '만들고 잇는' 부품. 확정 수주가 아닌 위치 표시임.</text>
+</svg>
