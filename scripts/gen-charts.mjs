@@ -319,7 +319,175 @@ function hanmiTarget() {
     '한미반도체 목표주가는 증권사에 따라 LS증권 18만원부터 메릴린치 42만원까지 약 2.3배 차이가 난다.');
 }
 
+// ── 10) [그림1] 순환 논증 vs 독립 신호 판별 (좌우 개념도) ──────
+function peakSignals() {
+  const W = 800, H = 470, pad = 24, gap = 20;
+  const pw = (W - pad * 2 - gap) / 2;
+  const px1 = pad, px2 = pad + pw + gap;
+  const py = 84, phh = H - py - pad;
+  let body = `<text class="title" x="${pad}" y="34">반도체 '고점'은 어떻게 판별하나</text>`;
+  body += `<text class="sub" x="${pad}" y="56">주가로 고점을 말하면 순환 논증(왼쪽). 고점은 밸류체인 위 독립 신호로 판별한다(오른쪽).</text>`;
+
+  // ── 왼쪽 패널: 순환 논증 (X) ──
+  body += `<rect x="${px1}" y="${py}" width="${pw}" height="${phh}" rx="12" fill="var(--red)" opacity="0.06"/>`;
+  body += `<rect x="${px1}" y="${py}" width="${pw}" height="${phh}" rx="12" fill="none" stroke="var(--axis)" stroke-width="1"/>`;
+  body += `<text class="lbl" x="${px1 + pw / 2}" y="${py + 30}" text-anchor="middle" style="fill:var(--red)">순환 논증 (X)</text>`;
+  const bx = px1 + 44, bw = pw - 88, bhh = 60;
+  const topY = py + 70, botY = py + phh - 100;
+  const rTop = topY + bhh, rBot = botY;
+  // 두 박스
+  body += `<rect x="${bx}" y="${topY}" width="${bw}" height="${bhh}" rx="10" fill="var(--surface)" stroke="var(--red)" stroke-width="1.5"/>`;
+  body += `<text class="lbl" x="${bx + bw / 2}" y="${topY + bhh / 2 + 5}" text-anchor="middle">주가 하락 (셀온)</text>`;
+  body += `<rect x="${bx}" y="${botY}" width="${bw}" height="${bhh}" rx="10" fill="var(--surface)" stroke="var(--red)" stroke-width="1.5"/>`;
+  body += `<text class="lbl" x="${bx + bw / 2}" y="${botY + bhh / 2 + 5}" text-anchor="middle">반도체 고점</text>`;
+  // 순환 화살표(오른쪽 아래로, 왼쪽 위로)
+  const rx = bx + bw;
+  body += `<path d="M${rx} ${rTop + 6} C ${rx + 40} ${rTop + 24}, ${rx + 40} ${rBot - 24}, ${rx} ${rBot - 6}" fill="none" stroke="var(--red)" stroke-width="2"/>`;
+  body += `<polygon points="${rx - 6},${rBot - 16} ${rx + 6},${rBot - 16} ${rx},${rBot - 4}" fill="var(--red)"/>`;
+  body += `<path d="M${bx} ${rBot - 6} C ${bx - 40} ${rBot - 24}, ${bx - 40} ${rTop + 24}, ${bx} ${rTop + 6}" fill="none" stroke="var(--red)" stroke-width="2"/>`;
+  body += `<polygon points="${bx - 6},${rTop + 16} ${bx + 6},${rTop + 16} ${bx},${rTop + 4}" fill="var(--red)"/>`;
+  // 중앙 무한루프 표시
+  const cy = (rTop + rBot) / 2;
+  body += `<text x="${bx + bw / 2}" y="${cy + 4}" text-anchor="middle" style="fill:var(--red);font:700 34px system-ui;opacity:0.55">↻</text>`;
+  body += `<text class="sub" x="${bx + bw / 2}" y="${cy + 26}" text-anchor="middle" style="fill:var(--red)">닫힌 순환 = 동어반복</text>`;
+
+  // ── 오른쪽 패널: 독립 신호 판별 (O) ──
+  body += `<rect x="${px2}" y="${py}" width="${pw}" height="${phh}" rx="12" fill="var(--green)" opacity="0.06"/>`;
+  body += `<rect x="${px2}" y="${py}" width="${pw}" height="${phh}" rx="12" fill="none" stroke="var(--axis)" stroke-width="1"/>`;
+  body += `<text class="lbl" x="${px2 + pw / 2}" y="${py + 30}" text-anchor="middle" style="fill:var(--green)">독립 신호 판별 (O)</text>`;
+  const sig = [
+    { n: '①', t: '현물가·고정거래가', a: '↑', s: '상승', c: 'green' },
+    { n: '②', t: '재고(DIO)', a: '↓', s: '타이트', c: 'green' },
+    { n: '③', t: '가동률·CAPEX', a: '↑', s: '주의', c: 'orange' },
+    { n: '④', t: 'HBM 수급', a: '↑', s: '타이트', c: 'green' },
+    { n: '⑤', t: 'AI 수요', a: '↑', s: '급증', c: 'green' },
+  ];
+  const ry0 = py + 76, rgap = (phh - 106) / 4;
+  sig.forEach((g, i) => {
+    const yy = ry0 + i * rgap;
+    body += `<circle cx="${px2 + 30}" cy="${yy - 4}" r="15" fill="var(--surface)" stroke="var(--axis)" stroke-width="1"/>`;
+    body += `<text class="lbl" x="${px2 + 30}" y="${yy + 1}" text-anchor="middle">${g.n}</text>`;
+    body += `<text class="lbl" x="${px2 + 56}" y="${yy}" >${g.t}</text>`;
+    body += `<text class="val" x="${px2 + pw - 18}" y="${yy}" text-anchor="end" style="fill:var(--${g.c})">${g.a} ${g.s}</text>`;
+  });
+  body += `<text class="sub" x="${px2 + 18}" y="${py + phh - 14}">③ CAPEX만 '주의'(양날의 칼) · 나머지는 확장 국면</text>`;
+
+  return svg(W, H, body, '반도체 고점 판별의 두 접근 대비 개념도',
+    "왼쪽은 '주가 하락(셀온)'과 '반도체 고점'이 서로를 근거로 삼는 닫힌 순환 논증을 보여주고, 오른쪽은 ①현물가·고정거래가 상승 ②재고(DIO) 타이트 ③가동률·CAPEX 주의 ④HBM 수급 타이트 ⑤AI 수요 급증이라는 5개 독립 신호로 사이클 국면을 판별하는 신호판을 보여준다. CAPEX만 주의(노랑), 나머지는 확장 국면(녹색).");
+}
+
+// ── 11) [그림2] DRAM 고정거래가 & 하이퍼스케일러 CAPEX (이중 차트) ─
+function dramPriceAiCapex() {
+  const W = 820, H = 430, T = 110, B = 64;
+  const ph = H - T - B, base = T + ph;
+  const half = W / 2;
+  const defs = `<defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">`
+    + `<rect width="8" height="8" fill="var(--mute)"/><line x1="0" y1="0" x2="0" y2="8" stroke="var(--blue)" stroke-width="3"/></pattern></defs>`;
+  let body = defs;
+  body += `<text class="title" x="24" y="34">가격은 여전히 상승 방향, 전방 수요는 폭발</text>`;
+  body += `<text class="sub" x="24" y="56">두 독립 신호(현물가·AI CAPEX) 모두 '중간 조정' 쪽을 가리킨다.</text>`;
+
+  // ── 왼쪽: DRAM 고정거래가 QoQ ──
+  const L1 = 52, R1 = half - 24, maxV1 = 60, k1 = ph / maxV1;
+  body += `<text class="lbl" x="${L1}" y="88">DRAM 고정거래가 (QoQ %)</text>`;
+  for (let v = 0; v <= 60; v += 20) {
+    const y = base - v * k1;
+    body += `<line class="grid" x1="${L1}" y1="${y}" x2="${R1}" y2="${y}"/>`;
+    body += `<text class="ax" x="${L1 - 8}" y="${y + 4}" text-anchor="end">+${v}</text>`;
+  }
+  body += `<line class="base" x1="${L1}" y1="${base}" x2="${R1}" y2="${base}"/>`;
+  const bars1 = [
+    { label: '2025 4Q', sub: '실적', v: 50, t: '+50%', hatch: false },
+    { label: '2026 3Q', sub: '전망', v: 15, t: '+10~20%', hatch: true },
+  ];
+  const pw1 = R1 - L1, bw1 = 96;
+  bars1.forEach((b, i) => {
+    const cx = L1 + pw1 * (i + 0.5) / bars1.length;
+    const h = b.v * k1;
+    if (b.hatch) {
+      body += `<path fill="url(#hatch)" stroke="var(--blue)" stroke-width="1.5" stroke-dasharray="5 4" d="M${cx - bw1 / 2} ${base} V${base - h + 4} q0 -4 4 -4 h${bw1 - 8} q4 0 4 4 V${base} Z"/>`;
+    } else {
+      body += vbar(cx - bw1 / 2, base - h, bw1, h, 's-blue');
+    }
+    body += `<text class="val" x="${cx}" y="${base - h - 10}" text-anchor="middle">${b.t}</text>`;
+    body += `<text class="lbl" x="${cx}" y="${base + 26}" text-anchor="middle">${b.label}</text>`;
+    body += `<text class="sub" x="${cx}" y="${base + 44}" text-anchor="middle">${b.sub}</text>`;
+  });
+  // 상반기 상승 지속 주석(두 막대 사이)
+  body += `<text class="sub" x="${L1 + pw1 / 2}" y="${T + 30}" text-anchor="middle" style="fill:var(--aqua)">↗ 2026 상반기도 상승 지속</text>`;
+
+  // ── 오른쪽: 하이퍼스케일러 CAPEX ──
+  const L2 = half + 56, R2 = W - 24, maxV2 = 700, k2 = ph / maxV2;
+  body += `<text class="lbl" x="${L2}" y="88">하이퍼스케일러 CAPEX 합계 ($B)</text>`;
+  for (let v = 0; v <= 600; v += 200) {
+    const y = base - v * k2;
+    body += `<line class="grid" x1="${L2}" y1="${y}" x2="${R2}" y2="${y}"/>`;
+    body += `<text class="ax" x="${L2 - 8}" y="${y + 4}" text-anchor="end">${v}</text>`;
+  }
+  body += `<line class="base" x1="${L2}" y1="${base}" x2="${R2}" y2="${base}"/>`;
+  const bars2 = [
+    { label: '2025', sub: '실적(record)', v: 388, t: '$388B', cls: 's-mute' },
+    { label: '2026', sub: '전망', v: 630, t: '$630B', cls: 's-aqua' },
+  ];
+  const pw2 = R2 - L2, bw2 = 96;
+  const cxs = [];
+  const tops = [];
+  bars2.forEach((b, i) => {
+    const cx = L2 + pw2 * (i + 0.5) / bars2.length;
+    const h = b.v * k2;
+    body += vbar(cx - bw2 / 2, base - h, bw2, h, b.cls);
+    body += `<text class="val" x="${cx}" y="${base - h - 10}" text-anchor="middle">${b.t}</text>`;
+    body += `<text class="lbl" x="${cx}" y="${base + 26}" text-anchor="middle">${b.label}</text>`;
+    body += `<text class="sub" x="${cx}" y="${base + 44}" text-anchor="middle">${b.sub}</text>`;
+    cxs.push(cx); tops.push(base - h);
+  });
+  // +60% 증가율 브래킷
+  const by = Math.min(...tops) - 34;
+  body += `<path d="M${cxs[0]} ${by + 10} V${by} H${cxs[1]} V${by + 10}" fill="none" stroke="var(--aqua)" stroke-width="1.5"/>`;
+  body += `<text class="val" x="${(cxs[0] + cxs[1]) / 2}" y="${by - 6}" text-anchor="middle" style="fill:var(--aqua)">약 +60%</text>`;
+
+  body += `<text class="sub" x="24" y="${H - 16}">※ 2026년 수치는 전망치·추정이며 재확인 필요 · 출처: 시장조사기관·업계 집계</text>`;
+
+  return svg(W, H, body, 'DRAM 고정거래가와 하이퍼스케일러 AI CAPEX 이중 차트',
+    'DRAM 고정거래가는 2025년 4분기 전분기 대비 +50% 급등(실적)한 데 이어 2026년 3분기에도 +10~20% 상승(전망)이 예상된다. 글로벌 하이퍼스케일러 CAPEX 합계는 2025년 약 3,880억 달러에서 2026년 약 6,300억 달러로 약 +60% 증가할 전망이다. 두 신호 모두 사이클 중간 조정 쪽을 가리킨다. 2026년 수치는 추정치.');
+}
+
+// ── 12) [커버] 반도체 고점 논란 (기존 cover-* 규격 1200×675) ────
+function coverPeak() {
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="반도체 고점 논란 — 셀온은 고점의 증거가 아니다">
+<defs>
+  <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#3fa05e" stop-opacity="0.16"/>
+    <stop offset="1" stop-color="#3fa05e" stop-opacity="0.02"/>
+  </linearGradient>
+</defs>
+<style>
+  .bg{fill:#f5f8f6} .blob{fill:#3fa05e;opacity:0.10}
+  .eye{fill:#2f8f57;font:700 27px system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:1px}
+  .ttl{fill:#1b1d20;font:800 62px system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-1.5px}
+  .brand{fill:#8a8f8b;font:600 24px system-ui,sans-serif}
+  .tkr{fill:#2f8f57;font:700 26px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .tkrbox{fill:none;stroke:#3fa05e;stroke-width:2}
+  .line{fill:none;stroke:#3fa05e;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+</style>
+<rect class="bg" width="1200" height="675"/>
+<circle class="blob" cx="1040" cy="130" r="250"/>
+<path d="M0 470 L150 430 L300 500 L450 360 L600 520 L750 300 L900 470 L1050 250 L1200 330 L1200 675 L0 675 Z" fill="url(#g)"/>
+<path d="M0 470 L150 430 L300 500 L450 360 L600 520 L750 300 L900 470 L1050 250 L1200 330" class="line"/>
+<text x="80" y="132" class="eye">산업 분석 · 반도체 사이클</text>
+<text x="80" y="292" class="ttl">반도체 고점 논란</text><text x="80" y="374" class="ttl">셀온은 고점의 증거가 아니다</text>
+<rect class="tkrbox" x="80" y="556" width="160" height="44" rx="22"/>
+<text x="104" y="585" class="tkr">000660</text>
+<rect class="tkrbox" x="256" y="556" width="160" height="44" rx="22"/>
+<text x="280" y="585" class="tkr">005930</text>
+<text x="1120" y="620" text-anchor="end" class="brand">아웃베스트의 투자로그</text>
+</svg>`;
+}
+
 await mkdir(OUT, { recursive: true });
+await writeFile(OUT + 'peak-signals.svg', peakSignals());
+await writeFile(OUT + 'dram-price-aicapex.svg', dramPriceAiCapex());
+await writeFile(OUT + 'cover-peak.svg', coverPeak());
 await writeFile(OUT + 'pe-gap.svg', peGap());
 await writeFile(OUT + 'rerating-upside.svg', upside());
 await writeFile(OUT + 'tsmc-premium.svg', tsmc());
@@ -329,4 +497,4 @@ await writeFile(OUT + 'samsung-scenarios.svg', samsungScenarios());
 await writeFile(OUT + 'hanmi-order.svg', hanmiOrder());
 await writeFile(OUT + 'sobujang-opm.svg', sobujangOpm());
 await writeFile(OUT + 'hanmi-target.svg', hanmiTarget());
-console.log('✅ SVG 9종 생성 완료 (SK하이닉스3·삼성3·소부장3)');
+console.log('✅ SVG 생성 완료 (SK하이닉스3·삼성3·소부장3 + 반도체고점 그림2·커버1)');

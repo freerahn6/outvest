@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 430" width="820" height="430" role="img" aria-label="DRAM 고정거래가와 하이퍼스케일러 AI CAPEX 이중 차트">
+<title>DRAM 고정거래가와 하이퍼스케일러 AI CAPEX 이중 차트</title><desc>DRAM 고정거래가는 2025년 4분기 전분기 대비 +50% 급등(실적)한 데 이어 2026년 3분기에도 +10~20% 상승(전망)이 예상된다. 글로벌 하이퍼스케일러 CAPEX 합계는 2025년 약 3,880억 달러에서 2026년 약 6,300억 달러로 약 +60% 증가할 전망이다. 두 신호 모두 사이클 중간 조정 쪽을 가리킨다. 2026년 수치는 추정치.</desc>
+<style>
+  :root{
+    --surface:#fcfcfb; --ink:#0b0b0b; --sub:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --axis:#c3c2b7; --blue:#2a78d6; --orange:#eb6834; --aqua:#1baf7a;
+    --red:#e34948; --green:#008300; --mute:#b7d3f6;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --surface:#1a1a19; --ink:#ffffff; --sub:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --axis:#383835; --blue:#3987e5; --orange:#d95926; --aqua:#199e70;
+      --red:#e66767; --green:#31a531; --mute:#2f4b6e; }
+  }
+  .bg{fill:var(--surface)}
+  .title{fill:var(--ink);font:700 20px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .sub{fill:var(--sub);font:400 13px system-ui,sans-serif}
+  .lbl{fill:var(--ink);font:600 14px system-ui,sans-serif}
+  .ax{fill:var(--muted);font:500 13px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .val{fill:var(--ink);font:700 15px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .grid{stroke:var(--grid);stroke-width:1}
+  .base{stroke:var(--axis);stroke-width:1.5}
+  .s-blue{fill:var(--blue)} .s-orange{fill:var(--orange)} .s-aqua{fill:var(--aqua)}
+  .s-red{fill:var(--red)} .s-green{fill:var(--green)} .s-mute{fill:var(--mute)}
+  .refline{stroke:var(--orange);stroke-width:1.5;stroke-dasharray:5 4}
+  .nowline{stroke:var(--ink);stroke-width:1.5;stroke-dasharray:4 3}
+</style>
+<rect class="bg" x="0" y="0" width="820" height="430" rx="14"/>
+<defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="var(--mute)"/><line x1="0" y1="0" x2="0" y2="8" stroke="var(--blue)" stroke-width="3"/></pattern></defs><text class="title" x="24" y="34">가격은 여전히 상승 방향, 전방 수요는 폭발</text><text class="sub" x="24" y="56">두 독립 신호(현물가·AI CAPEX) 모두 '중간 조정' 쪽을 가리킨다.</text><text class="lbl" x="52" y="88">DRAM 고정거래가 (QoQ %)</text><line class="grid" x1="52" y1="366" x2="386" y2="366"/><text class="ax" x="44" y="370" text-anchor="end">+0</text><line class="grid" x1="52" y1="280.6666666666667" x2="386" y2="280.6666666666667"/><text class="ax" x="44" y="284.6666666666667" text-anchor="end">+20</text><line class="grid" x1="52" y1="195.33333333333334" x2="386" y2="195.33333333333334"/><text class="ax" x="44" y="199.33333333333334" text-anchor="end">+40</text><line class="grid" x1="52" y1="110" x2="386" y2="110"/><text class="ax" x="44" y="114" text-anchor="end">+60</text><line class="base" x1="52" y1="366" x2="386" y2="366"/><path class="s-blue" d="M87.5 366 V156.66666666666666 q0 -4 4 -4 h88 q4 0 4 4 V366 Z"/><text class="val" x="135.5" y="142.66666666666666" text-anchor="middle">+50%</text><text class="lbl" x="135.5" y="392" text-anchor="middle">2025 4Q</text><text class="sub" x="135.5" y="410" text-anchor="middle">실적</text><path fill="url(#hatch)" stroke="var(--blue)" stroke-width="1.5" stroke-dasharray="5 4" d="M254.5 366 V306 q0 -4 4 -4 h88 q4 0 4 4 V366 Z"/><text class="val" x="302.5" y="292" text-anchor="middle">+10~20%</text><text class="lbl" x="302.5" y="392" text-anchor="middle">2026 3Q</text><text class="sub" x="302.5" y="410" text-anchor="middle">전망</text><text class="sub" x="219" y="140" text-anchor="middle" style="fill:var(--aqua)">↗ 2026 상반기도 상승 지속</text><text class="lbl" x="466" y="88">하이퍼스케일러 CAPEX 합계 ($B)</text><line class="grid" x1="466" y1="366" x2="796" y2="366"/><text class="ax" x="458" y="370" text-anchor="end">0</text><line class="grid" x1="466" y1="292.8571428571429" x2="796" y2="292.8571428571429"/><text class="ax" x="458" y="296.8571428571429" text-anchor="end">200</text><line class="grid" x1="466" y1="219.71428571428572" x2="796" y2="219.71428571428572"/><text class="ax" x="458" y="223.71428571428572" text-anchor="end">400</text><line class="grid" x1="466" y1="146.57142857142858" x2="796" y2="146.57142857142858"/><text class="ax" x="458" y="150.57142857142858" text-anchor="end">600</text><line class="base" x1="466" y1="366" x2="796" y2="366"/><path class="s-mute" d="M500.5 366 V228.10285714285715 q0 -4 4 -4 h88 q4 0 4 4 V366 Z"/><text class="val" x="548.5" y="214.10285714285715" text-anchor="middle">$388B</text><text class="lbl" x="548.5" y="392" text-anchor="middle">2025</text><text class="sub" x="548.5" y="410" text-anchor="middle">실적(record)</text><path class="s-aqua" d="M665.5 366 V139.6 q0 -4 4 -4 h88 q4 0 4 4 V366 Z"/><text class="val" x="713.5" y="125.6" text-anchor="middle">$630B</text><text class="lbl" x="713.5" y="392" text-anchor="middle">2026</text><text class="sub" x="713.5" y="410" text-anchor="middle">전망</text><path d="M548.5 111.6 V101.6 H713.5 V111.6" fill="none" stroke="var(--aqua)" stroke-width="1.5"/><text class="val" x="631" y="95.6" text-anchor="middle" style="fill:var(--aqua)">약 +60%</text><text class="sub" x="24" y="414">※ 2026년 수치는 전망치·추정이며 재확인 필요 · 출처: 시장조사기관·업계 집계</text>
+</svg>
