@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="AI 원전 르네상스의 도착 시차 — 전력수요는 지금, 원전은 2030년대">
+<defs>
+  <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#3fa05e" stop-opacity="0.16"/>
+    <stop offset="1" stop-color="#3fa05e" stop-opacity="0.02"/>
+  </linearGradient>
+</defs>
+<style>
+  .bg{fill:#f5f8f6} .blob{fill:#3fa05e;opacity:0.10}
+  .eye{fill:#2f8f57;font:700 27px system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:1px}
+  .ttl{fill:#1b1d20;font:800 64px system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-2px}
+  .sub{fill:#4a4f4b;font:600 30px system-ui,sans-serif;letter-spacing:-0.5px}
+  .brand{fill:#8a8f8b;font:600 24px system-ui,sans-serif}
+  .chip{fill:none;stroke:#3fa05e;stroke-width:2}
+  .chiptx{fill:#2f8f57;font:700 22px system-ui,sans-serif}
+  .line{stroke:#3fa05e;stroke-width:3}
+  .dot{fill:#3fa05e}
+  .yr{fill:#2f8f57;font:700 24px system-ui,sans-serif}
+  .gap{fill:#8a8f8b;font:600 20px system-ui,sans-serif}
+</style>
+<rect class="bg" width="1200" height="675"/>
+<circle class="blob" cx="1040" cy="130" r="250"/>
+<path d="M0 560 L1200 470 L1200 675 L0 675 Z" fill="url(#g)"/>
+<!-- 오른쪽: 도착 시차 타임라인 모티프 (2026 수요 → 2035 공급) -->
+<g transform="translate(905,150)" opacity="0.95">
+  <line class="line" x1="10" y1="20" x2="10" y2="200"/>
+  <circle class="dot" cx="10" cy="30" r="12" opacity="0.9"/>
+  <text x="34" y="38" class="yr">2026 · 전력수요</text>
+  <circle class="dot" cx="10" cy="110" r="9" opacity="0.45"/>
+  <text x="34" y="118" class="gap">2030 · SMR 초도호기</text>
+  <circle class="dot" cx="10" cy="190" r="12" opacity="0.25"/>
+  <text x="34" y="198" class="gap">2035 · 신규 원전 발전</text>
+</g>
+<text x="80" y="132" class="eye">AI 원전 르네상스</text>
+<text x="80" y="300" class="ttl">수요는 지금,</text><text x="80" y="382" class="ttl">원전은 2030년대</text>
+<text x="80" y="452" class="sub">'도착 시차'로 왕관을 가른다</text>
+<rect class="chip" x="80" y="556" width="300" height="46" rx="23"/>
+<text x="104" y="587" class="chiptx">지금 실적 vs SMR 꿈</text>
+<text x="1120" y="628" text-anchor="end" class="brand">아웃베스트의 투자로그</text>
+</svg>
