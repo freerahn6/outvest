@@ -215,6 +215,12 @@ const covers = {
     titleLines: ['로봇의 이익은', '감속기에 쌓인다'],
     ticker: '058610',
   }),
+  'cover-cxmt.svg': cover({
+    eyebrow: '시황 · 7월 대낙폭',
+    titleLines: ['388조가 지워진 날,', '70%는 그 전에 났다'],
+    ticker: '000660',
+    trend: 'down',
+  }),
   // 커버 미지정 글의 폴백. 특정 종목을 가리키지 않는 중립 이미지여야 한다.
   'cover-default.svg': cover({
     eyebrow: '종목노트',
