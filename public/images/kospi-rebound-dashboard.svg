@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 640" width="860" height="640" role="img" aria-label="코스피 반등 확인 계기판 — 거시 신호등 5행과 시장 스트레스 게이지 4종">
+<title>반등 확인 계기판 — 거시 신호등 5행 · 시장 스트레스 게이지 4종</title><desc>상단은 거시 신호등 5행. ① 미 실질금리(10년 TIPS) 피크아웃=적(마스터 스위치), ② 연준 정책경로 분산 축소=적, ③ 한은 추가인상 중단·속도조절=적, ④ 크레딧 스프레드 정점 통과=황, ⑤ 원/달러 방향 우호=황에서 녹으로 전이 중(반쪽 녹). 완전한 녹으로 켜진 신호 0개, 마스터 스위치는 적. 하단은 반원형 게이지 4종. V-KOSPI 정점 통과와 외국인 순매도 강도는 위험존, 신저가 종목수와 풋콜레이쇼는 전환대기존. 게이지에는 구체 수치를 넣지 않았다(미확인). 맨 아래 원/달러 방향의 H1/H2 시나리오 분기: 원화 강세 유지=H1 디레버리징, 1,500 재돌파+외국인 재가속=H2 자본이탈.</desc>
+<style>
+  :root{
+    --surface:#fcfcfb; --ink:#0b0b0b; --sub:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --axis:#c3c2b7; --blue:#2a78d6; --orange:#eb6834; --aqua:#1baf7a;
+    --red:#e34948; --green:#008300; --amber:#e0a020; --mute:#b7d3f6; --panel:#f4f3ef;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --surface:#1a1a19; --ink:#ffffff; --sub:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --axis:#383835; --blue:#3987e5; --orange:#d95926; --aqua:#199e70;
+      --red:#e66767; --green:#31a531; --amber:#e0b040; --mute:#2f4b6e; --panel:#222220; }
+  }
+  .bg{fill:var(--surface)}
+  .title{fill:var(--ink);font:700 20px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .sub{fill:var(--sub);font:400 13px system-ui,sans-serif}
+  .lbl{fill:var(--ink);font:600 14px system-ui,sans-serif}
+  .num{fill:var(--ink);font:700 14px system-ui,sans-serif}
+  .thr{fill:var(--muted);font:400 11px system-ui,sans-serif}
+  .stat{fill:var(--ink);font:700 12px system-ui,sans-serif}
+  .foot{fill:var(--muted);font:400 11px system-ui,sans-serif}
+  .hdr{fill:var(--sub);font:700 13px system-ui,sans-serif;letter-spacing:0.3px}
+  .panel{fill:var(--panel)}
+  .hair{stroke:var(--grid);stroke-width:1}
+  .base{stroke:var(--axis);stroke-width:1.5}
+  .gname{fill:var(--ink);font:600 12.5px system-ui,sans-serif}
+  .gcap{fill:var(--sub);font:400 11px system-ui,sans-serif}
+</style>
+<rect class="bg" x="0" y="0" width="860" height="640" rx="14"/>
+<text class="title" x="24" y="34">반등은 '반등'이 아니라 신호로 확인한다</text>
+<text class="sub" x="24" y="56">거시 신호등 5행(마스터 스위치=①)과 시장 스트레스 게이지 4종. 지금은 켜진 녹불이 없다.</text>
+
+<!-- summary badge -->
+<rect x="24" y="70" width="500" height="26" rx="13" fill="var(--red)" opacity="0.10"/>
+<circle cx="42" cy="83" r="5" fill="var(--red)"/>
+<text class="stat" x="54" y="87" style="fill:var(--red)">완전한 녹으로 켜진 신호: 0개 · 마스터 스위치(①): 적</text>
+
+<!-- ===== TOP: signal table ===== -->
+<text class="hdr" x="24" y="118">① 거시 신호등 — 반등의 전제조건</text>
+<rect class="panel" x="24" y="126" width="812" height="238" rx="10"/>
+<rect x="24" y="126" width="812" height="238" rx="10" fill="none" class="hair"/>
+
+<!-- rows: name x=66, threshold under; lamp cx=596; status x=618 -->
+<!-- row1 -->
+<circle cx="46" cy="158" r="13" fill="none" stroke="var(--axis)"/><text class="num" x="46" y="163" text-anchor="middle">1</text>
+<text class="lbl" x="70" y="153">미 실질금리(10년 TIPS) 피크아웃</text>
+<rect x="336" y="142" width="98" height="19" rx="9.5" fill="var(--red)" opacity="0.14"/><text class="stat" x="385" y="155" text-anchor="middle" style="fill:var(--red)">마스터 스위치</text>
+<text class="thr" x="70" y="170">임계: 직전고점 하회 2주 이상 유지</text>
+<circle cx="596" cy="158" r="12" fill="var(--red)"/><text class="stat" x="618" y="162" style="fill:var(--red)">적</text>
+<line class="hair" x1="40" y1="184" x2="820" y2="184"/>
+<!-- row2 -->
+<circle cx="46" cy="204" r="13" fill="none" stroke="var(--axis)"/><text class="num" x="46" y="209" text-anchor="middle">2</text>
+<text class="lbl" x="70" y="199">연준 정책경로 분산 축소</text>
+<text class="thr" x="70" y="216">임계: 점도표 연내인상 9명 미만 or 워시 조건부 가이던스 복원</text>
+<circle cx="596" cy="204" r="12" fill="var(--red)"/><text class="stat" x="618" y="208" style="fill:var(--red)">적</text>
+<line class="hair" x1="40" y1="230" x2="820" y2="230"/>
+<!-- row3 -->
+<circle cx="46" cy="250" r="13" fill="none" stroke="var(--axis)"/><text class="num" x="46" y="255" text-anchor="middle">3</text>
+<text class="lbl" x="70" y="245">한은 추가인상 중단·속도조절</text>
+<text class="thr" x="70" y="262">임계: 만장일치 붕괴 or 관망 전환</text>
+<circle cx="596" cy="250" r="12" fill="var(--red)"/><text class="stat" x="618" y="254" style="fill:var(--red)">적</text>
+<line class="hair" x1="40" y1="276" x2="820" y2="276"/>
+<!-- row4 -->
+<circle cx="46" cy="296" r="13" fill="none" stroke="var(--axis)"/><text class="num" x="46" y="301" text-anchor="middle">4</text>
+<text class="lbl" x="70" y="291">크레딧 스프레드 정점 통과</text>
+<text class="thr" x="70" y="308">임계: IG/HY 스프레드 축소 전환 · 오라클 CDS 안정</text>
+<circle cx="596" cy="296" r="12" fill="var(--amber)"/><text class="stat" x="618" y="300" style="fill:var(--amber)">황</text>
+<line class="hair" x1="40" y1="322" x2="820" y2="322"/>
+<!-- row5 -->
+<circle cx="46" cy="343" r="13" fill="none" stroke="var(--axis)"/><text class="num" x="46" y="348" text-anchor="middle">5</text>
+<text class="lbl" x="70" y="338">원/달러 방향 우호 (임계 미달)</text>
+<text class="thr" x="70" y="354">임계: 원화 강세 방향(1,559→1,462) · 완전한 녹은 1,450 재진입+외국인 둔화 시</text>
+<!-- split lamp: left amber, right green -->
+<path d="M596 331 A12 12 0 0 0 596 355 Z" fill="var(--amber)"/>
+<path d="M596 331 A12 12 0 0 1 596 355 Z" fill="var(--green)"/>
+<text class="stat" x="618" y="347"><tspan style="fill:var(--amber)">황</tspan><tspan style="fill:var(--sub)">→</tspan><tspan style="fill:var(--green)">녹</tspan> <tspan style="fill:var(--sub)">전이중</tspan></text>
+
+<!-- ===== BOTTOM: gauges ===== -->
+<text class="hdr" x="24" y="398">② 시장 스트레스 게이지 — 존: 위험(적) · 전환대기(황) · 확인(녹)</text>
+
+<!-- gauge template: cx varies, gy=486, r=68; red 180-120, amber 120-60, green 60-0 -->
+<!-- G1 cx=128 : 위험존 needle -->
+<g>
+  <path d="M60 486 A68 68 0 0 1 94 427.1" fill="none" stroke="var(--red)" stroke-width="11" stroke-linecap="round"/>
+  <path d="M94 427.1 A68 68 0 0 1 162 427.1" fill="none" stroke="var(--amber)" stroke-width="11"/>
+  <path d="M162 427.1 A68 68 0 0 1 196 486" fill="none" stroke="var(--green)" stroke-width="11" stroke-linecap="round"/>
+  <line x1="128" y1="486" x2="79.5" y2="458" stroke="var(--ink)" stroke-width="3"/>
+  <circle cx="128" cy="486" r="5" fill="var(--ink)"/>
+  <text class="gname" x="128" y="410" text-anchor="middle">V-KOSPI 정점 통과</text>
+  <text class="gcap" x="128" y="508" text-anchor="middle" style="fill:var(--red)">위험존(고점권)</text>
+</g>
+<!-- G2 cx=330 : 위험존 needle -->
+<g>
+  <path d="M262 486 A68 68 0 0 1 296 427.1" fill="none" stroke="var(--red)" stroke-width="11" stroke-linecap="round"/>
+  <path d="M296 427.1 A68 68 0 0 1 364 427.1" fill="none" stroke="var(--amber)" stroke-width="11"/>
+  <path d="M364 427.1 A68 68 0 0 1 398 486" fill="none" stroke="var(--green)" stroke-width="11" stroke-linecap="round"/>
+  <line x1="330" y1="486" x2="281.5" y2="458" stroke="var(--ink)" stroke-width="3"/>
+  <circle cx="330" cy="486" r="5" fill="var(--ink)"/>
+  <text class="gname" x="330" y="410" text-anchor="middle">외국인 순매도 강도</text>
+  <text class="gcap" x="330" y="508" text-anchor="middle" style="fill:var(--red)">위험존(가속 중)</text>
+</g>
+<!-- G3 cx=532 : 전환대기 needle -->
+<g>
+  <path d="M464 486 A68 68 0 0 1 498 427.1" fill="none" stroke="var(--red)" stroke-width="11" stroke-linecap="round"/>
+  <path d="M498 427.1 A68 68 0 0 1 566 427.1" fill="none" stroke="var(--amber)" stroke-width="11"/>
+  <path d="M566 427.1 A68 68 0 0 1 600 486" fill="none" stroke="var(--green)" stroke-width="11" stroke-linecap="round"/>
+  <line x1="532" y1="486" x2="532" y2="430" stroke="var(--ink)" stroke-width="3"/>
+  <circle cx="532" cy="486" r="5" fill="var(--ink)"/>
+  <text class="gname" x="532" y="410" text-anchor="middle">신저가 종목수</text>
+  <text class="gcap" x="532" y="508" text-anchor="middle" style="fill:var(--amber)">전환대기(급증→감소 관찰)</text>
+</g>
+<!-- G4 cx=734 : 전환대기 needle -->
+<g>
+  <path d="M666 486 A68 68 0 0 1 700 427.1" fill="none" stroke="var(--red)" stroke-width="11" stroke-linecap="round"/>
+  <path d="M700 427.1 A68 68 0 0 1 768 427.1" fill="none" stroke="var(--amber)" stroke-width="11"/>
+  <path d="M768 427.1 A68 68 0 0 1 802 486" fill="none" stroke="var(--green)" stroke-width="11" stroke-linecap="round"/>
+  <line x1="734" y1="486" x2="734" y2="430" stroke="var(--ink)" stroke-width="3"/>
+  <circle cx="734" cy="486" r="5" fill="var(--ink)"/>
+  <text class="gname" x="734" y="410" text-anchor="middle">풋콜레이쇼</text>
+  <text class="gcap" x="734" y="508" text-anchor="middle" style="fill:var(--amber)">전환대기(극단→되돌림 관찰)</text>
+</g>
+
+<!-- USD/KRW scenario fork -->
+<line class="hair" x1="24" y1="528" x2="836" y2="528"/>
+<text class="hdr" x="24" y="552">원/달러 방향 = 반등 시나리오 분기점</text>
+<!-- incoming line 1,559 -> 1,462 -->
+<path d="M40 588 L150 604 L280 596" fill="none" stroke="var(--aqua)" stroke-width="2.5"/>
+<circle cx="40" cy="588" r="3.5" fill="var(--aqua)"/>
+<text class="thr" x="34" y="580" text-anchor="start">1,559</text>
+<text class="thr" x="288" y="590">1,462 (원화 강세)</text>
+<!-- fork -->
+<path d="M280 596 L440 596" fill="none" stroke="var(--axis)" stroke-width="2"/>
+<path d="M440 596 L560 578" fill="none" stroke="var(--red)" stroke-width="2.5"/>
+<path d="M440 596 L560 614" fill="none" stroke="var(--aqua)" stroke-width="2.5"/>
+<circle cx="560" cy="578" r="3.5" fill="var(--red)"/>
+<circle cx="560" cy="614" r="3.5" fill="var(--aqua)"/>
+<text class="thr" x="570" y="574" style="fill:var(--red)">H2 · 1,500 재돌파 + 외국인 재가속 → 자본이탈</text>
+<text class="thr" x="570" y="618" style="fill:var(--aqua)">H1 · 원화 강세 유지 → 디레버리징(위험 완화)</text>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="바닥은 어디인가 — 저점도 예언이 아니라 신호로 확인한다">
+<title>바닥은 어디인가 — 장전 시황 커버</title>
+<defs>
+  <linearGradient id="gk" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#2dd4bf" stop-opacity="0.20"/>
+    <stop offset="1" stop-color="#2dd4bf" stop-opacity="0.02"/>
+  </linearGradient>
+  <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#38bdf8"/>
+    <stop offset="1" stop-color="#2dd4bf"/>
+  </linearGradient>
+</defs>
+<style>
+  .bg{fill:#0e2433} .blob{fill:#2dd4bf;opacity:0.08}
+  .eye{fill:#5fe0cf;font:700 27px system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:1px}
+  .ttl{fill:#eef5f8;font:800 66px system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-2px}
+  .sub{fill:#a7c0cc;font:600 30px system-ui,sans-serif;letter-spacing:-0.5px}
+  .brand{fill:#6f8896;font:600 24px system-ui,sans-serif}
+  .band{fill:#38bdf8;opacity:0.10}
+  .bandtx{fill:#7fb8d8;font:600 20px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .hi{fill:#cfe3ec;font:600 20px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+</style>
+<rect class="bg" width="1200" height="675"/>
+<circle class="blob" cx="1050" cy="120" r="260"/>
+<path d="M0 580 L1200 500 L1200 675 L0 675 Z" fill="url(#gk)"/>
+
+<!-- motif: crashing line searching a bottom band -->
+<g>
+  <!-- 6,000 support band -->
+  <rect class="band" x="700" y="470" width="460" height="26"/>
+  <text class="bandtx" x="706" y="462">6,000선 지지 후보</text>
+  <!-- descending path -->
+  <path d="M700 150 C 812 168, 852 300, 962 372 S 1074 470, 1150 478" fill="none" stroke="url(#gl)" stroke-width="4" stroke-linecap="round"/>
+  <!-- area under -->
+  <path d="M700 150 C 812 168, 852 300, 962 372 S 1074 470, 1150 478 L1150 496 L700 496 Z" fill="url(#gk)" opacity="0.5"/>
+  <!-- swing high dot -->
+  <circle cx="700" cy="150" r="7" fill="#5fe0cf"/>
+  <text class="hi" x="716" y="145">9,385</text>
+  <!-- current, searching bottom -->
+  <circle cx="1150" cy="478" r="11" fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.6"/>
+  <circle cx="1150" cy="478" r="6" fill="#38bdf8"/>
+  <!-- traffic-light signals -->
+  <g transform="translate(1096,150)">
+    <rect x="-16" y="-16" width="48" height="150" rx="24" fill="#12303f" stroke="#274a5c" stroke-width="1.5"/>
+    <circle cx="8" cy="12" r="15" fill="#e34948"/>
+    <circle cx="8" cy="59" r="15" fill="#e0a020"/>
+    <circle cx="8" cy="106" r="15" fill="#2f9e5e" opacity="0.35"/>
+  </g>
+</g>
+
+<text x="80" y="132" class="eye">장전 시황 · 2026.07.30</text>
+<text x="80" y="330" class="ttl">바닥은 어디인가</text>
+<text x="80" y="452" class="sub">저점도 예언이 아니라 신호로 확인한다</text>
+<text x="1120" y="628" text-anchor="end" class="brand">아웃베스트의 투자로그</text>
+</svg>

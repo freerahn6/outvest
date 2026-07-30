@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 520" width="820" height="520" role="img" aria-label="코스피 상반기 랠리 피보나치 되돌림 밴드와 저점 후보 구간">
+<title>코스피 피보나치 되돌림 밴드 · 저점 후보 구간</title><desc>상반기 랠리 스윙하이 9,385.59(6/19 장중고)를 기준으로 한 피보나치 되돌림. 38.2%(7,557)와 50.0%(6,993)는 이미 이탈, 61.8%(6,428)는 이탈 후 저항으로 전환(붉은 점선 강조), 78.6%(5,624)와 100%(4,600 랠리 원점)는 미도달. 지지 밴드는 1차 6,000선(심리·라운드), 2차 5,600~5,800(78.6% 포함), 최종 4,600~4,900(랠리 원점) 세 구간. 현재가는 6,023.66(7/28 종가)로 6,000선 밴드 바로 위. 하락 경로는 8,476(6/30)→6,755(7/27)→6,023(7/28). base 4,600은 상반기 +104% 역산 추정치.</desc>
+<style>
+  :root{
+    --surface:#fcfcfb; --ink:#0b0b0b; --sub:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --axis:#c3c2b7; --blue:#2a78d6; --orange:#eb6834; --aqua:#1baf7a;
+    --red:#e34948; --green:#008300; --mute:#b7d3f6;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --surface:#1a1a19; --ink:#ffffff; --sub:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --axis:#383835; --blue:#3987e5; --orange:#d95926; --aqua:#199e70;
+      --red:#e66767; --green:#31a531; --mute:#2f4b6e; }
+  }
+  .bg{fill:var(--surface)}
+  .title{fill:var(--ink);font:700 20px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .sub{fill:var(--sub);font:400 13px system-ui,sans-serif}
+  .lbl{fill:var(--ink);font:600 14px system-ui,sans-serif}
+  .ax{fill:var(--muted);font:500 13px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .val{fill:var(--ink);font:700 15px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .grid{stroke:var(--grid);stroke-width:1}
+  .base{stroke:var(--axis);stroke-width:1.5}
+  .fib{stroke:var(--axis);stroke-width:1.2;stroke-dasharray:4 4}
+  .fibgone{stroke:var(--axis);stroke-width:1;stroke-dasharray:2 4;opacity:0.45}
+  .fibkey{stroke:var(--red);stroke-width:2;stroke-dasharray:6 4}
+  .foot{fill:var(--muted);font:400 11px system-ui,sans-serif}
+</style>
+<rect class="bg" x="0" y="0" width="820" height="520" rx="14"/>
+<text class="title" x="24" y="34">코스피 되돌림 밴드 — 저점은 '레벨'이 아니라 '구간'</text>
+<text class="sub" x="24" y="56">스윙하이 9,385.59 기준 피보나치. 61.8%(6,428)를 이탈해 이제 저항으로. 지지 후보는 세 밴드.</text>
+
+<!-- y grid & axis (level) -->
+<line class="grid" x1="88" y1="127.2" x2="624" y2="127.2"/><text class="ax" x="80" y="131" text-anchor="end">9,000</text>
+<line class="grid" x1="88" y1="195.2" x2="624" y2="195.2"/><text class="ax" x="80" y="199" text-anchor="end">8,000</text>
+<line class="grid" x1="88" y1="263.2" x2="624" y2="263.2"/><text class="ax" x="80" y="267" text-anchor="end">7,000</text>
+<line class="grid" x1="88" y1="331.2" x2="624" y2="331.2"/><text class="ax" x="80" y="335" text-anchor="end">6,000</text>
+<line class="grid" x1="88" y1="399.2" x2="624" y2="399.2"/><text class="ax" x="80" y="403" text-anchor="end">5,000</text>
+<line class="base" x1="88" y1="90" x2="88" y2="440"/>
+
+<!-- support bands -->
+<rect x="88" y="325" width="536" height="12" fill="var(--aqua)" opacity="0.12"/>
+<text class="sub" x="98" y="322" style="fill:var(--aqua)">1차 지지 · 6,000선(심리·라운드)</text>
+<rect x="88" y="344.8" width="536" height="13.6" fill="var(--aqua)" opacity="0.14"/>
+<text class="sub" x="98" y="371" style="fill:var(--aqua)">2차 지지 · 5,600~5,800 (78.6% 포함)</text>
+<rect x="88" y="406" width="536" height="20.4" fill="var(--aqua)" opacity="0.16"/>
+<text class="sub" x="98" y="420" style="fill:var(--aqua)">최종 지지 · 4,600~4,900 (랠리 원점)</text>
+
+<!-- fib lines (right labels x=632 level+%, x=812 note) -->
+<line class="fibgone" x1="88" y1="225.3" x2="624" y2="225.3"/>
+<text class="ax" x="632" y="229.3" style="opacity:0.55">38.2% · 7,557</text><text class="ax" x="812" y="229.3" text-anchor="end" style="opacity:0.55">이탈</text>
+<line class="fibgone" x1="88" y1="263.7" x2="624" y2="263.7"/>
+<text class="ax" x="632" y="253" style="opacity:0.55">50.0% · 6,993</text><text class="ax" x="812" y="253" text-anchor="end" style="opacity:0.55">이탈</text>
+<line class="fibkey" x1="88" y1="302.1" x2="624" y2="302.1"/>
+<text class="val" x="632" y="298" style="fill:var(--red)">61.8% · 6,428</text><text class="val" x="812" y="298" text-anchor="end" style="fill:var(--red)">이탈 → 저항</text>
+<line class="fib" x1="88" y1="356.8" x2="624" y2="356.8"/>
+<text class="ax" x="632" y="360.8">78.6% · 5,624</text><text class="ax" x="812" y="360.8" text-anchor="end">미도달</text>
+<line class="fib" x1="88" y1="426.4" x2="624" y2="426.4"/>
+<text class="ax" x="632" y="430.4">100% · 4,600</text><text class="ax" x="812" y="430.4" text-anchor="end">랠리 원점</text>
+
+<!-- descending price path -->
+<path d="M110 101 L250 162.8 L405 279.9 L530 329.6" fill="none" stroke="var(--ink)" stroke-width="2" opacity="0.85"/>
+<circle cx="110" cy="101" r="4" fill="var(--ink)"/>
+<text class="val" x="120" y="98">9,385.59</text><text class="sub" x="120" y="114">6/19 장중고 (스윙하이)</text>
+<circle cx="250" cy="162.8" r="3.5" fill="var(--ink)" opacity="0.7"/>
+<text class="ax" x="258" y="158">8,476 · 6/30</text>
+<circle cx="405" cy="279.9" r="3.5" fill="var(--ink)" opacity="0.7"/>
+<text class="ax" x="360" y="272" text-anchor="end">6,755 · 7/27</text>
+
+<!-- current price marker -->
+<circle cx="530" cy="329.6" r="6" fill="var(--red)"/>
+<circle cx="530" cy="329.6" r="11" fill="none" stroke="var(--red)" stroke-width="1.5" opacity="0.5"/>
+<text class="val" x="530" y="316" text-anchor="middle" style="fill:var(--red)">현재가 6,023.66</text>
+<text class="sub" x="530" y="304" text-anchor="middle" style="fill:var(--red)">7/28 종가 · 6,000선 위</text>
+
+<line class="base" x1="88" y1="440" x2="624" y2="440"/>
+<text class="foot" x="24" y="470">※ base 4,600은 상반기 +104% 랠리 역산 추정치 · 9,385.59는 장중고, 월간 등락률(-28.9%)은 종가 기준</text>
+<text class="foot" x="24" y="488">   (6/30 8,476.48 · 7/28 6,023.66). 되돌림·지지 밴드는 참고 도구일 뿐 저점을 보장하지 않는다.</text>
+</svg>
