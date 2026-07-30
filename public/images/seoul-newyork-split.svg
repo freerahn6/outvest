@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" width="760" height="420" role="img" aria-label="2026년 7월 30일 서울과 뉴욕의 등락률 비교 막대그래프">
+<title>2026년 7월 30일 — 같은 재료, 갈라진 두 시장</title><desc>같은 날 서울에서는 SK하이닉스 본주가 -5.64%, 코스피가 -1.23% 하락했지만, 그날 밤 뉴욕에서는 필라델피아 반도체지수가 +8.19%, SK하이닉스 ADR이 +17.52%, 마이크론이 약 +18.4% 상승했다.</desc>
+<style>
+  :root{
+    --surface:#fcfcfb; --ink:#0b0b0b; --sub:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --axis:#c3c2b7; --blue:#2a78d6; --orange:#eb6834;
+    --red:#e34948; --green:#008300; --mute:#b7d3f6;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --surface:#1a1a19; --ink:#ffffff; --sub:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --axis:#383835; --blue:#3987e5; --orange:#d95926;
+      --red:#e66767; --green:#31a531; --mute:#2f4b6e; }
+  }
+  .bg{fill:var(--surface)}
+  .title{fill:var(--ink);font:700 20px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .sub{fill:var(--sub);font:400 13px system-ui,sans-serif}
+  .lbl{fill:var(--ink);font:600 13px system-ui,sans-serif}
+  .lbl2{fill:var(--muted);font:500 12px system-ui,sans-serif}
+  .ax{fill:var(--muted);font:500 12px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .val{fill:var(--ink);font:700 15px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .zonelbl{fill:var(--muted);font:700 12px system-ui,sans-serif;letter-spacing:1px}
+  .grid{stroke:var(--grid);stroke-width:1}
+  .base{stroke:var(--axis);stroke-width:1.5}
+  .divide{stroke:var(--axis);stroke-width:1;stroke-dasharray:5 4}
+  .s-red{fill:var(--red)} .s-green{fill:var(--green)} .s-mute{fill:var(--mute)}
+</style>
+<rect class="bg" x="0" y="0" width="760" height="420" rx="14"/>
+<text class="title" x="44" y="34">2026년 7월 30일 — 같은 재료, 갈라진 두 시장</text>
+<text class="sub" x="44" y="56">삼성전자 컨콜 &quot;2028년까지 큰 폭의 공급 확대는 어렵다&quot; · 서울은 오후에 되돌렸고, 그날 밤 뉴욕은 사들였다</text>
+
+<line class="grid" x1="60" y1="100" x2="736" y2="100"/><text class="ax" x="52" y="104" text-anchor="end">+20%</text>
+<line class="grid" x1="60" y1="140" x2="736" y2="140"/><text class="ax" x="52" y="144" text-anchor="end">+15%</text>
+<line class="grid" x1="60" y1="180" x2="736" y2="180"/><text class="ax" x="52" y="184" text-anchor="end">+10%</text>
+<line class="grid" x1="60" y1="220" x2="736" y2="220"/><text class="ax" x="52" y="224" text-anchor="end">+5%</text>
+<line class="grid" x1="60" y1="300" x2="736" y2="300"/><text class="ax" x="52" y="304" text-anchor="end">-5%</text>
+<line class="grid" x1="60" y1="340" x2="736" y2="340"/><text class="ax" x="52" y="344" text-anchor="end">-10%</text>
+<line class="base" x1="60" y1="260" x2="736" y2="260"/><text class="ax" x="52" y="264" text-anchor="end">0</text>
+
+<line class="divide" x1="320" y1="86" x2="320" y2="392"/>
+<text class="zonelbl" x="190" y="80" text-anchor="middle">서울 (7/30 정규장)</text>
+<text class="zonelbl" x="528" y="80" text-anchor="middle">뉴욕 (현지 7/30 · 그날 밤)</text>
+
+<path class="s-red" d="M96 260 V305.1 q0 4 4 4 h80 q4 0 4 -4 V260 Z"/>
+<text class="val" x="140" y="326" text-anchor="middle">-5.64%</text>
+<text class="lbl" x="140" y="366" text-anchor="middle">SK하이닉스</text>
+<text class="lbl2" x="140" y="384" text-anchor="middle">본주 132.2만원</text>
+
+<path class="s-red" d="M216 260 V269.8 q0 4 4 4 h80 q4 0 4 -4 V260 Z"/>
+<text class="val" x="260" y="291" text-anchor="middle">-1.23%</text>
+<text class="lbl" x="260" y="366" text-anchor="middle">코스피</text>
+<text class="lbl2" x="260" y="384" text-anchor="middle">5,593.56</text>
+
+<path class="s-mute" d="M336 260 V198.5 q0 -4 4 -4 h80 q4 0 4 4 V260 Z"/>
+<text class="val" x="380" y="186" text-anchor="middle">+8.19%</text>
+<text class="lbl" x="380" y="366" text-anchor="middle">SOX</text>
+<text class="lbl2" x="380" y="384" text-anchor="middle">필라델피아 반도체</text>
+
+<path class="s-green" d="M456 260 V123.8 q0 -4 4 -4 h80 q4 0 4 4 V260 Z"/>
+<text class="val" x="500" y="111" text-anchor="middle">+17.52%</text>
+<text class="lbl" x="500" y="366" text-anchor="middle">SK하이닉스</text>
+<text class="lbl2" x="500" y="384" text-anchor="middle">ADR $149.00</text>
+
+<path class="s-green" d="M576 260 V113.1 q0 -4 4 -4 h80 q4 0 4 4 V260 Z"/>
+<text class="val" x="620" y="100" text-anchor="middle">약 +18.4%</text>
+<text class="lbl" x="620" y="366" text-anchor="middle">마이크론</text>
+<text class="lbl2" x="620" y="384" text-anchor="middle">MU · 매체별 18.4~18.6%</text>
+</svg>

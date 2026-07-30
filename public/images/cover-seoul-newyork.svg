@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="서울은 팔고 뉴욕은 샀다 — 괴리율 62%">
+<defs>
+  <linearGradient id="gu" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#3fa05e" stop-opacity="0.18"/>
+    <stop offset="1" stop-color="#3fa05e" stop-opacity="0.02"/>
+  </linearGradient>
+</defs>
+<style>
+  .bg{fill:#f5f8f6} .blob{fill:#3fa05e;opacity:0.10}
+  .eye{fill:#2f8f57;font:700 27px system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:1px}
+  .ttl{fill:#1b1d20;font:800 62px system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-1.5px}
+  .brand{fill:#8a8f8b;font:600 24px system-ui,sans-serif}
+  .tkr{fill:#2f8f57;font:700 26px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .tkrbox{fill:none;stroke:#3fa05e;stroke-width:2}
+  .up{fill:none;stroke:#3fa05e;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+  .dn{fill:none;stroke:#c1483f;stroke-width:4;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:10 7}
+  .gaplbl{fill:#c1483f;font:800 30px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+</style>
+<rect class="bg" width="1200" height="675"/>
+<circle class="blob" cx="1040" cy="130" r="250"/>
+<path d="M660 470 L780 452 L900 400 L1020 336 L1140 232 L1140 675 L660 675 Z" fill="url(#gu)"/>
+<path d="M660 470 L780 452 L900 400 L1020 336 L1140 232" class="up"/>
+<path d="M660 470 L780 496 L900 512 L1020 556 L1140 580" class="dn"/>
+<text x="80" y="132" class="eye">장전 시황 · ADR</text>
+<text x="80" y="292" class="ttl">서울은 팔고</text><text x="80" y="374" class="ttl">뉴욕은 샀다</text>
+<text x="1148" y="222" class="gaplbl" text-anchor="end">괴리 62%</text>
+<rect class="tkrbox" x="80" y="556" width="160" height="44" rx="22"/>
+<text x="104" y="585" class="tkr">000660</text>
+<text x="1120" y="620" text-anchor="end" class="brand">아웃베스트의 투자로그</text>
+</svg>
