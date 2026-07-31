@@ -3,6 +3,7 @@ title: "ADR이란 무엇인가 — 미국 증시의 '한국 주식 교환권'"
 description: "미국 증시에서 달러로 거래되는 SK하이닉스·POSCO·KB금융… ADR이 대체 뭘까? 원주와의 관계, 프리미엄·디스카운트, 환율·수수료 함정을 초보 눈높이로 정리."
 pubDate: 2026-05-16
 tags: ["기초강의", "ADR", "해외주식", "주식기초"]
+category: "기초강의"
 cover: "/images/cover-adr.svg"
 ---
 

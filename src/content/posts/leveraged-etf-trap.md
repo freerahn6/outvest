@@ -3,6 +3,7 @@ title: "레버리지·인버스 ETF의 함정 — '곱버스'는 왜 녹아내�
 description: "지수는 본전인데 2배 레버리지는 왜 마이너스일까? 음의 복리(변동성 손실)를 숫자로 증명하고, 곱버스·인버스 헤지 착각과 포지션 사이징까지 리스크 관점에서 정리."
 pubDate: 2026-06-06
 tags: ["기초강의", "레버리지ETF", "인버스", "주식기초"]
+category: "기초강의"
 cover: "/images/cover-leverage.svg"
 draft: false
 ---

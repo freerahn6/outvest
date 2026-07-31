@@ -5,6 +5,7 @@ pubDate: 2026-07-10
 tickers:
   - { code: "000660", name: "SK하이닉스" }
 tags: ["SK하이닉스", "ADR", "반도체", "HBM", "종목분석"]
+category: "종목 분석"
 cover: "/images/cover-skhynix.svg"
 ---
 

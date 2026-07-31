@@ -3,6 +3,7 @@ title: "PER·PBR이 대체 뭔가요? — 5분이면 끝나는 밸류에이션 �
 description: "주식이 '싸다 비싸다'를 판단하는 첫 잣대, PER과 PBR. 공식 암기 대신 '한 문장'으로 이해하고, 삼성전자 실제 숫자로 계산해봅니다. 초보가 꼭 아는 함정 3가지까지."
 pubDate: 2026-06-15
 tags: ["기초강의", "PER", "PBR", "밸류에이션", "주식기초"]
+category: "기초강의"
 cover: "/images/cover-perpbr.svg"
 ---
 

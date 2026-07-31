@@ -3,6 +3,7 @@ title: "ETF vs 개별주 — 초보는 뭘 사야 할까"
 description: "삼성전자 한 주를 살까, 그 ETF를 살까? 초보를 위한 ETF·개별주 장단점 비교와 '분산했다는 착각' 피하는 법. 코어-새틀라이트 전략까지 5분 정리."
 pubDate: 2026-04-18
 tags: ["기초강의", "ETF", "분산투자", "주식기초"]
+category: "기초강의"
 cover: "/images/cover-etf.svg"
 ---
 

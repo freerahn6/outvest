@@ -5,6 +5,7 @@ pubDate: 2026-07-09
 tickers:
   - { code: "042700", name: "한미반도체" }
 tags: ["소부장", "반도체", "한미반도체", "HBM", "종목분석"]
+category: "종목 분석"
 cover: "/images/cover-sobujang.svg"
 ---
 

@@ -6,6 +6,7 @@ tickers:
   - { code: "006400", name: "삼성SDI" }
   - { code: "373220", name: "LG에너지솔루션" }
 tags: ["전고체배터리", "2차전지", "삼성SDI", "종목분석"]
+category: "종목 분석"
 cover: "/images/cover-ssb.svg"
 ---
 

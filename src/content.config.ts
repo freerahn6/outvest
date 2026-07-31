@@ -20,6 +20,9 @@ const posts = defineCollection({
       )
       .default([]),
     tags: z.array(z.string()).default([]),
+    // 공식 카테고리 3분류. 세부 태그(tags)와 별개의 대분류.
+    // 아직 분류 안 된 draft 글도 빌드가 깨지지 않도록 optional 로 둔다.
+    category: z.enum(['기초강의', '종목 분석', '장전 시황']).optional(),
     draft: z.boolean().default(false),
     // 카드 썸네일(커버) 이미지 경로. 없으면 기본 커버 사용.
     cover: z.string().optional(),

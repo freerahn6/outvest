@@ -8,7 +8,7 @@ const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
 );
 const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
-const cover = (p: any) => p.data.cover ?? '/images/cover-skhynix.svg';
+const cover = (p: any) => p.data.cover ?? '/images/cover-default.svg';
 const [featured, ...rest] = posts;
 ---
 
@@ -34,6 +34,7 @@ const [featured, ...rest] = posts;
           <h2>{featured.data.title}</h2>
           <p>{featured.data.description}</p>
           <div class="feature-meta">
+            {featured.data.category && <span class="cat-badge">{featured.data.category}</span>}
             <time datetime={featured.data.pubDate.toISOString()}>{fmt(featured.data.pubDate)}</time>
             {featured.data.tickers.slice(0, 2).map((t) => <span class="chip">{t.name}</span>)}
           </div>
@@ -49,7 +50,12 @@ const [featured, ...rest] = posts;
             <div class="post-card">
               <div class="pc-cover"><img src={cover(p)} alt={p.data.title} loading="lazy" /></div>
               <div class="pc-body">
-                <span class="pc-date">{fmt(p.data.pubDate)}</span>
+                <div class="pc-topline">
+                  {p.data.category && (
+                    <a class="cat-badge pc-cat" href={`/category/${encodeURIComponent(p.data.category)}/`}>{p.data.category}</a>
+                  )}
+                  <span class="pc-date">{fmt(p.data.pubDate)}</span>
+                </div>
                 <a class="pc-title pc-stretch" href={`/posts/${p.id}/`}>{p.data.title}</a>
                 <p class="pc-desc">{p.data.description}</p>
                 <div class="pc-meta">
@@ -112,6 +118,9 @@ const [featured, ...rest] = posts;
   .post-card:hover .pc-title { color: var(--accent); }
   .pc-stretch::after { content: ""; position: absolute; inset: 0; z-index: 1; }
   .pc-meta { position: relative; z-index: 2; }
+  .pc-topline { display: flex; align-items: center; gap: 9px; }
+  .pc-cat { position: relative; z-index: 2; }
+  .feature-meta .cat-badge { position: relative; }
 
   @media (max-width: 768px) {
     .feature { grid-template-columns: 1fr; }

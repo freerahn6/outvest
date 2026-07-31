@@ -6,6 +6,7 @@ tickers:
   - { code: "028300", name: "HLB" }
   - { code: "067630", name: "HLB생명과학" }
 tags: ["시황", "바이오", "HLB", "FDA", "리보세라닙", "신약"]
+category: "장전 시황"
 cover: "/images/cover-hlb.svg"
 ---
 

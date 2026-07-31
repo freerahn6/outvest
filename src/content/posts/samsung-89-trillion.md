@@ -5,6 +5,7 @@ pubDate: 2026-07-08
 tickers:
   - { code: "005930", name: "삼성전자" }
 tags: ["삼성전자", "실적", "반도체", "HBM", "주가전망"]
+category: "종목 분석"
 cover: "/images/cover-samsung.svg"
 ---
 

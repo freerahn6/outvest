@@ -6,6 +6,7 @@ tickers:
   - { code: "000660", name: "SK하이닉스" }
   - { code: "005930", name: "삼성전자" }
 tags: ["시황", "반도체", "SK하이닉스", "HBM4", "ADR", "레버리지ETF"]
+category: "장전 시황"
 cover: "/images/cover-adr-outlook.svg"
 ---
 

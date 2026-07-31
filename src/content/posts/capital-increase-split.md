@@ -3,6 +3,7 @@ title: "유상증자·무상증자·물적분할 — '내 주식이 희석된다
 description: "유상증자는 왜 악재이고 무상증자는 왜 착시일까? 물적분할 자회사 상장에 개인이 돈을 잃는 이유까지, 희석 하나로 꿰어 초보 눈높이로 정리합니다."
 pubDate: 2026-07-04
 tags: ["기초강의", "유상증자", "물적분할", "주식기초"]
+category: "기초강의"
 cover: "/images/cover-dilution.svg"
 draft: false
 ---

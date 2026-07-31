@@ -3,6 +3,7 @@ title: "호가창과 주문 — 매수 버튼을 누르면 무슨 일이 벌어�
 description: "호가창 읽는 법부터 지정가·시장가 차이, 체결 원리, 동시호가와 슬리피지까지. 첫 주문을 넣기 직전인 완전 초보를 위한 KRX 기준 실전 안내."
 pubDate: 2026-04-25
 tags: ["기초강의", "호가창", "주문", "주식기초"]
+category: "기초강의"
 cover: "/images/cover-orderbook.svg"
 draft: false
 ---

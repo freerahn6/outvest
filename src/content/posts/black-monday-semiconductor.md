@@ -6,6 +6,7 @@ tickers:
   - { code: "000660", name: "SK하이닉스" }
   - { code: "005930", name: "삼성전자" }
 tags: ["시황", "반도체", "SK하이닉스", "삼성전자", "고점론", "거시경제"]
+category: "장전 시황"
 cover: "/images/cover-blackmonday.svg"
 ---
 

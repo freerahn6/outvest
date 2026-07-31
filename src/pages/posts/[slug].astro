@@ -35,6 +35,11 @@ const quotesEnabled = SITE.quoteApi.startsWith('http');
   <article>
     <header class="post-head">
       <a href="/" class="back">← 목록</a>
+      {post.data.category && (
+        <div class="head-cat">
+          <a class="cat-badge" href={`/category/${encodeURIComponent(post.data.category)}/`}>{post.data.category}</a>
+        </div>
+      )}
       {post.data.tickers.length > 0 && (
         <div class="head-tickers">
           {post.data.tickers.map((t) => (
@@ -96,6 +101,7 @@ const quotesEnabled = SITE.quoteApi.startsWith('http');
   }
 
   .post-head { margin: 34px 0 24px; }
+  .head-cat { margin: 16px 0 0; }
   .back { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
   .back:hover { color: var(--accent); text-decoration: none; }
   .head-tickers { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0 14px; }

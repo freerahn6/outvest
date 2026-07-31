@@ -1,0 +1,73 @@
+---
+// 카테고리(대분류) 허브 — 공식 3분류(기초강의·종목 분석·장전 시황)별 글 모음.
+// getStaticPaths 로 글에 실제로 쓰인 category 값마다 페이지를 생성.
+// tag 페이지와 동일 패턴이되, 카테고리는 사이트 공식 내비게이션이라 항상 색인 허용.
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// 카테고리별 소개 문구(리스트 상단·메타 설명에 사용).
+const INTRO: Record<string, string> = {
+  '기초강의': '주식이 처음인 분을 위한 개념 강의 — 밸류에이션·세금·ETF까지 하나씩.',
+  '종목 분석': '개별 종목과 산업을 실적·밸류에이션으로 뜯어본 심층 분석.',
+  '장전 시황': '장 시작 전에 읽는 그날의 시장 판단과 이벤트 해설.',
+};
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+  );
+  const categories = [...new Set(posts.map((p) => p.data.category).filter(Boolean))] as string[];
+  return categories.map((category) => ({
+    params: { category },
+    props: { category, posts: posts.filter((p) => p.data.category === category) },
+  }));
+}
+
+const { category, posts } = Astro.props;
+const intro = INTRO[category] ?? `'${category}' 카테고리의 글을 모았습니다.`;
+const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout
+  title={category}
+  description={`${intro} (${posts.length}편)`}
+  canonicalPath={`/category/${encodeURIComponent(category)}/`}
+  breadcrumb={[{ name: '홈', url: '/' }, { name: '전체글', url: '/posts/' }, { name: category }]}
+>
+  <div class="archive">
+    <header class="ar-head">
+      <p class="eyebrow">CATEGORY</p>
+      <h1>{category}</h1>
+      <p class="ar-intro">{intro}</p>
+      <p class="ar-count">글 <strong>{posts.length}</strong>편</p>
+    </header>
+
+    <div class="post-list">
+      {posts.map((p) => (
+        <a class="pl-item" href={`/posts/${p.id}/`}>
+          <span class="pl-title">{p.data.title}</span>
+          <time class="pl-date" datetime={p.data.pubDate.toISOString()}>{fmt(p.data.pubDate)}</time>
+        </a>
+      ))}
+    </div>
+
+    <p class="ar-back"><a href="/posts/">← 전체 글 보기</a></p>
+  </div>
+</BaseLayout>
+
+<style>
+  .archive { max-width: 760px; margin: 0 auto; padding: 0 20px 40px; }
+  .ar-head { margin: 24px 0 20px; }
+  .ar-head .eyebrow { display: block; margin-bottom: 8px; }
+  .ar-head h1 { font-size: 2.2rem; margin: 0; letter-spacing: -0.03em; }
+  .ar-intro { margin: 10px 0 0; color: var(--muted); font-size: 1rem; line-height: 1.6; }
+  .ar-count { margin: 6px 0 0; color: var(--faint); font-size: 0.9rem; }
+  .ar-count strong { color: var(--fg); font-variant-numeric: tabular-nums; }
+  .ar-back { margin-top: 28px; font-size: 0.9rem; }
+  .ar-back a { color: var(--muted); font-weight: 600; }
+
+  @media (max-width: 560px) {
+    .ar-head { margin: 16px 0 16px; }
+    .ar-head h1 { font-size: 1.8rem; }
+  }
+</style>

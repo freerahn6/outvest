@@ -5,6 +5,7 @@ pubDate: 2026-07-13
 tickers:
   - { code: "009150", name: "삼성전기" }
 tags: ["삼성전기", "MLCC", "AI", "밸류에이션", "종목분석"]
+category: "종목 분석"
 cover: "/images/cover-semco.svg"
 ---
 

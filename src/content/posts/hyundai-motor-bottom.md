@@ -5,6 +5,7 @@ pubDate: 2026-07-11
 tickers:
   - { code: "005380", name: "현대차" }
 tags: ["현대차", "자동차", "로봇", "휴머노이드", "보스턴다이내믹스", "밸류에이션", "종목분석"]
+category: "종목 분석"
 cover: "/images/cover-hyundai.svg"
 ---
 

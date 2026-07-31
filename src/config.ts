@@ -19,5 +19,8 @@ export const SITE = {
 
 export const NAV = [
   { label: '홈', href: '/' },
+  { label: '기초강의', href: '/category/기초강의/' },
+  { label: '종목 분석', href: '/category/종목 분석/' },
+  { label: '장전 시황', href: '/category/장전 시황/' },
   { label: '전체글보기', href: '/posts/' },
 ];

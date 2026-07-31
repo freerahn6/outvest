@@ -5,6 +5,7 @@ pubDate: 2026-07-11
 tickers:
   - { code: "035420", name: "NAVER" }
 tags: ["네이버", "AI", "젠슨황", "엔비디아", "밸류에이션", "종목분석"]
+category: "종목 분석"
 cover: "/images/cover-naver.svg"
 ---
 

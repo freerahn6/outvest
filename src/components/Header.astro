@@ -9,7 +9,7 @@ import { SITE, NAV } from '../config';
       <span class="brand-text">{SITE.title}</span>
     </a>
     <nav>
-      {NAV.map((n) => <a href={n.href}>{n.label}</a>)}
+      {NAV.map((n) => <a href={encodeURI(n.href)}>{n.label}</a>)}
     </nav>
   </div>
 </header>
