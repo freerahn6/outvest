@@ -1,10 +1,11 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
+import { isLive } from '../lib/posts';
 import { SITE } from '../config';
 import type { APIContext } from 'astro';
 
 export async function GET(context: APIContext) {
-  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  const posts = await getCollection('posts', isLive);
   return rss({
     title: SITE.title,
     description: SITE.description,

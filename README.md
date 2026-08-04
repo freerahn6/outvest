@@ -22,8 +22,18 @@ npm run dev       # http://localhost:4321
 
 - 시세 카드는 Worker 가 있어야 실제 값이 뜹니다(아래 4번). Worker 연결 전에는 "불러오지 못했습니다"로 표시됩니다.
 
-## 2. 글 쓰는 법
+## 2. 글 쓰는 법 — 관리자 콘솔
 
+`/admin` 에서 글을 직접 작성·수정·예약·삭제할 수 있습니다.
+**최초 1회 설정(GitHub 토큰·Cloudflare 환경변수·Deploy Hook)이 필요합니다** →
+[docs/관리자-콘솔.md](docs/관리자-콘솔.md)
+
+- 예약 발행: 발행 시각을 미래로 잡으면 그 시각(한국 시간)이 지난 뒤 10분 안에 자동 게시됩니다.
+- 저장하면 GitHub 에 커밋되고 Cloudflare Pages 가 1~3분 안에 다시 빌드합니다.
+
+마크다운 파일을 직접 `src/content/posts/` 에 넣어도 됩니다(아래).
+
+## 3. 글 파일을 직접 쓰는 법
 `src/content/posts/` 에 마크다운 파일을 추가하면 됩니다. 상단 프론트매터 예시:
 
 ```markdown
@@ -45,7 +55,7 @@ tags: ["반도체", "투자메모"]
 > ⚠️ **글은 작성자 혼자 배포하지 않습니다.** 초안을 쓴 뒤 다른 애널리스트가 사실성·면책을
 > 교차검수하고 통과해야 배포합니다. 절차·체크리스트는 [집필·검수 규약](docs/집필-검수-규약.md)을 따르세요.
 
-## 3. 배포 (GitHub → Cloudflare Pages)
+## 4. 배포 (GitHub → Cloudflare Pages)
 
 1. 이 폴더를 GitHub 저장소에 push
 2. Cloudflare 대시보드 → **Workers & Pages → Create → Pages → Connect to Git**
@@ -59,7 +69,7 @@ tags: ["반도체", "투자메모"]
 
 > 커스텀 도메인(예: `.com`)을 붙이면 SEO·신뢰도에 유리합니다. Cloudflare Pages → Custom domains 에서 연결.
 
-## 4. 실시간 시세 연결 (KIS + Worker)
+## 5. 실시간 시세 연결 (KIS + Worker)
 
 ### 4-1. KIS 앱키 발급 (무료)
 1. 한국투자증권 계좌 개설 (비대면, 무료)
@@ -85,7 +95,7 @@ quoteApi: 'https://kis-proxy.<계정>.workers.dev',
 다시 push 하면 시세 카드가 실제 값으로 채워집니다.
 보안을 위해 `worker/wrangler.toml` 의 `ALLOW_ORIGIN` 을 블로그 도메인으로 좁히는 걸 권장합니다.
 
-## 5. 전 종목으로 확장
+## 6. 전 종목으로 확장
 
 기본 번들에는 대표 40종목만 들어 있습니다. 코스피·코스닥 전 종목으로 늘리려면:
 ```bash

@@ -3,10 +3,11 @@
 // getStaticPaths 로 모든 글의 tags 고유값마다 페이지를 생성.
 // thin-content 방지: 해당 태그 글이 2편 미만이면 noindex.
 import { getCollection } from 'astro:content';
+import { isLive, fmtDate } from '../../lib/posts';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  const posts = (await getCollection('posts', isLive)).sort(
     (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
   );
   const tags = [...new Set(posts.flatMap((p) => p.data.tags))];
@@ -17,7 +18,7 @@ export async function getStaticPaths() {
 }
 
 const { tag, posts } = Astro.props;
-const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+const fmt = fmtDate;
 ---
 
 <BaseLayout

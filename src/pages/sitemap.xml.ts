@@ -3,6 +3,7 @@
 // 글·종목이 늘면 빌드 때 자동 반영된다. 라우트 소스는 실제 페이지와 동일하게 맞춘다:
 //   [...page].astro(pageSize 15) · [slug].astro · stock/[code].astro(krx.json)
 import { getCollection } from 'astro:content';
+import { isLive } from '../lib/posts';
 import { SITE } from '../config';
 import krx from '../data/krx.json';
 import type { APIContext } from 'astro';
@@ -12,7 +13,7 @@ const PAGE_SIZE = 15;
 export async function GET(context: APIContext) {
   const base = (context.site?.href ?? SITE.url).replace(/\/$/, '');
 
-  const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  const posts = (await getCollection('posts', isLive)).sort(
     (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
   );
 

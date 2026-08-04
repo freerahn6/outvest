@@ -3,10 +3,11 @@
 // paginate() 가 /posts/ (1쪽) · /posts/2/ · /posts/3/ … 를 만든다.
 // 개별 글은 [slug].astro 가 담당하며, 이름 있는 파라미터가 rest 파라미터보다 우선순위가 높아 충돌하지 않는다.
 import { getCollection } from 'astro:content';
+import { isLive, fmtDate } from '../../lib/posts';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths({ paginate }) {
-  const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  const posts = (await getCollection('posts', isLive)).sort(
     (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
   );
   return paginate(posts, { pageSize: 15 });
@@ -14,7 +15,7 @@ export async function getStaticPaths({ paginate }) {
 
 const { page } = Astro.props;
 
-const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+const fmt = fmtDate;
 const pageNums = Array.from({ length: page.lastPage }, (_, i) => i + 1);
 ---
 

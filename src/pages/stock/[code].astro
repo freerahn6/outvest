@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { isLive, fmtDate } from '../../lib/posts';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import StockCard from '../../components/StockCard.astro';
 import StockChart from '../../components/StockChart.astro';
@@ -16,11 +17,11 @@ export async function getStaticPaths() {
 const { stock } = Astro.props;
 const { code } = Astro.params;
 
-const related = (await getCollection('posts', ({ data }) => !data.draft))
+const related = (await getCollection('posts', isLive))
   .filter((p) => p.data.tickers.some((t) => t.code === code))
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
-const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+const fmt = fmtDate;
 ---
 
 <BaseLayout

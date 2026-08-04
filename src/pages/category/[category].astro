@@ -3,6 +3,7 @@
 // getStaticPaths 로 글에 실제로 쓰인 category 값마다 페이지를 생성.
 // tag 페이지와 동일 패턴이되, 카테고리는 사이트 공식 내비게이션이라 항상 색인 허용.
 import { getCollection } from 'astro:content';
+import { isLive, fmtDate } from '../../lib/posts';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 // 카테고리별 소개 문구(리스트 상단·메타 설명에 사용).
@@ -13,7 +14,7 @@ const INTRO: Record<string, string> = {
 };
 
 export async function getStaticPaths() {
-  const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  const posts = (await getCollection('posts', isLive)).sort(
     (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
   );
   const categories = [...new Set(posts.map((p) => p.data.category).filter(Boolean))] as string[];
@@ -25,7 +26,7 @@ export async function getStaticPaths() {
 
 const { category, posts } = Astro.props;
 const intro = INTRO[category] ?? `'${category}' 카테고리의 글을 모았습니다.`;
-const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+const fmt = fmtDate;
 ---
 
 <BaseLayout

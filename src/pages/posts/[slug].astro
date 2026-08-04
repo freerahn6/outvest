@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { isLive, fmtDate } from '../../lib/posts';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import StockCard from '../../components/StockCard.astro';
 import StockChart from '../../components/StockChart.astro';
@@ -8,13 +9,13 @@ import TableOfContents from '../../components/TableOfContents.astro';
 import { SITE } from '../../config';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  const posts = await getCollection('posts', isLive);
   return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
 
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
-const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+const fmt = fmtDate;
 const quotesEnabled = SITE.quoteApi.startsWith('http');
 ---
 

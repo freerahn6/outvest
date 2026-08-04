@@ -1,13 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
+import { isLive, fmtDate } from '../lib/posts';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import StockSearch from '../components/StockSearch.astro';
 import { SITE } from '../config';
 
-const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+const posts = (await getCollection('posts', isLive)).sort(
   (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
 );
-const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+const fmt = fmtDate;
 const cover = (p: any) => p.data.cover ?? '/images/cover-default.svg';
 const [featured, ...rest] = posts;
 ---
