@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="조선 호황의 낙수는 갈라져서 온다">
+<defs>
+  <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#2f6fb0" stop-opacity="0.18"/>
+    <stop offset="1" stop-color="#2f6fb0" stop-opacity="0.02"/>
+  </linearGradient>
+</defs>
+<style>
+  .bg{fill:#f4f7fb} .blob{fill:#2f6fb0;opacity:0.10}
+  .eye{fill:#215a91;font:700 27px system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:1px}
+  .ttl{fill:#1b1d20;font:800 62px system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-1.5px}
+  .brand{fill:#8a8f93;font:600 24px system-ui,sans-serif}
+  .tkr{fill:#215a91;font:700 26px system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .tkrbox{fill:none;stroke:#2f6fb0;stroke-width:2}
+  .line{fill:none;stroke:#2f6fb0;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+  .hull{fill:#2f6fb0;opacity:0.85}
+  .deck{fill:none;stroke:#2f6fb0;stroke-width:5;stroke-linecap:round;opacity:0.85}
+</style>
+<rect class="bg" width="1200" height="675"/>
+<circle class="blob" cx="1040" cy="130" r="250"/>
+
+<!-- 화물선 실루엣 -->
+<g transform="translate(858 372)">
+  <path class="hull" d="M-118 34 L118 34 L96 74 L-96 74 Z"/>
+  <path class="deck" d="M-118 34 L118 34"/>
+  <rect class="hull" x="52" y="-22" width="46" height="56" rx="4"/>
+  <path class="deck" d="M-96 12 L-96 -26 M-52 12 L-52 -26 M-8 12 L-8 -26 M36 12 L36 -26"/>
+  <path class="deck" d="M-112 -26 L48 -26"/>
+</g>
+
+<path d="M0 500 L150 512 L300 496 L450 510 L600 494 L750 508 L900 492 L1050 506 L1200 490 L1200 675 L0 675 Z" fill="url(#g)"/>
+<path d="M0 500 L150 512 L300 496 L450 510 L600 494 L750 508 L900 492 L1050 506 L1200 490" class="line"/>
+<path d="M0 556 L150 568 L300 552 L450 566 L600 550 L750 564 L900 548 L1050 562 L1200 546" class="line" opacity="0.35"/>
+
+<text x="80" y="132" class="eye">산업 분석 · 조선 기자재</text>
+<text x="80" y="292" class="ttl">조선 호황의 낙수는</text><text x="80" y="374" class="ttl">갈라져서 온다</text>
+<rect class="tkrbox" x="80" y="596" width="160" height="44" rx="22"/>
+<text x="104" y="625" class="tkr">333430</text>
+<text x="1120" y="628" text-anchor="end" class="brand">아웃베스트의 투자로그</text>
+</svg>
