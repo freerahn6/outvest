@@ -1,0 +1,27 @@
+# 로컬에서 /admin 을 띄울 때만 필요하다 (npm run preview:api).
+# 글만 쓰고 push 하는 용도라면 이 파일은 필요 없다.
+#
+# 사용법: 이 파일을 .dev.vars 로 복사하고 값을 채운다.
+#   cp .dev.vars.example .dev.vars
+#
+# ⚠️ .dev.vars 는 절대 커밋하지 않는다 (.gitignore 에 등록돼 있다).
+# ⚠️ 로컬에서 글을 저장해도 실제 저장소에 커밋된다.
+#    시험할 때는 GITHUB_BRANCH 를 임시 브랜치로 바꿔라.
+#
+# 운영(배포본)의 값은 Cloudflare Pages → outvest → Settings → Variables and Secrets
+# 에 등록돼 있다. 자세한 건 docs/관리자-콘솔.md 1장.
+
+# /admin 로그인 비밀번호 (직접 정한다)
+ADMIN_PASSWORD=
+
+# 세션 토큰 서명용. 아무 랜덤 문자열 32자 이상
+SESSION_SECRET=
+
+# GitHub Fine-grained PAT — Contents: Read and write 권한만 (github_pat_... 형식)
+GITHUB_TOKEN=
+
+# 대상 저장소
+GITHUB_REPO=freerahn6/outvest
+
+# 커밋할 브랜치 (로컬 시험 시 임시 브랜치명으로 바꿀 것)
+GITHUB_BRANCH=main
