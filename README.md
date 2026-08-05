@@ -4,8 +4,10 @@
 **Astro(정적 사이트) + GitHub + Cloudflare Pages** 로 100% 무료 운영하며,
 **한국투자증권(KIS) 실시간 시세**를 종목별로 보여줍니다.
 
-> 🏠 **다른 PC(집 등)에서 처음 시작한다면 → [docs/인수인계.md](docs/인수인계.md) 를 먼저 읽으세요.**
+> 🏠 **다른 PC(집 등)에서 처음 시작한다면 → `docs/인수인계.html` 을 먼저 읽으세요.**
 > 클론할 레포 2개, 레포에 없는 것, 글 쓰는 3가지 경로, 발행 전 검수 절차가 정리돼 있습니다.
+> HTML 파일이라 GitHub 웹에서는 소스로만 보입니다. **클론한 뒤 브라우저로 여세요**
+> (또는 [htmlpreview.github.io](https://htmlpreview.github.io/?https://github.com/freerahn6/outvest/blob/main/docs/%EC%9D%B8%EC%88%98%EC%9D%B8%EA%B3%84.html) 로 바로 보기).
 
 ```
 [GitHub] --push--> [Cloudflare Pages] (정적 블로그, SEO 최적화)

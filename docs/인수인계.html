@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>인수인계 — 다른 PC에서 종목노트 운영하기</title>
+<style>
+  :root{
+    --bg:#ffffff; --fg:#1b1d20; --muted:#5f6672; --faint:#8a9099;
+    --line:#e3e7ea; --line-strong:#c9d0d6;
+    --accent:#2f8f57; --accent-bg:#eef7f1;
+    --warn:#b0480c; --warn-bg:#fdf3ec;
+    --danger:#a51d2d; --danger-bg:#fdeff0;
+    --code-bg:#f3f5f7;
+    --shadow:0 1px 2px rgba(0,0,0,.05),0 8px 24px rgba(0,0,0,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#15181b; --fg:#e6e9ec; --muted:#a3abb4; --faint:#7d858e;
+      --line:#2b3036; --line-strong:#3c434b;
+      --accent:#5fbf85; --accent-bg:#1a2a21;
+      --warn:#e8a06a; --warn-bg:#2a2119;
+      --danger:#e8848f; --danger-bg:#2b1a1d;
+      --code-bg:#1e2227;
+      --shadow:none;
+    }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif;
+    word-break:keep-all; overflow-wrap:break-word;
+  }
+  .wrap{max-width:860px; margin:0 auto; padding:48px 24px 96px}
+  header.doc{border-bottom:2px solid var(--fg); padding-bottom:20px; margin-bottom:8px}
+  h1{font-size:clamp(1.6rem,4.2vw,2.1rem); line-height:1.3; margin:0 0 12px; letter-spacing:-.02em}
+  .lede{color:var(--muted); font-size:.95rem; margin:0}
+  .meta{color:var(--faint); font-size:.85rem; margin:10px 0 0}
+  h2{
+    font-size:1.3rem; margin:56px 0 16px; padding-top:20px;
+    border-top:1px solid var(--line); letter-spacing:-.01em; line-height:1.4;
+  }
+  h2 .num{color:var(--accent); font-variant-numeric:tabular-nums; margin-right:.4em}
+  h3{font-size:1.05rem; margin:32px 0 12px; letter-spacing:-.01em}
+  p{margin:0 0 16px}
+  ul,ol{margin:0 0 16px; padding-left:1.4em}
+  li{margin:0 0 8px}
+  li>ul,li>ol{margin-top:8px}
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid transparent}
+  a:hover{border-bottom-color:var(--accent)}
+  strong{font-weight:700}
+  code{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"D2Coding",monospace;
+    font-size:.88em; background:var(--code-bg); padding:.15em .4em; border-radius:4px;
+  }
+  pre{
+    background:var(--code-bg); border:1px solid var(--line); border-radius:8px;
+    padding:16px; overflow-x:auto; margin:0 0 20px; line-height:1.6;
+  }
+  pre code{background:none; padding:0; font-size:.85rem}
+  .table-scroll{overflow-x:auto; margin:0 0 20px; -webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse; width:100%; font-size:.92rem; min-width:480px}
+  th,td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+  th{background:var(--code-bg); font-weight:700; white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+  blockquote{
+    margin:0 0 20px; padding:14px 18px; border-left:3px solid var(--accent);
+    background:var(--accent-bg); border-radius:0 6px 6px 0;
+  }
+  blockquote p:last-child{margin-bottom:0}
+  .callout{padding:14px 18px; border-radius:8px; margin:0 0 20px; border:1px solid}
+  .callout p:last-child{margin-bottom:0}
+  .callout.warn{background:var(--warn-bg); border-color:var(--warn); color:var(--fg)}
+  .callout.danger{background:var(--danger-bg); border-color:var(--danger); color:var(--fg)}
+  .callout .label{display:block; font-weight:700; margin-bottom:6px; color:var(--warn)}
+  .callout.danger .label{color:var(--danger)}
+  .toc{
+    background:var(--code-bg); border:1px solid var(--line); border-radius:10px;
+    padding:20px 24px; margin:32px 0 8px;
+  }
+  .toc h2{margin:0 0 12px; border:none; padding:0; font-size:.95rem; letter-spacing:.02em; color:var(--muted); text-transform:uppercase}
+  .toc ol{margin:0; padding-left:1.3em; columns:2; column-gap:32px}
+  .toc li{margin:0 0 6px; break-inside:avoid}
+  @media(max-width:600px){ .toc ol{columns:1} }
+  .ascii{
+    background:var(--code-bg); border:1px solid var(--line); border-radius:8px;
+    padding:16px; overflow-x:auto; margin:0 0 20px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:.8rem; line-height:1.5; white-space:pre;
+  }
+  .checklist{list-style:none; padding-left:0}
+  .checklist li{padding-left:1.8em; position:relative}
+  .checklist li::before{
+    content:"☐"; position:absolute; left:0; color:var(--accent); font-size:1.1em;
+  }
+  .key{
+    display:inline-block; padding:.1em .45em; border:1px solid var(--line-strong);
+    border-bottom-width:2px; border-radius:4px; font-size:.85em; background:var(--bg);
+  }
+  footer.doc{margin-top:64px; padding-top:20px; border-top:1px solid var(--line); color:var(--faint); font-size:.85rem}
+  @media print{
+    body{background:#fff; color:#000; font-size:11pt}
+    .wrap{max-width:none; padding:0}
+    h2{page-break-after:avoid; border-top:1px solid #ccc}
+    table,pre,blockquote,.callout,.ascii{page-break-inside:avoid}
+    a{color:#000; border:none}
+    .toc{page-break-after:always}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc">
+  <h1>인수인계 — 다른 PC에서 종목노트 운영하기</h1>
+  <p class="lede">이 문서는 <strong>처음 여는 문서</strong>다. 여기서 각 상세 문서로 흩어진다.</p>
+  <p class="meta">작성: 2026-08-05 · 대상: 회사 PC 외의 환경(집 PC 등)에서 이 블로그를 이어서 운영하려는 경우<br>
+  사이트: <a href="https://outvest.kr">https://outvest.kr</a> · 저장소: <code>freerahn6/outvest</code></p>
+</header>
+
+<div class="table-scroll">
+<table>
+  <thead><tr><th>상세 문서</th><th>언제 보나</th></tr></thead>
+  <tbody>
+    <tr><td><code>README.md</code></td><td>프로젝트 전체 구조·SEO·Worker 배포</td></tr>
+    <tr><td><code>docs/관리자-콘솔.md</code></td><td><code>/admin</code> 사용법·환경변수·고장 대응</td></tr>
+    <tr><td><code>docs/집필-검수-규약.md</code></td><td><strong>글을 쓰기 전에 반드시</strong> — 검수 절차</td></tr>
+  </tbody>
+</table>
+</div>
+
+<nav class="toc">
+  <h2>목차</h2>
+  <ol>
+    <li><a href="#s1">이 블로그가 굴러가는 구조</a></li>
+    <li><a href="#s2">집 PC 최초 세팅 (30분)</a></li>
+    <li><a href="#s3">지금 상태 (2026-08-05)</a></li>
+    <li><a href="#s4">글 쓰는 세 가지 경로</a></li>
+    <li><a href="#s5">발행 전 필수 — 검수 절차</a></li>
+    <li><a href="#s6">frontmatter 사양</a></li>
+    <li><a href="#s7">정기 점검</a></li>
+    <li><a href="#s8">고장났을 때</a></li>
+    <li><a href="#s9">열려 있는 일</a></li>
+    <li><a href="#s10">절대 하지 말 것</a></li>
+  </ol>
+</nav>
+
+<h2 id="s1"><span class="num">1</span>이 블로그가 굴러가는 구조</h2>
+
+<div class="ascii">[글 작성]
+  ├── (A) https://outvest.kr/admin  ← 브라우저만 있으면 됨. 세팅 0
+  └── (B) src/content/posts/*.md 직접 편집 → git push
+                    │
+                    ▼
+        [GitHub: freerahn6/outvest]  ← 콘텐츠의 단일 진실원(SSOT). 별도 DB 없음
+                    │ push 감지
+                    ▼
+        [Cloudflare Pages] 자동 빌드 1~3분 → https://outvest.kr
+                    ▲
+        [GitHub Actions cron 10분]  예약 시각 지난 글 있으면 Deploy Hook 호출</div>
+
+<ul>
+  <li><strong>정적 사이트(Astro)</strong>다. 서버도 DB도 없다. 글은 마크다운 파일이고, 발행은 곧 git 커밋이다.</li>
+  <li>시세 카드는 별도 <strong>Cloudflare Worker</strong>(<code>kis-proxy</code>)가 한국투자증권 API를 중계하는 구조인데, <strong>현재 꺼져 있다</strong>(→ 3장).</li>
+</ul>
+
+<h2 id="s2"><span class="num">2</span>집 PC 최초 세팅 (30분)</h2>
+
+<h3>2-1. 레포 두 개를 클론한다</h3>
+
+<div class="table-scroll">
+<table>
+  <thead><tr><th>레포</th><th>클론 위치</th><th>안에 든 것</th></tr></thead>
+  <tbody>
+    <tr><td><code>freerahn6/outvest</code></td><td>아무 데나 (회사 PC는 <code>C:\job\analytics</code>)</td><td>블로그 소스 전부</td></tr>
+    <tr><td><code>freerahn6/malgnai-brain</code></td><td><strong><code>~/.claude</code></strong> (경로 고정)</td><td>에이전트 정의 40개 · knowledge 67개 · 전역 CLAUDE.md</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>두 번째가 중요하다. <strong>an1~an7, 감마 같은 에이전트는 블로그 레포가 아니라 <code>~/.claude/agents/</code>에 있다.</strong>
+이걸 안 가져오면 집필·검수 규약이 "an6에게 팩트체크를 맡겨라"라고 해도 an6이 존재하지 않는다.</p>
+
+<pre><code>git clone https://github.com/freerahn6/outvest.git
+cd outvest
+npm install          # package-lock.json 있으므로 버전 고정 설치됨
+npm run dev          # http://localhost:4321</code></pre>
+
+<p><code>node_modules</code>·<code>dist</code>·<code>.astro</code>는 커밋되지 않는다. 전부 위 명령으로 재생성된다.</p>
+
+<h3>2-2. 레포에 <em>없는</em> 것 — 세 가지</h3>
+
+<div class="table-scroll">
+<table>
+  <thead><tr><th>없는 것</th><th>왜 없나</th><th>없으면 못 하는 일</th><th>대처</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>.dev.vars</code> (루트)</td><td>시크릿이라 gitignore</td>
+      <td><strong>로컬에서</strong> <code>/admin</code> 띄우기</td>
+      <td><code>.dev.vars.example</code> 복사해 값 채우기. <strong>글만 쓸 거면 불필요</strong></td>
+    </tr>
+    <tr>
+      <td>KIS 앱키</td><td>Cloudflare Worker secret에 보관</td>
+      <td>Worker 재배포·로컬 시세 테스트</td>
+      <td>README 5장 참고. 지금은 시세 기능 자체가 OFF라 무관</td>
+    </tr>
+    <tr>
+      <td>Cloudflare·GitHub 계정 접근</td><td>당연히 레포 밖</td>
+      <td>배포·환경변수 변경</td><td>로그인만 하면 됨</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<blockquote>
+<p><strong>핵심: 글을 쓰고 발행하는 데는 위 세 가지가 하나도 필요 없다.</strong> clone + npm install이면 끝이다.</p>
+</blockquote>
+
+<h3>2-3. 필요한 계정 접근 체크리스트</h3>
+<ul class="checklist">
+  <li>GitHub <code>freerahn6</code> — outvest, malgnai-brain 두 레포 push 권한</li>
+  <li>Cloudflare 대시보드 — Pages 프로젝트 <code>outvest</code>, Worker <code>kis-proxy</code></li>
+  <li><code>/admin</code> 비밀번호 (Cloudflare 환경변수 <code>ADMIN_PASSWORD</code>에 설정된 값)</li>
+</ul>
+
+<h2 id="s3"><span class="num">3</span>지금 상태 (2026-08-05 기준)</h2>
+
+<div class="table-scroll">
+<table>
+  <thead><tr><th>기능</th><th>상태</th><th>비고</th></tr></thead>
+  <tbody>
+    <tr><td>사이트</td><td><strong>정상</strong></td><td><a href="https://outvest.kr">outvest.kr</a>, 커스텀 도메인 연결됨</td></tr>
+    <tr><td>검색엔진 색인</td><td><strong>허용</strong></td><td><code>src/config.ts</code>의 <code>published: true</code></td></tr>
+    <tr><td><code>/admin</code> 글관리</td><td><strong>정상</strong></td><td>위지윅 에디터(TOAST UI)</td></tr>
+    <tr><td>예약 발행</td><td><strong>정상</strong></td><td>Actions cron 10분 주기</td></tr>
+    <tr><td><strong>시세 카드</strong></td><td><strong>꺼짐</strong></td>
+        <td><code>config.ts</code>의 <code>quoteApi</code>가 <code>/api/quote</code>인데 그 엔드포인트가 없다. 코드가 <code>startsWith('http')</code>로 판정해 <strong>카드를 아예 렌더링하지 않는다</strong>(의도된 가드). 켜려면 Worker 배포 후 <code>quoteApi</code>를 Worker URL로 교체</td></tr>
+    <tr><td>글 수</td><td>40편대</td><td><code>src/content/posts/</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="s4"><span class="num">4</span>글 쓰는 세 가지 경로</h2>
+
+<h3>(A) 브라우저 <code>/admin</code> — 권장. 세팅 불필요</h3>
+<p><a href="https://outvest.kr/admin">https://outvest.kr/admin</a> → 문장 속 <strong>"없<span class="key">습</span>니다"의 '습'</strong> 을 클릭 → 비밀번호.</p>
+<p>작성·수정·예약·삭제가 되고 저장하면 GitHub에 커밋된다. 자세한 건 <code>docs/관리자-콘솔.md</code>.
+집 PC에서 가장 편한 방법이다. <strong>클론조차 필요 없다.</strong></p>
+
+<h3>(B) 마크다운 직접 편집 → push</h3>
+<pre><code># src/content/posts/새글-슬러그.md 생성
+npm run build        # 스키마 오류·빌드 깨짐 확인
+git add src/content/posts/새글-슬러그.md
+git commit -m "글 발행: 제목"
+git push origin main</code></pre>
+<p>파일명이 곧 URL이다(<code>새글-슬러그.md</code> → <code>/posts/새글-슬러그/</code>).</p>
+
+<h3>(C) 로컬에서 <code>/admin</code> 띄우기 — <code>.dev.vars</code> 필요</h3>
+<pre><code>npm run build
+npm run preview:api      # http://localhost:8788</code></pre>
+<div class="callout warn">
+  <span class="label">주의</span>
+  <p><strong>로컬 admin에서 저장해도 실제 저장소에 커밋된다.</strong> 시험할 땐 <code>.dev.vars</code>의 <code>GITHUB_BRANCH</code>를 임시 브랜치로 바꿔라.</p>
+</div>
+
+<h2 id="s5"><span class="num">5</span>발행 전 필수 — 검수 절차</h2>
+
+<p><code>docs/집필-검수-규약.md</code>를 따른다. 요약하면:</p>
+<ol>
+  <li>감마가 주제에 맞는 작성자를 배정하고 검수 강도를 판정한다</li>
+  <li>초안은 <strong><code>draft: true</code></strong>로 시작한다</li>
+  <li>검수는 <strong>작성자가 아닌 다른 에이전트</strong> 최소 2명 — 팩트체커 + <strong>an7(리스크·면책, 상시)</strong></li>
+  <li><strong>[치명] 미해결 상태로는 배포하지 않는다</strong></li>
+  <li>감마가 판정 → <code>draft: false</code> → 커밋 → push</li>
+</ol>
+
+<blockquote>
+<p>판별 질문: <strong>이 글에 "틀리면 다음날 정정해야 할 수치·날짜"가 있는가?</strong> 있으면 강/표준, 없으면 경량.</p>
+</blockquote>
+
+<h3>이게 형식이 아닌 이유</h3>
+<p>2026-08-05 「국고채 4%대 시대의 배당주」 집필 시 실제로 걸러진 것들:</p>
+<ul>
+  <li>초안이 <strong>두 달 지난 시장 프레임</strong>에 고정 — 7월 코스피 -22%, 한은 금리 인상을 반영하지 못함 <em>(an2가 반려)</em></li>
+  <li>절세폭 "49.5%→27.5%"가 <strong>한계세율 혼동</strong> — 재계산하니 실제 실익은 배당 1억원 기준 84만원 <em>(an6)</em></li>
+  <li><strong>"명의 분산"</strong> 표현이 증여세·금융실명법 유인으로 읽힘 <em>(an7)</em></li>
+  <li>커버 SVG가 <strong>다른 글 제목을 하드코딩 출력</strong> <em>(an7)</em></li>
+</ul>
+<p>치명 16건·권고 30건을 거쳐 원고가 두 번 바뀌었다. 검수를 건너뛰었으면 전부 배포 후 정정이었다.</p>
+
+<h3>에이전트를 못 쓰는 환경이라면</h3>
+<p><code>~/.claude</code>를 클론하지 못한 상태라면, 최소한 규약 §5 체크리스트를 <strong>직접 손으로</strong> 훑어라.
+특히 수치의 <strong>기준일</strong>, 인용의 <strong>원문 취지</strong>, <strong>면책 문구</strong> 세 가지가 사고의 대부분이다.</p>
+
+<h2 id="s6"><span class="num">6</span>frontmatter 사양</h2>
+
+<pre><code>---
+title: "글 제목"
+description: "검색결과·공유에 뜨는 한 줄"
+pubDate: 2026-08-05
+tags: ["배당투자", "절세"]
+category: "기초강의"          # 기초강의 | 종목 분석 | 장전 시황 — 이 3개만 허용
+cover: "/images/cover-xxx.svg"
+draft: false
+tickers:                      # 선택. 적으면 시세 카드가 붙는다(현재 기능 OFF)
+  - { code: "005930", name: "삼성전자" }
+---</code></pre>
+
+<p>스키마 원본: <code>src/content.config.ts</code>. 정의에 없는 필드를 쓰면 <strong>빌드가 깨진다.</strong></p>
+
+<h3>글 상태 3가지</h3>
+<div class="table-scroll">
+<table>
+  <thead><tr><th>상태</th><th>frontmatter</th><th>사이트에서</th></tr></thead>
+  <tbody>
+    <tr><td>게시</td><td><code>draft: false</code> + <code>pubDate</code> 과거</td><td>보인다</td></tr>
+    <tr><td>예약</td><td><code>draft: false</code> + <code>pubDate</code> 미래</td><td>시각 되면 자동 게시(최대 10분 + 빌드 1~3분)</td></tr>
+    <tr><td>비공개</td><td><code>draft: true</code></td><td>안 나간다</td></tr>
+  </tbody>
+</table>
+</div>
+<p>공개 판정의 단일 출처는 <code>src/lib/posts.ts</code>의 <code>isLive()</code>다. <strong>새 목록·피드를 만들면 반드시 이걸 써라.</strong></p>
+
+<h2 id="s7"><span class="num">7</span>정기 점검</h2>
+<div class="table-scroll">
+<table>
+  <thead><tr><th>주기</th><th>할 일</th><th>안 하면</th></tr></thead>
+  <tbody>
+    <tr><td>1년</td><td><strong>GitHub PAT 갱신</strong></td><td><code>/admin</code>이 502. 관리자-콘솔 1-1</td></tr>
+    <tr><td>60일 무커밋 시</td><td>Actions 워크플로 재활성화</td><td>예약 발행이 멈춤 (GitHub 정책)</td></tr>
+    <tr><td>필요 시</td><td><code>node scripts/gen-covers.mjs</code></td><td>커버 SVG 생성</td></tr>
+    <tr><td>필요 시</td><td><code>node scripts/gen-charts.mjs</code></td><td>본문 도표 SVG 생성</td></tr>
+    <tr><td>필요 시</td><td><code>node scripts/fetch-krx.mjs</code></td><td>종목 목록 갱신(기본 40종목 → 전 종목)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="s8"><span class="num">8</span>고장났을 때</h2>
+<p>증상별 대응표는 <code>docs/관리자-콘솔.md</code> 4장에 있다. 그 밖에:</p>
+<div class="table-scroll">
+<table>
+  <thead><tr><th>증상</th><th>조치</th></tr></thead>
+  <tbody>
+    <tr><td>빌드 실패 "Duplicate id" 경고</td><td><code>.astro</code> 캐시 잔재. <code>rm -rf .astro &amp;&amp; npm run build</code></td></tr>
+    <tr><td>frontmatter 스키마 오류</td><td><code>src/content.config.ts</code>와 대조. <code>category</code> 오타가 대부분</td></tr>
+    <tr><td>push했는데 사이트가 안 바뀜</td><td>Cloudflare Pages → Deployments에서 빌드 실패 여부 확인</td></tr>
+    <tr><td>로컬 시세 카드 안 뜸</td><td>정상이다(3장 참조)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="s9"><span class="num">9</span>열려 있는 일</h2>
+<div class="table-scroll">
+<table>
+  <thead><tr><th>#</th><th>내용</th><th>왜</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td><strong>시세 카드 활성화</strong></td><td>Worker 배포 후 <code>config.ts</code>의 <code>quoteApi</code>를 Worker URL로. 지금은 기능 전체가 OFF</td></tr>
+    <tr><td>2</td><td><strong><code>category</code> enum 확장</strong></td><td>현재 <code>기초강의/종목 분석/장전 시황</code> 3개뿐이라 전략·세금 계열 글이 "기초강의"로 들어간다. 규약 §3은 기초강의를 "경량 검수" 대상으로 정의하는데, 그런 글은 시황 수치가 뼈대인 강 등급이다. <strong>분류와 검수 등급이 어긋난다</strong></td></tr>
+    <tr><td>3</td><td><strong>규약에 감마 집필 시 판정자 단서 추가</strong></td><td>§1-1(작성자는 자기 글을 검수하지 않는다)과 §4-⑤(감마가 판정)이 감마가 작성자일 때 충돌한다. "감마 집필 시 판정은 an1 또는 마스터" 같은 단서 필요</td></tr>
+    <tr><td>4</td><td><code>temp/</code> 정리</td><td>이전 세션의 검수 리포트 3건이 untracked로 남아 있다. gitignore 추가 / 커밋 / 삭제 중 택일</td></tr>
+    <tr><td>5</td><td><code>worker/wrangler.toml</code>의 <code>ALLOW_ORIGIN</code></td><td>현재 <code>"*"</code>. <code>https://outvest.kr</code>로 좁히는 게 안전</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="s10"><span class="num">10</span>절대 하지 말 것</h2>
+<div class="callout danger">
+  <span class="label">금지</span>
+  <ul style="margin-bottom:0">
+    <li><strong>시크릿 커밋 금지.</strong> <code>.env</code>, <code>.dev.vars</code>, <code>github_pat_…</code>, KIS 앱키. gitignore에 있지만 <code>-f</code>로 강제 추가하지 말 것</li>
+    <li><strong>발행된 글의 슬러그(파일명) 변경 금지.</strong> 검색엔진에 색인된 링크가 끊긴다. 삭제해도 git 이력에는 남으니 되돌릴 수 있지만, 링크는 못 되돌린다</li>
+    <li><strong>[치명] 지적이 남은 글 발행 금지.</strong> 규약 §5</li>
+    <li><strong>면책 문구 없는 글 발행 금지.</strong> 규약 §1-5</li>
+    <li><strong><code>main</code>에 직접 push가 곧 배포다.</strong> 실험은 브랜치에서</li>
+  </ul>
+</div>
+
+<footer class="doc">
+  <p>이 파일은 <code>docs/</code>에 있어 <strong>사이트로 배포되지 않는다</strong>(Astro는 <code>public/</code>과 <code>src/pages/</code>만 서빙한다).
+  운영 정보가 담겨 있으므로 <code>public/</code>으로 옮기지 말 것.</p>
+  <p>브라우저로 열려면: 레포를 클론한 뒤 <code>docs/인수인계.html</code>을 더블클릭. 인쇄·PDF 저장도 지원한다.</p>
+</footer>
+
+</div>
+</body>
+</html>
