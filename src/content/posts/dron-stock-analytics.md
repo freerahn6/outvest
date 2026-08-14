@@ -1,7 +1,8 @@
 ---
 title: "국내 드론 관련주 분석: 방산 연계성과 시나리오별 목표주가"
 description: "현재 시점에서 방산 대형주에는 중립~긍정, 중소형 드론 테마주에는 높은 변동성을 전제로 한 선택적 접근이 적절합니다."
-pubDate: 2026-08-14T10:14:00+09:00
+pubDate: 2026-08-14T10:17:00+09:00
+updatedDate: 2026-08-14
 tags: ["드론 관련주"]
 category: "종목 분석"
 draft: false
@@ -32,7 +33,7 @@ draft: false
 
 | 종목 | 코드 | 확인 가격 | 시가총액 | PER | 데이터 출처 |
 | --- | --- | ----- | ---- | --- | ------ |
-| 한국항공우주 | 047810 | 151,200원 | 미확인 | 약 60배 | [알파스퀘어](https://alphasquare.co.kr/home/stock-summary?code=047810) |
+| 한국항공우주 | 047810 | 151,200원 | 약 1조 1천억원 | 약 60배 | [알파스퀘어](https://alphasquare.co.kr/home/stock-summary?code=047810) |
 | 한화시스템 | 272210 | 79,600원 | 약 15.0조원 | 약 42.4배 | [알파스퀘어](https://alphasquare.co.kr/home/stock-summary?code=272210) |
 | LIG넥스원 | 079550 | 837,000원 | 약 18.4조원 | 약 36.6배 | [알파스퀘어](https://alphasquare.co.kr/home/stock-summary?code=079550) |
 | 대한항공 | 003490 | 26,100원 | 약 9.6조원 | 약 10.8배 | [알파스퀘어](https://alphasquare.co.kr/home/stock-summary?code=003490) |
